@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Set color background-->
+    <solid
+        android:color="@color/colorAccent" >
+    </solid>
+
+    <!-- Set the color attributes and width of the path -->
+    <!--<stroke-->
+    <!--android:width="3dp"-->
+    <!--android:color="#0058E2" >-->
+    <!--</stroke>-->
+
+    <!-- Adjustment properties-->
+    <!--<padding-->
+    <!--android:left="10dp"-->
+    <!--android:top="10dp"-->
+    <!--android:right="10dp"-->
+    <!--android:bottom="10dp" >-->
+    <!--</padding>-->
+
+    <!--Circle radius at 4 corners -->
+    <corners
+        android:radius="10dp" >
+    </corners>
+
+</shape>

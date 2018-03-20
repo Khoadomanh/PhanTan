@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PhanTan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="common_app_finish">Do you want to close the application?</string>
+    <string name="common_ok">OK</string>
+    <string name="common_cancel">CANCEL</string>
+</resources>
