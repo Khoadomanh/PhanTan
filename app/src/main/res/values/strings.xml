@@ -8,4 +8,12 @@
     <string name="common_app_finish">Do you want to close the application?</string>
     <string name="common_ok">OK</string>
     <string name="common_cancel">CANCEL</string>
+    <string name="maps">Bản đồ</string>
+    <string name="schedule">Đặt lịch tưới</string>
+    <string name="report_system">Báo lỗi hệ thống</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="history_watering">Lịch sử tưới cây</string>
+    <string name="tools">Cài đặt</string>
+    <string name="change_infor">Cập nhật thông tin cá nhân</string>
+    <string name="title_activity_information_tree">InformationTreeActivity</string>
 </resources>

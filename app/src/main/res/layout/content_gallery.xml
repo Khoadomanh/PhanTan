@@ -9,9 +9,11 @@
     >
 
     <TextView
+        android:background="@color/colorAccent"
+        android:id="@+id/thongTinCay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello gallery!"
+        android:text="Click sang activity thông tin cây"
         android:layout_centerInParent="true"
         />
 

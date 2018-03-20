@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/son_tung"
+        android:layout_margin="20dp"
+        android:id="@+id/avatar_tree"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@+id/avatar_tree"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:id="@+id/name_tree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cây Xà Cừ"
+            android:textColor="@color/text_black"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/address_tree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_tree"
+            android:text="Địa điểm: Cổng trường Trần Đại Nghĩa"
+            android:textStyle="italic"
+            android:gravity="center_vertical"
+            android:padding="5dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avatar_tree"
+        android:layout_margin="20dp">
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/ivWater"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_water"/>
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ivWater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/luongNuocDaTuoi"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lượng nước đã tưới: 0ml/150ml"
+                />
+            <SeekBar
+                android:layout_below="@+id/luongNuocDaTuoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <View
+            android:id="@+id/divine_1"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ivWater"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ivWater"
+            android:background="#a3a3a3">
+
+        </View>
+        <ImageView
+            android:id="@+id/status_tree"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/divine_1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icons_information"
+           />
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ivWater"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/divine_1"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trạng thá cây: Tốt"
+                />
+
+        </RelativeLayout>
+        <View
+            android:id="@+id/divine_2"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ivWater"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/status_tree"
+            android:background="#a3a3a3">
+
+        </View>
+        <ImageView
+            android:id="@+id/piture_tree"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/divine_2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_pirture"
+            />
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ivWater"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/divine_2"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:id="@+id/tvHinhAnh"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Một số hình ảnh của cây:"
+                />
+            <ImageView
+                android:id="@+id/piture1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvHinhAnh"
+                android:src="@drawable/icon_history"/>
+            <ImageView
+                android:id="@+id/piture2"
+                android:layout_toRightOf="@+id/piture1"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvHinhAnh"
+                android:src="@drawable/icon_history"/>
+            <ImageView
+                android:id="@+id/piture3"
+                android:layout_toRightOf="@+id/piture2"
+                android:layout_margin="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvHinhAnh"
+                android:src="@drawable/icon_history"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/view_tuoi"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_view"
+        >
+        <Button
+            android:layout_marginLeft="40dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_loginbutton"
+            android:id="@+id/btTuoiCay"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:text="Tưới cây">
+
+        </Button>
+        <Button
+            android:layout_marginLeft="50dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border_loginbutton"
+            android:id="@+id/btReport"
+            android:layout_toRightOf="@+id/btTuoiCay"
+            android:textColor="#fff"
+            android:textSize="12sp"
+            android:text="Báo cáo tình trạng cây">
+
+        </Button>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_tuoi">
+        <Button
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border_loginbutton"
+            android:id="@+id/btHistory"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:text="Lịch sử tưới cây">
+
+        </Button>
+    </RelativeLayout>
+</RelativeLayout>

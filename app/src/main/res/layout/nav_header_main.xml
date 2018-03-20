@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
@@ -18,18 +18,31 @@
         android:layout_height="80dp"
         android:padding="8dp"
         android:src="@drawable/son_tung" />
-
-    <TextView
+    <LinearLayout
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Tên Người Dùng"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/imageView"
+        android:orientation="vertical">
+        <TextView
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên Người Dùng"
+            android:gravity="center_vertical"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chức vụ" />
+        <TextView
+            android:id="@+id/textView"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chức vụ" />
+        <TextView
+            android:paddingLeft="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vị trí hiện tại"/>
+    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
