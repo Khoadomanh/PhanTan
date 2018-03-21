@@ -1,12 +1,15 @@
 package com.example.nagat.phantan.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.nagat.phantan.InformationTreeActivity;
 import com.example.nagat.phantan.R;
 
 /**
@@ -14,7 +17,7 @@ import com.example.nagat.phantan.R;
  */
 
 public class FragmentBanDo extends Fragment {
-//    private TextView tvInforTree;
+    private TextView tvInforTree;
     public static FragmentBanDo init() {
             return new FragmentBanDo();
         }
@@ -25,14 +28,14 @@ public class FragmentBanDo extends Fragment {
         View view = inflater.inflate(R.layout.activity_test_map, container, false);
         MapFragment mapFragment = new MapFragment();
         getChildFragmentManager().beginTransaction().replace(R.id.myMap,  mapFragment).commit();
-//        tvInforTree = view.findViewById(R.id.thongTinCay);
-//        tvInforTree.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        tvInforTree = view.findViewById(R.id.thongTinCay);
+        tvInforTree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

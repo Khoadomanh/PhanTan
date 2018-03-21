@@ -2,7 +2,11 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include layout="@layout/toolbar">
+
+    </include>
     <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_below="@+id/toolbar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/son_tung"
@@ -12,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_toRightOf="@+id/avatar_tree"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="20dp">
 
         <TextView
