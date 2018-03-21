@@ -16,21 +16,26 @@ import com.example.nagat.phantan.R;
  * Created by nagat on 20/3/2018.
  */
 
-public class FragmentOne extends Fragment {
-//    private TextView tvInforTree;
+public class FragmentBanDo extends Fragment {
+    private TextView tvInforTree;
+    public static FragmentBanDo init() {
+            return new FragmentBanDo();
+        }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View view = inflater.inflate(R.layout.activity_test_map, container, false);
-//        tvInforTree = view.findViewById(R.id.thongTinCay);
-//        tvInforTree.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        MapFragment mapFragment = new MapFragment();
+        getChildFragmentManager().beginTransaction().replace(R.id.myMap,  mapFragment).commit();
+        tvInforTree = view.findViewById(R.id.thongTinCay);
+        tvInforTree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

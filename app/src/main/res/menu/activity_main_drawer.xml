@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/item_maps"
             android:icon="@drawable/icon_maps"
             android:title="@string/maps" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/item_schelude"
             android:icon="@drawable/icon_schedule"
             android:title="@string/schedule" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/item_history"
             android:icon="@drawable/icon_history"
             android:title="@string/history_watering" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/item_edit"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/tools" />
     </group>
@@ -29,11 +29,11 @@
                 android:icon="@drawable/icons_edit_profit"
                 android:title="@string/change_infor" />
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/item_report"
                 android:icon="@drawable/icon_report_system"
                 android:title="@string/report_system" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/item_signout"
                 android:icon="@drawable/icon_sign_out"
                 android:title="@string/log_out" />
         </menu>

@@ -21,7 +21,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        android:id="@+id/main_container"
         layout="@layout/content_main" />
 
 

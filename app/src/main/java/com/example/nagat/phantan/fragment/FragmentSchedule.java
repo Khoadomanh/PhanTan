@@ -12,12 +12,12 @@ import com.example.nagat.phantan.R;
  * Created by nagat on 20/3/2018.
  */
 
-public class FragmentTwo extends Fragment {
+public class FragmentSchedule extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
-        return inflater.inflate(R.layout.fragment_content_import, container, false);
+        return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
 

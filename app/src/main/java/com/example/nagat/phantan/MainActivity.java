@@ -12,12 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-import com.example.nagat.phantan.fragment.FragmentOne;
-import com.example.nagat.phantan.fragment.FragmentTwo;
+import com.example.nagat.phantan.fragment.FragmentBanDo;
+import com.example.nagat.phantan.fragment.FragmentSchedule;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int menuId = R.menu.menu_ban_do;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        displaySelectedScreen(R.id.nav_camera);
+        displaySelectedScreen(R.id.item_maps);
     }
 
     @Override
@@ -46,11 +47,10 @@ public class MainActivity extends BaseActivity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(menuId, menu);
         return true;
     }
 
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        displaySelectedScreen(item.getItemId());
+        displaySelectedScreen(id);
 
         return true;
     }
@@ -85,17 +85,21 @@ public class MainActivity extends BaseActivity
         Fragment fragment = null;
 
         //initializing the fragment object which is selected
-        if (itemId == R.id.nav_camera) {
-            fragment = new FragmentOne();
-        } else if (itemId == R.id.nav_gallery) {
-            fragment = new FragmentTwo();
-        } else if (itemId == R.id.nav_slideshow) {
+        if (itemId == R.id.item_maps) {
+            fragment = new FragmentBanDo();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.item_schelude) {
+            fragment = new FragmentSchedule();
+            menuId = R.menu.menu_dat_lich;
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.item_history) {
 
-        } else if (itemId == R.id.nav_manage) {
+        } else if (itemId == R.id.item_edit) {
 
-        } else if (itemId == R.id.nav_share) {
+        } else if (itemId == R.id.item_report) {
 
-        } else if (itemId == R.id.nav_send) {
+        } else if (itemId == R.id.item_signout) {
 
         }
 
