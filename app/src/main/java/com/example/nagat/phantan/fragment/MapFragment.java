@@ -1,7 +1,10 @@
 package com.example.nagat.phantan.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,30 +26,38 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapFragment extends Fragment {
 
     private boolean isReady;
-    public MapFragment(){
-        this.isReady=false;
+
+    public MapFragment() {
+        this.isReady = false;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.map_fragment,container,false);
+        View view = inflater.inflate(R.layout.map_fragment, container, false);
         double latitude;
         double longitude;
         final LatLng mLocation;
         GPSTracker gpsTracker = new GPSTracker(getActivity());
-        if(gpsTracker.canGetLocation()){
+        if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.getLatitude();
-            longitude=gpsTracker.getLongitude();
+            longitude = gpsTracker.getLongitude();
             mLocation = new LatLng(latitude, longitude);
-        }else {
-            mLocation=null;
+        } else {
+            mLocation = null;
         }
+
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
 //                MeFragment.onMapReady.onMapReady();
                 setReady(true);
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
                 googleMap.setMyLocationEnabled(true);
                 if(mLocation!=null){
                     googleMap.addMarker(new MarkerOptions().position(mLocation).title("Your Location"));
@@ -58,6 +69,7 @@ public class MapFragment extends Fragment {
         });
         return view;
     }
+
 
     public boolean isReady() {
         return isReady;
