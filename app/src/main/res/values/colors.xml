@@ -5,4 +5,33 @@
     <color name="colorAccent">#FF4081</color>
     <color name="text_black">#000000</color>
     <color name="icon_status_tree">#50B7FF</color>
+    <color name="color_expenses">#e41c22</color>
+    <color name="color_income">#009be1</color>
+    <color name="color_all">#0daf6f</color>
+    <color name="text_color_seconds">#b3b3b3</color>
+    <color name="separator">#e2e2e2</color>
+    <color name="text_color_primary">#434a4a</color>
+    <color name="white">#ffffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="back_ground">#e4e4e4</color>
+    <color name="seclect_item">#77c1c1c1</color>
+    <color name="bg_ct_0">#2c5b66</color>
+    <color name="bg_ct_1">#aa6359</color>
+    <color name="bg_ct_2">#c3412d</color>
+    <color name="bg_ct_3">#ebbe2e</color>
+    <color name="bg_ct_4">#e9872a</color>
+    <color name="bg_ct_5">#c9583e</color>
+    <color name="bg_ct_6">#919072</color>
+    <color name="bg_ct_7">#ff079135</color>
+    <color name="bg_ct_8">#ff6b33cc</color>
+    <color name="bg_ct_9">#ffa5071c</color>
+
+    <color name="green">#34a336</color>
+    <color name="or">#c9583e</color>
+
+    <color name="blue_btn_bg_color">#5babcf</color>
+    <color name="blue_btn_bg_pressed_color">#2f90be</color>
+    <color name="gray_btn_bg_color">#ffd0d0d0</color>
+    <color name="gray_btn_bg_pressed_color">#ffb6b6b6</color>
+
 </resources>

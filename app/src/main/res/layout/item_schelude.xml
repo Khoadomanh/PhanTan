@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:paddingRight="6.5dp"
+            android:layout_marginRight="0dp"
+            android:text="20"
+            android:textColor="@color/text_color_primary"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/tv_h"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/tv_date"
+            android:layout_alignRight="@+id/tv_date"
+            android:text="h"
+            android:textColor="@color/text_color_primary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_time_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_date"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tv_date"
+            android:text="Web, May 12, 2017"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/number_tree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_time_all"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/tv_date"
+            android:text="Số lượng cây: 5"
+            android:textColor="@color/text_color_primary"
+            android:textSize="@dimen/text_size_small" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/number_tree"
+            android:text="Ghi chú: None"
+            android:layout_toRightOf="@+id/tv_date"
+            android:layout_marginLeft="5dp"/>
+
+        <View
+            android:id="@+id/para"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/text_color_seconds" />
+    </RelativeLayout>
+</LinearLayout>
