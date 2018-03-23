@@ -10,6 +10,7 @@
     <string name="common_ok">OK</string>
     <string name="common_cancel">CANCEL</string>
     <string name="maps">Bản đồ</string>
+    <string name="list_tree">Danh sách cây</string>
     <string name="schedule">Đặt lịch tưới</string>
     <string name="report_system">Báo lỗi hệ thống</string>
     <string name="log_out">Đăng xuất</string>

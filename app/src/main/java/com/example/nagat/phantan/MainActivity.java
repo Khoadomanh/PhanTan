@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
 import com.example.nagat.phantan.fragment.FragmentInfor;
+import com.example.nagat.phantan.fragment.FragmentListTree;
 import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 
@@ -123,6 +124,11 @@ public class MainActivity extends BaseActivity
             fragment = new FragmentInfor();
             menuId = R.menu.menu_ban_do;
             invalidateOptionsMenu();
+        }else if(itemId == R.id.item_list_tree){
+            fragment = new FragmentListTree();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
+
         }
 
         //replacing the fragment
