@@ -17,4 +17,10 @@
     <string name="tools">Cài đặt</string>
     <string name="change_infor">Cập nhật thông tin cá nhân</string>
     <string name="title_activity_information_tree">InformationTreeActivity</string>
+    <string name="name_user">Tên người dùng</string>
+    <string name="sex_infor">Giới tính</string>
+    <string name="status">Trạng thái</string>
+    <string name="password">Thay đổi mật khẩu</string>
+    <string name="role">Vai trò</string>
+
 </resources>

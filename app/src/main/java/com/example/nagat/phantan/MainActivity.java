@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 
 import com.example.nagat.phantan.fragment.FragmentBanDo;
+import com.example.nagat.phantan.fragment.FragmentInfor;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 
 public class MainActivity extends BaseActivity
@@ -69,12 +70,9 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -97,7 +95,6 @@ public class MainActivity extends BaseActivity
         //creating fragment object
         Fragment fragment = null;
 
-        //initializing the fragment object which is selected
         if (itemId == R.id.item_maps) {
             fragment = new FragmentBanDo();
             menuId = R.menu.menu_ban_do;
@@ -114,6 +111,10 @@ public class MainActivity extends BaseActivity
 
         } else if (itemId == R.id.item_signout) {
 
+        } else if(itemId == R.id.change_infor){
+            fragment = new FragmentInfor();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
         }
 
         //replacing the fragment

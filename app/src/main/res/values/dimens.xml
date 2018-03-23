@@ -23,5 +23,8 @@
     <dimen name="para_margin_top_very_small">2dp</dimen>
     <dimen name="para_margin_bottom_very_small">3dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="text_size_max">28sp</dimen>
+    <dimen name="text_size_middle">18sp</dimen>
+    <dimen name="dimen_size_button50dp">50dp</dimen>
 
 </resources>

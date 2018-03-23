@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#00ab9b</color>
+    <color name="colorPrimaryDark">#00695C</color>
     <color name="colorAccent">#FF4081</color>
     <color name="text_black">#000000</color>
     <color name="icon_status_tree">#50B7FF</color>
@@ -33,5 +33,9 @@
     <color name="blue_btn_bg_pressed_color">#2f90be</color>
     <color name="gray_btn_bg_color">#ffd0d0d0</color>
     <color name="gray_btn_bg_pressed_color">#ffb6b6b6</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorRed">#D8202a</color>
+    <color name="colorBlack">#000000</color>
+    <color name="gray">#b7b7b7</color>
 
 </resources>
