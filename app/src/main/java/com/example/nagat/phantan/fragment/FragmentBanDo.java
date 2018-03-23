@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.nagat.phantan.InforWaterStationActivity;
 import com.example.nagat.phantan.InformationTreeActivity;
 import com.example.nagat.phantan.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,6 +42,7 @@ public class FragmentBanDo extends Fragment{
     private UiSettings mUiSettings;
     LatLng MELBOURNE = new LatLng(21.004364, 105.843980);
     List<LatLng> listTree = new ArrayList<>();
+    List<LatLng> listWaterStation = new ArrayList<>();
 
     private Marker mPerth;
     private Marker mSydney;
@@ -59,6 +61,7 @@ public class FragmentBanDo extends Fragment{
 
         View view = inflater.inflate(R.layout.activity_test_map, container, false);
         addTree();
+        addWaterStation();
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -78,11 +81,15 @@ public class FragmentBanDo extends Fragment{
                 googleMap.setMyLocationEnabled(true);
 
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
+                Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_station);
 
                 int height = 50;
                 int width = 50;
                 Bitmap smallMarker = Bitmap.createScaledBitmap(img, width, height, false);
                 BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(smallMarker);
+
+                Bitmap smallMarkerWater  = Bitmap.createScaledBitmap(imgWater, width, height, false);
+                BitmapDescriptor bitmapDescriptorWater = BitmapDescriptorFactory.fromBitmap(smallMarkerWater);
                 for(int i = 0; i < listTree.size(); i++) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
                             .position(listTree.get(i))
@@ -92,6 +99,17 @@ public class FragmentBanDo extends Fragment{
                     );
                     marker.setTag(0);
                 }
+
+                for(int i = 0; i < listWaterStation.size(); i++) {
+                    Marker marker = googleMap.addMarker(new MarkerOptions()
+                            .position(listWaterStation.get(i))
+                            .title("D35_XC1110")
+                            .snippet("Population: 4,137,400")
+                            .icon(bitmapDescriptorWater)
+                    );
+                    marker.setTag(1);
+                }
+
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
                 googleMap.getUiSettings().setRotateGesturesEnabled(false);
@@ -106,6 +124,9 @@ public class FragmentBanDo extends Fragment{
                             Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
                             startActivity(intent);
 
+                        }else if(clickCount.compareTo(1) == 0){
+                            Intent intent = new Intent(getActivity(), InforWaterStationActivity.class);
+                            startActivity(intent);
                         }
 
                     }
@@ -137,6 +158,17 @@ public class FragmentBanDo extends Fragment{
         listTree.add(tree05);
 
     }
+
+    private  void addWaterStation(){
+        LatLng water01 = new LatLng(21.003783, 105.843759);
+        LatLng water02 = new LatLng(21.003703, 105.847006);
+        listWaterStation.add(water01);
+        listWaterStation.add(water02);
+
+
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
