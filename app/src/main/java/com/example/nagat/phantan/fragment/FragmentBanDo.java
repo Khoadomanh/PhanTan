@@ -128,13 +128,12 @@ public class FragmentBanDo extends Fragment{
                             Intent intent = new Intent(getActivity(), InforWaterStationActivity.class);
                             startActivity(intent);
                         }
+                        else{
+
+                        }
 
                     }
                 });
-
-
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(MELBOURNE).zoom(16).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));

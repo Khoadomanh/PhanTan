@@ -19,7 +19,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/son_tung"
+        android:src="@drawable/ic_tree"
         android:layout_margin="20dp"
         android:id="@+id/avatar_tree"/>
     <RelativeLayout
