@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contentChat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rc_message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorHintText"/>
+
+    <RelativeLayout
+        android:id="@+id/rel_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:background="@color/colorWhite">
+
+
+        <ImageView
+            android:id="@+id/img_send_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/edit_text_message"
+            android:padding="5dp"
+            android:src="@drawable/ic_photo_camera_black_24dp" />
+
+        <EditText
+            android:id="@+id/edit_text_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
+            android:textSize="@dimen/text_size_middle"
+            android:layout_toLeftOf="@+id/ln01"
+            android:layout_toRightOf="@+id/img_send_photo"
+            android:maxLines="7"
+            android:background="@drawable/bg_white_corners"/>
+
+        <LinearLayout
+            android:id="@+id/ln01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@+id/edit_text_message"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+        <ImageView
+            android:id="@+id/img_send_message"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:src="@android:drawable/ic_menu_send"  />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

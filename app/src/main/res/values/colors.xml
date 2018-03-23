@@ -37,5 +37,6 @@
     <color name="colorRed">#D8202a</color>
     <color name="colorBlack">#000000</color>
     <color name="gray">#b7b7b7</color>
+    <color name="colorHintText">#b7b7b7</color>
 
 </resources>

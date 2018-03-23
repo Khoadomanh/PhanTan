@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
 import com.example.nagat.phantan.fragment.FragmentInfor;
+import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 
 public class MainActivity extends BaseActivity
@@ -112,6 +113,9 @@ public class MainActivity extends BaseActivity
         } else if (itemId == R.id.item_edit) {
 
         } else if (itemId == R.id.item_report) {
+            fragment = new FragmentReportToAdmin();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
 
         } else if (itemId == R.id.item_signout) {
 
