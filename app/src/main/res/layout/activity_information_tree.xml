@@ -189,7 +189,7 @@
             android:id="@+id/btTuoiCay"
             android:textColor="#fff"
             android:textSize="18sp"
-            android:text="Tưới cây">
+            android:text="Lịch sử tưới cây">
 
         </Button>
         <Button
@@ -211,6 +211,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/view_tuoi">
         <Button
+            android:visibility="gone"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="30dp"
             android:layout_width="match_parent"
@@ -219,9 +220,21 @@
             android:id="@+id/btHistory"
             android:textColor="#fff"
             android:textSize="18sp"
-            android:text="Lịch sử tưới cây">
+            android:text="Tưới cây">
 
         </Button>
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/currentWater"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="#05b175"
+            android:text="Người đang tưới: Nguyễn Văn A">
+
+        </TextView>
     </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

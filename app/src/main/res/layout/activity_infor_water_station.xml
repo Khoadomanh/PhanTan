@@ -77,7 +77,7 @@
                     android:padding="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dung tích"
+                    android:text="Dung tích còn lại"
                     />
                 <TextView
                     android:layout_below="@+id/luongNuocDaTuoi"
@@ -162,18 +162,94 @@
                     android:padding="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dung lượng nước còn lại"
+                    android:text="Một số hình ảnh của trạm nước:"
                     />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="500l"
-                    android:textSize="20sp"
-                    android:textColor="#f96a0a"
-                    android:layout_below="@id/tvHinhAnh"
-                    />
-
+                <ImageView
+                    android:id="@+id/piture1"
+                    android:layout_margin="5dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvHinhAnh"
+                    android:src="@drawable/icon_history"/>
+                <ImageView
+                    android:id="@+id/piture2"
+                    android:layout_toRightOf="@+id/piture1"
+                    android:layout_margin="5dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvHinhAnh"
+                    android:src="@drawable/icon_history"/>
+                <ImageView
+                    android:id="@+id/piture3"
+                    android:layout_toRightOf="@+id/piture2"
+                    android:layout_margin="5dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvHinhAnh"
+                    android:src="@drawable/icon_history"/>
             </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/view_tuoi"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/main_view"
+            >
+            <Button
+                android:layout_marginLeft="40dp"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_loginbutton"
+                android:id="@+id/btTuoiCay"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:text="Lịch sử lấy nước">
+
+            </Button>
+            <Button
+                android:layout_marginLeft="50dp"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@drawable/border_loginbutton"
+                android:id="@+id/btReport"
+                android:layout_toRightOf="@+id/btTuoiCay"
+                android:textColor="#fff"
+                android:textSize="12sp"
+                android:text="Danh sách người đang lấy nước">
+
+            </Button>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_tuoi">
+            <Button
+                android:visibility="gone"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_loginbutton"
+                android:id="@+id/btHistory"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:text="Lấy nước">
+
+            </Button>
+            <TextView
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/currentWater"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="#05b175"
+                android:text="Hết nước">
+
+            </TextView>
         </RelativeLayout>
 
     </RelativeLayout>
