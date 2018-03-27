@@ -1,17 +1,14 @@
-package com.example.nagat.phantan;
+package com.example.nagat.phantan.ui;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 
 public class InformationTreeActivity extends BaseActivity {
@@ -20,6 +17,7 @@ public class InformationTreeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_tree);
+        this.setupUI(this.getWindow().getDecorView().findViewById(android.R.id.content));
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

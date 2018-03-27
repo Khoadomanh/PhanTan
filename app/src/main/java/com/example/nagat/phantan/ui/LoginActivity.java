@@ -1,7 +1,6 @@
-package com.example.nagat.phantan;
+package com.example.nagat.phantan.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,18 +8,24 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nagat.phantan.BaseActivity;
+import com.example.nagat.phantan.R;
 
 public class LoginActivity extends BaseActivity {
 
     private Button btLogin;
     private EditText etUserName,etPassword;
+    private TextView tvDangKy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_log_in);
+        this.setupUI(this.getWindow().getDecorView().findViewById(android.R.id.content));
         btLogin = findViewById(R.id.btLogin);
         etUserName = findViewById(R.id.etUserName);
         etPassword = findViewById(R.id.etPasssword);
@@ -38,6 +43,14 @@ public class LoginActivity extends BaseActivity {
                 }
 
 
+            }
+        });
+        tvDangKy = findViewById(R.id.tvDangKy);
+        tvDangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }

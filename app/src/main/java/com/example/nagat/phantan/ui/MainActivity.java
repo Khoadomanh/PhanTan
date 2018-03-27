@@ -1,4 +1,4 @@
-package com.example.nagat.phantan;
+package com.example.nagat.phantan.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.example.nagat.phantan.BaseActivity;
+import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
 import com.example.nagat.phantan.fragment.FragmentInfor;
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setupUI(this.getWindow().getDecorView().findViewById(android.R.id.content));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

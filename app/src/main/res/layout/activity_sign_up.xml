@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".LoginActivity">
+    tools:context=".ui.LoginActivity">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -56,14 +56,14 @@
         android:hint="Your name"
         android:inputType="textPassword"
         android:layout_marginBottom="80dp"
-        android:layout_alignBottom="@+id/btLogin"
+        android:layout_alignBottom="@+id/btSignUp"
         android:layout_alignLeft="@+id/etUserName"
         android:layout_alignStart="@+id/etUserName" />
     <Button
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:background="@drawable/border_loginbutton"
-        android:id="@+id/btLogin"
+        android:id="@+id/btSignUp"
         android:textColor="#fff"
         android:textSize="18sp"
         android:layout_alignParentBottom="true"

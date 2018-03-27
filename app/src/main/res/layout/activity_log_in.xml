@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".LoginActivity">
+    tools:context=".ui.LoginActivity">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -55,7 +55,7 @@
         android:textColor="#fff"
         android:textSize="18sp"
         android:layout_marginBottom="31dp"
-        android:layout_above="@+id/textView2"
+        android:layout_above="@+id/tvDangKy"
         android:layout_centerHorizontal="true"
         android:text="Login">
 
@@ -63,13 +63,12 @@
     </Button>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvDangKy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Here."
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="6dp" />
+        android:text="Register Here." />
 
     <LinearLayout
         android:layout_width="wrap_content"

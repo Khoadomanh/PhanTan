@@ -1,22 +1,23 @@
-package com.example.nagat.phantan;
+package com.example.nagat.phantan.ui;
 
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 
-public class InforWaterStationActivity extends AppCompatActivity {
+public class InforWaterStationActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infor_water_station);
+        this.setupUI(this.getWindow().getDecorView().findViewById(android.R.id.content));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
