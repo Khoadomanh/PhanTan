@@ -26,5 +26,7 @@
     <dimen name="text_size_max">28sp</dimen>
     <dimen name="text_size_middle">18sp</dimen>
     <dimen name="dimen_size_button50dp">50dp</dimen>
+    <dimen name="size_text_de_muc">20sp</dimen>
+    <dimen name="size_layout_default">40dp</dimen>
 
 </resources>

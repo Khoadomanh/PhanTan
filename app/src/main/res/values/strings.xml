@@ -23,5 +23,6 @@
     <string name="status">Trạng thái</string>
     <string name="password">Thay đổi mật khẩu</string>
     <string name="role">Vai trò</string>
+    <string name="bao_cao_su_co">Báo cáo sự cố</string>
 
 </resources>

@@ -15,7 +15,7 @@
             android:id="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bao_cao_su_co"
+            android:text="Báo cáo tình trạng cây"
             android:textSize="@dimen/size_text_de_muc"
             android:gravity="center"/>
         <TextView
@@ -26,12 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv1"
-            android:text="Hãy cho chúng tôi biết cách để chúng tôi có thể cải thiện trải nghiệm Apps của bạn"/>
+            android:text="Nếu cây có biểu hiện khác thường hãy cho chúng tôi biết! Cảm ơn sự đóng góp của các bạn"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv2"
-            android:text="Lý do:"
+            android:text="Biểu hiện khác thường của cây:"
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tôi tưới nước nhưng lượng nước không được cập nhật"
+            android:text="Một số lá cây vàng khác thường, có thể cây bị héo"
             android:textColor="@color/text_black"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"/>
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tôi nhấn vào tưới nước nhưng apps không phản hồi"
+            android:text="Lá cây bị sâu ăn rất nhiều"
             android:textColor="@color/text_black"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"/>
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tôi không thể cập nhật được thông tin cá nhân"
+            android:text="Có cành bị gãy"
             android:textColor="@color/text_black"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"/>
@@ -104,7 +104,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lý do khác:"
+        android:text="Biểu hiện khác:"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp"/>
@@ -116,7 +116,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Lý do khác..."
+        android:hint="Biểu hiện khác..."
         android:gravity="start"
         android:padding="5dp"
         android:textSize="@dimen/text_size"/>
