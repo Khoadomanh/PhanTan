@@ -19,6 +19,15 @@ public class Tree {
     private List<HistoryWaterTree> lichSuTuoiCay;
     private static User nguoiDangTuoiCay;
 
+    public Tree(String idCay, String tenCay, String diaDiem, int luongNuocMax, int luongNuocHienTai, String trangThai) {
+        this.idCay = idCay;
+        this.tenCay = tenCay;
+        this.diaDiem = diaDiem;
+        this.luongNuocMax = luongNuocMax;
+        this.luongNuocHienTai = luongNuocHienTai;
+        this.trangThai = trangThai;
+    }
+
     public Tree(String idCay, String tenCay, String diaDiem, int luongNuocMax, int luongNuocHienTai, String trangThai, List<Image> anhCuaCay, List<HistoryWaterTree> lichSuTuoiCay) {
         this.idCay = idCay;
         this.tenCay = tenCay;

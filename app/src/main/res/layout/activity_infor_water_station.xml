@@ -231,7 +231,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="05b175"
+                android:background="#05b175"
                 android:id="@+id/btHistory"
                 android:textColor="#fff"
                 android:textSize="18sp"
