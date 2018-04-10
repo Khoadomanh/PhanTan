@@ -2,6 +2,7 @@ package com.example.nagat.phantan.model;
 
 import android.media.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,43 +10,36 @@ import java.util.List;
  */
 
 public class Tree {
-    private String idCay;
+    private String maCay;
     private String tenCay;
-    private String diaDiem;
-    private int luongNuocMax;
-    private int luongNuocHienTai;
     private String trangThai;
-    private List<Image> anhCuaCay;
-    private List<HistoryWaterTree> lichSuTuoiCay;
-    private static User nguoiDangTuoiCay;
+    private String diaDiem;
+    private long latitude; //vi do
+    private long longitude; //kinh do
+    private List<String> hinhAnh = new ArrayList<>();
+    private long luongNuocCanTuoi;
 
-    public Tree(String idCay, String tenCay, String diaDiem, int luongNuocMax, int luongNuocHienTai, String trangThai) {
-        this.idCay = idCay;
+    public Tree() {
+
+    }
+
+    public String getMaCay() {
+        return maCay;
+    }
+
+    public void setMaCay(String maCay) {
+        this.maCay = maCay;
+    }
+
+    public Tree(String tenCay, String trangThai, String diaDiem, long latitude, long longitude, List<String> hinhAnh, long luongNuocCanTuoi, String maCay) {
         this.tenCay = tenCay;
-        this.diaDiem = diaDiem;
-        this.luongNuocMax = luongNuocMax;
-        this.luongNuocHienTai = luongNuocHienTai;
         this.trangThai = trangThai;
-    }
-
-    public Tree(String idCay, String tenCay, String diaDiem, int luongNuocMax, int luongNuocHienTai, String trangThai, List<Image> anhCuaCay, List<HistoryWaterTree> lichSuTuoiCay) {
-        this.idCay = idCay;
-        this.tenCay = tenCay;
         this.diaDiem = diaDiem;
-        this.luongNuocMax = luongNuocMax;
-        this.luongNuocHienTai = luongNuocHienTai;
-        this.trangThai = trangThai;
-        this.anhCuaCay = anhCuaCay;
-        this.lichSuTuoiCay = lichSuTuoiCay;
-    }
-
-    public String getIdCay() {
-
-        return idCay;
-    }
-
-    public void setIdCay(String idCay) {
-        this.idCay = idCay;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hinhAnh = hinhAnh;
+        this.luongNuocCanTuoi = luongNuocCanTuoi;
+        this.maCay = maCay;
     }
 
     public String getTenCay() {
@@ -56,30 +50,6 @@ public class Tree {
         this.tenCay = tenCay;
     }
 
-    public String getDiaDiem() {
-        return diaDiem;
-    }
-
-    public void setDiaDiem(String diaDiem) {
-        this.diaDiem = diaDiem;
-    }
-
-    public int getLuongNuocMax() {
-        return luongNuocMax;
-    }
-
-    public void setLuongNuocMax(int luongNuocMax) {
-        this.luongNuocMax = luongNuocMax;
-    }
-
-    public int getLuongNuocHienTai() {
-        return luongNuocHienTai;
-    }
-
-    public void setLuongNuocHienTai(int luongNuocHienTai) {
-        this.luongNuocHienTai = luongNuocHienTai;
-    }
-
     public String getTrangThai() {
         return trangThai;
     }
@@ -88,27 +58,43 @@ public class Tree {
         this.trangThai = trangThai;
     }
 
-    public List<Image> getAnhCuaCay() {
-        return anhCuaCay;
+    public String getDiaDiem() {
+        return diaDiem;
     }
 
-    public void setAnhCuaCay(List<Image> anhCuaCay) {
-        this.anhCuaCay = anhCuaCay;
+    public void setDiaDiem(String diaDiem) {
+        this.diaDiem = diaDiem;
     }
 
-    public List<HistoryWaterTree> getLichSuTuoiCay() {
-        return lichSuTuoiCay;
+    public long getLatitude() {
+        return latitude;
     }
 
-    public void setLichSuTuoiCay(List<HistoryWaterTree> lichSuTuoiCay) {
-        this.lichSuTuoiCay = lichSuTuoiCay;
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
     }
 
-    public static User getNguoiDangTuoiCay() {
-        return nguoiDangTuoiCay;
+    public long getLongitude() {
+        return longitude;
     }
 
-    public static void setNguoiDangTuoiCay(User nguoiDangTuoiCay) {
-        Tree.nguoiDangTuoiCay = nguoiDangTuoiCay;
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<String> getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(List<String> hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    public double getLuongNuocCanTuoi() {
+        return luongNuocCanTuoi;
+    }
+
+    public void setLuongNuocCanTuoi(long luongNuocCanTuoi) {
+        this.luongNuocCanTuoi = luongNuocCanTuoi;
     }
 }

@@ -7,47 +7,52 @@ import java.util.Date;
  */
 
 public class HistoryWaterStation {
-    private String idNguoiLayNuoc;
-    private String idNguocNuoc;
-    private int luongNuocDaLay;
-    private Date ngayLayNuoc;
+    private String maNguoiLay;
+    private String tenNguoiLay;
+    private long luongNuoc;
+    private Date thoiGianLay;
 
-    public HistoryWaterStation(String idNguoiLayNuoc, String idNguocNuoc, int luongNuocDaLay, Date ngayLayNuoc) {
-        this.idNguoiLayNuoc = idNguoiLayNuoc;
-        this.idNguocNuoc = idNguocNuoc;
-        this.luongNuocDaLay = luongNuocDaLay;
-        this.ngayLayNuoc = ngayLayNuoc;
+    public HistoryWaterStation() {
+
     }
 
-    public String getIdNguoiLayNuoc() {
-        return idNguoiLayNuoc;
+    public String getMaNguoiLay() {
+        return maNguoiLay;
     }
 
-    public void setIdNguoiLayNuoc(String idNguoiLayNuoc) {
-        this.idNguoiLayNuoc = idNguoiLayNuoc;
+    public void setMaNguoiLay(String maNguoiLay) {
+        this.maNguoiLay = maNguoiLay;
     }
 
-    public String getIdNguocNuoc() {
-        return idNguocNuoc;
+    public HistoryWaterStation(String tenNguoiLay, long luongNuoc, Date thoiGianLay, String maNguoiLay) {
+        this.tenNguoiLay = tenNguoiLay;
+        this.luongNuoc = luongNuoc;
+        this.thoiGianLay = thoiGianLay;
+        this.maNguoiLay = maNguoiLay;
+
     }
 
-    public void setIdNguocNuoc(String idNguocNuoc) {
-        this.idNguocNuoc = idNguocNuoc;
+    public String getTenNguoiLay() {
+        return tenNguoiLay;
     }
 
-    public int getLuongNuocDaLay() {
-        return luongNuocDaLay;
+    public void setTenNguoiLay(String tenNguoiLay) {
+        this.tenNguoiLay = tenNguoiLay;
     }
 
-    public void setLuongNuocDaLay(int luongNuocDaLay) {
-        this.luongNuocDaLay = luongNuocDaLay;
+    public long getLuongNuoc() {
+        return luongNuoc;
     }
 
-    public Date getNgayLayNuoc() {
-        return ngayLayNuoc;
+    public void setLuongNuoc(long luongNuoc) {
+        this.luongNuoc = luongNuoc;
     }
 
-    public void setNgayLayNuoc(Date ngayLayNuoc) {
-        this.ngayLayNuoc = ngayLayNuoc;
+    public Date getThoiGianLay() {
+        return thoiGianLay;
+    }
+
+    public void setThoiGianLay(Date thoiGianLay) {
+        this.thoiGianLay = thoiGianLay;
     }
 }

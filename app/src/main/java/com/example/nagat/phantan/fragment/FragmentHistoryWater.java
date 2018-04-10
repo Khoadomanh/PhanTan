@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.adapter.HistoryWaterTreeAdapter;
-import com.example.nagat.phantan.model.HistoryWaterTree;
+import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class FragmentHistoryWater extends Fragment {
 
         View v =  inflater.inflate(R.layout.fragment_list_history_water, container, false);
         rv = v.findViewById(R.id.rv_history);
-        adapter = new HistoryWaterTreeAdapter(getActivity(),new ArrayList<HistoryWaterTree>());
+        adapter = new HistoryWaterTreeAdapter(getActivity(),new ArrayList<LichSuTuoiCayTheoNguoiTuoi>());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
         return  v;

@@ -1,23 +1,15 @@
 package com.example.nagat.phantan.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.nagat.phantan.R;
-import com.example.nagat.phantan.model.HistoryWaterTree;
+import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Win 8.1 Version 2 on 23/03/2018.
@@ -27,9 +19,9 @@ public class HistoryWaterTreeAdapter extends RecyclerView.Adapter<HistoryWaterTr
 
         private Context mContext;
         private LayoutInflater layoutInflater;
-        private ArrayList<HistoryWaterTree> list;
+        private ArrayList<LichSuTuoiCayTheoNguoiTuoi> list;
 
-        public HistoryWaterTreeAdapter(Context con, ArrayList<HistoryWaterTree> list) {
+        public HistoryWaterTreeAdapter(Context con, ArrayList<LichSuTuoiCayTheoNguoiTuoi> list) {
             mContext = con;
             layoutInflater = LayoutInflater.from(mContext);
             this.list = list;

@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nagat.phantan.R;
-import com.example.nagat.phantan.adapter.HistoryWaterTreeAdapter;
 import com.example.nagat.phantan.adapter.TreeAdapter;
-import com.example.nagat.phantan.model.HistoryWaterTree;
 import com.example.nagat.phantan.model.Tree;
 
 import java.util.ArrayList;

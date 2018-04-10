@@ -1,5 +1,6 @@
 package com.example.nagat.phantan.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,55 +8,41 @@ import java.util.List;
  */
 
 public class WaterStation {
-    private String idTramLayNuoc;
-    private String trangThai;
-    private int dungTichTram;
-    private int dungTichThucTe;
+    private String maNguonNuoc;
+    private String tenTram;
     private String diaDiem;
-    private List<User> dsNguoiDangLayNuoc;
-    private List<HistoryWaterStation> lichSuLayNuoc;
+    private long latitude; //vi do
+    private long longitude; //kinh do
+    private List<String> hinhAnh = new ArrayList<>();
+    private long luongNuocConLai;
+    public WaterStation() {
 
-    public WaterStation(String idTramLayNuoc, String trangThai, int dungTichTram, int dungTichThucTe, String diaDiem, List<User> dsNguoiDangLayNuoc, List<HistoryWaterStation> lichSuLayNuoc) {
-        this.idTramLayNuoc = idTramLayNuoc;
-        this.trangThai = trangThai;
-        this.dungTichTram = dungTichTram;
-        this.dungTichThucTe = dungTichThucTe;
+    }
+
+    public WaterStation(String tenTram, String diaDiem, long latitude, long longitude, List<String> hinhAnh,long luongNuocConLai,String maNguonNuoc) {
+        this.tenTram = tenTram;
         this.diaDiem = diaDiem;
-        this.dsNguoiDangLayNuoc = dsNguoiDangLayNuoc;
-        this.lichSuLayNuoc = lichSuLayNuoc;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.hinhAnh = hinhAnh;
+        this.luongNuocConLai = luongNuocConLai;
+        this.maNguonNuoc = maNguonNuoc;
     }
 
-    public String getIdTramLayNuoc() {
-
-        return idTramLayNuoc;
+    public long getLuongNuocConLai() {
+        return luongNuocConLai;
     }
 
-    public void setIdTramLayNuoc(String idTramLayNuoc) {
-        this.idTramLayNuoc = idTramLayNuoc;
+    public void setLuongNuocConLai(long luongNuocConLai) {
+        this.luongNuocConLai = luongNuocConLai;
     }
 
-    public String getTrangThai() {
-        return trangThai;
+    public String getTenTram() {
+        return tenTram;
     }
 
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public int getDungTichTram() {
-        return dungTichTram;
-    }
-
-    public void setDungTichTram(int dungTichTram) {
-        this.dungTichTram = dungTichTram;
-    }
-
-    public int getDungTichThucTe() {
-        return dungTichThucTe;
-    }
-
-    public void setDungTichThucTe(int dungTichThucTe) {
-        this.dungTichThucTe = dungTichThucTe;
+    public void setTenTram(String tenTram) {
+        this.tenTram = tenTram;
     }
 
     public String getDiaDiem() {
@@ -66,19 +53,28 @@ public class WaterStation {
         this.diaDiem = diaDiem;
     }
 
-    public List<User> getDsNguoiDangLayNuoc() {
-        return dsNguoiDangLayNuoc;
+    public long getLatitude() {
+        return latitude;
     }
 
-    public void setDsNguoiDangLayNuoc(List<User> dsNguoiDangLayNuoc) {
-        this.dsNguoiDangLayNuoc = dsNguoiDangLayNuoc;
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
     }
 
-    public List<HistoryWaterStation> getLichSuLayNuoc() {
-        return lichSuLayNuoc;
+    public long getLongitude() {
+        return longitude;
     }
 
-    public void setLichSuLayNuoc(List<HistoryWaterStation> lichSuLayNuoc) {
-        this.lichSuLayNuoc = lichSuLayNuoc;
+    public void setLongitude(long longitude) {
+        this.longitude = longitude;
+    }
+
+
+    public List<String> getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(List<String> hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }
