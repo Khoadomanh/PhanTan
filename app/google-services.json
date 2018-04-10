@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "112732913389",
+    "firebase_url": "https://phantan-8efe2.firebaseio.com",
+    "project_id": "phantan-8efe2",
+    "storage_bucket": "phantan-8efe2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112732913389:android:25e2688eac49e527",
+        "android_client_info": {
+          "package_name": "com.example.nagat.phantan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112732913389-pof2g2b67cbi5nqjbsqlt15ku2kiqd8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nagat.phantan",
+            "certificate_hash": "47c3ed37d01a513aa1fd30cba78b992976e35d04"
+          }
+        },
+        {
+          "client_id": "112732913389-aicva6qtc8i0turbuc51cj8qgputarqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE0gjRfSxXgOMn1EYGkh62FK0-LJS-sK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112732913389-aicva6qtc8i0turbuc51cj8qgputarqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
