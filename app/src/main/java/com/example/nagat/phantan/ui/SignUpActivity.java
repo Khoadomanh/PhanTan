@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by nagat on 27/3/2018.
@@ -18,6 +20,7 @@ import com.example.nagat.phantan.R;
 public class SignUpActivity extends BaseActivity {
     private EditText etUsername,etPassword,etTenNguoiDung;
     private Button btSignUp;
+    private DatabaseReference ref;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class SignUpActivity extends BaseActivity {
         etPassword = findViewById(R.id.etPasssword);
         etTenNguoiDung = findViewById(R.id.etName);
         btSignUp = findViewById(R.id.btSignUp);
-
+        ref = FirebaseDatabase.getInstance().getReference();
         btSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,4 +56,7 @@ public class SignUpActivity extends BaseActivity {
         Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show();
         startActivity(i);
     }
+
+
+
 }
