@@ -24,7 +24,7 @@
                 android:src="@drawable/avatar_default" />
 
             <TextView
-                android:id="@+id/tv_name_infor"
+                android:id="@+id/tv_name_infor_large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_avatar_infor"
@@ -38,7 +38,7 @@
                 android:id="@+id/ln_stt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/tv_name_infor"
+                android:layout_below="@+id/tv_name_infor_large"
                 android:orientation="horizontal">
 
                 <TextView
@@ -56,6 +56,7 @@
                     tools:ignore="RtlCompat" />
 
                 <TextView
+                    android:id="@+id/tv_status_user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -74,7 +75,7 @@
                 android:background="@drawable/bg_white_corners"
                 android:elevation="2dp"
                 android:orientation="vertical"
-                android:weightSum="3">
+                android:weightSum="4">
 
                 <LinearLayout
                     android:id="@+id/ln_add_item"
@@ -95,7 +96,6 @@
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical"
                         android:weightSum="5">
@@ -111,7 +111,7 @@
                             android:textSize="@dimen/text_size_middle" />
 
                         <EditText
-                            android:id="@+id/name_user"
+                            android:id="@+id/tv_name_infor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -120,6 +120,16 @@
                             android:text="Hong Anh Do"
                             android:textSize="@dimen/text_size_small" />
                     </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_edit_name_display"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerInside"
+                        android:layout_margin="@dimen/margin_small"
+                        android:background="@drawable/ic_edit_black_24dp"/>
+
 
                 </LinearLayout>
 
@@ -163,7 +173,7 @@
                             android:textSize="@dimen/text_size_middle" />
 
                         <TextView
-                            android:id="@+id/email_user"
+                            android:id="@+id/tv_sex_user"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
@@ -229,7 +239,6 @@
                     android:background="@color/gray" />
 
                 <LinearLayout
-                    android:id="@+id/ln_change_password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
@@ -244,6 +253,7 @@
                         android:src="@drawable/ic_edit_black_24dp" />
 
                     <LinearLayout
+                        android:id="@+id/ln_change_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
