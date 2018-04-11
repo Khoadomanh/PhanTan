@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_listComputer"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_history"
+    android:background="@drawable/bg_white_corners"
+    android:elevation="2dp"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:weightSum="4">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    android:padding="@dimen/padding_small">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_list_tree"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_weight="3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name_computer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/margin_small"
+                android:gravity="center_vertical"
+                android:text="Ngày: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/tv_time_history_water"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="10/04/2018"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/margin_small"
+                android:gravity="center_vertical"
+                android:text="Thời gian: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="10 : 00"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_middle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Lượng nước tưới:   "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <TextView
+                    android:id="@+id/tv_time_depart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tv_title_time_start_item_list"
+                    android:paddingTop="2dp"
+                    android:text="400 ml"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_title_time_start_item_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Người tưới:   "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_middle"/>
+
+                <TextView
+                    android:id="@+id/tv_name_people"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tv_title_time_start_item_list"
+                    android:paddingTop="5dp"
+                    android:text="NV0001_Đỗ Thị Hồng"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

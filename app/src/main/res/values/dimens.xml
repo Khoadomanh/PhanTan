@@ -28,5 +28,9 @@
     <dimen name="dimen_size_button50dp">50dp</dimen>
     <dimen name="size_text_de_muc">20sp</dimen>
     <dimen name="size_layout_default">40dp</dimen>
+    <dimen name="height_item_history">120dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="height_item_history_get">95dp</dimen>
 
 </resources>
