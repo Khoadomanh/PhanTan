@@ -38,5 +38,7 @@
     <color name="colorBlack">#000000</color>
     <color name="gray">#b7b7b7</color>
     <color name="colorHintText">#b7b7b7</color>
+    <color name="black">#000</color>
+    <color name="red">#D8202a</color>
 
 </resources>
