@@ -12,10 +12,10 @@ public class User {
     private String tenHienThi;
     private String trangThai;
     private String diaDiem;
-    private String luongNuocCanTuoi;
+    private String email;
     private List<String> hinhAnh = new ArrayList<>();
-    private long latitude; //vi do
-    private long longitude; //kinh do
+    private double latitude; //vi do
+    private double longitude; //kinh do
 
     public User() {
 
@@ -29,16 +29,23 @@ public class User {
         this.maUser = maUser;
     }
 
-    public User(String tenHienThi, String trangThai, String diaDiem, String luongNuocCanTuoi, List<String> hinhAnh, long latitude, long longitude, String maUser) {
+    public User(String tenHienThi, String trangThai, String diaDiem,  List<String> hinhAnh, double latitude, double longitude, String maUser,String email) {
         this.tenHienThi = tenHienThi;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
-        this.luongNuocCanTuoi = luongNuocCanTuoi;
         this.hinhAnh = hinhAnh;
         this.latitude = latitude;
         this.longitude = longitude;
         this.maUser = maUser;
+        this.email = email;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTenHienThi() {
@@ -65,13 +72,6 @@ public class User {
         this.diaDiem = diaDiem;
     }
 
-    public String getLuongNuocCanTuoi() {
-        return luongNuocCanTuoi;
-    }
-
-    public void setLuongNuocCanTuoi(String luongNuocCanTuoi) {
-        this.luongNuocCanTuoi = luongNuocCanTuoi;
-    }
 
     public List<String> getHinhAnh() {
         return hinhAnh;
@@ -81,19 +81,19 @@ public class User {
         this.hinhAnh = hinhAnh;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

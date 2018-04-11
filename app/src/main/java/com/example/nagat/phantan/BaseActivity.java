@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.nagat.phantan.ui.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * This is the common base class of the activities.
@@ -65,6 +66,9 @@ public class BaseActivity extends AppCompatActivity {
                 this.setupUI(((ViewGroup) view).getChildAt(i));
             }
         }
+    }
+    public String getUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
     public void hideSoftKeyboard(final View view) {
         ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);

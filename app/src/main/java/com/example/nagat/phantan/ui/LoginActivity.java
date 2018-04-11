@@ -2,6 +2,8 @@ package com.example.nagat.phantan.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -13,12 +15,17 @@ import android.widget.Toast;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends BaseActivity {
-
+    private static final String TAG = "LoginActivity";
     private Button btLogin;
     private EditText etUserName,etPassword;
     private TextView tvDangKy;
+    private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +40,10 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Log.e("khoa","user: "+etUserName.getText()+" password: "+etPassword.getText());
-                if (etUserName.getText().toString().equals("1")&& etPassword.getText().toString().equals("1")) {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                if (checkform()) {
+                    logIn();
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, "User name and password are not correct", Toast.LENGTH_SHORT).show();
                     etUserName.requestFocus();
                 }
 
@@ -51,6 +56,61 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        auth = FirebaseAuth.getInstance();
+
+    }
+    private boolean checkform() {
+        boolean result = true;
+        if (TextUtils.isEmpty(etUserName.getText().toString())) {
+            etUserName.setError("Required");
+            result = false;
+        } else if (!etUserName.getText().toString().contains("@gmail.com")) {
+            etUserName.setError("Tên đăng nhập phải có @gmail.com");
+            result = false;
+        } else {
+            etUserName.setError(null);
+        }
+
+        if (TextUtils.isEmpty(etPassword.getText().toString())) {
+            etPassword.setError("Required");
+            result = false;
+        } else {
+            etPassword.setError(null);
+        }
+
+        return result;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check auth on Activity start
+        if (auth.getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+    private void logIn() {
+        showProgress("Loading...");
+        String username = etUserName.getText().toString();
+        String password = etPassword.getText().toString();
+
+        auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "logIn:onComplete:" + task.isSuccessful());
+                hideProgress();
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Sign Up Failed",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
