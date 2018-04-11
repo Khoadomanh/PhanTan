@@ -1,5 +1,6 @@
 package com.example.nagat.phantan.fragment;
 
+import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import com.example.nagat.phantan.adapter.ScheduleAdapter;
 import com.example.nagat.phantan.model.Schedule;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by nagat on 20/3/2018.
@@ -32,6 +35,7 @@ public class FragmentSchedule extends Fragment {
         rv = v.findViewById(R.id.rv_schelude);
         adapter = new ScheduleAdapter(getActivity(),new ArrayList<Schedule>());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ButterKnife.bind(this, v);
         rv.setAdapter(adapter);
 
         rl_no_tran = v.findViewById(R.id.rl_no_tran);
