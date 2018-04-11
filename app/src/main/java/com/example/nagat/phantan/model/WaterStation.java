@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class WaterStation {
-    private String maNguonNuoc;
+    //ma nguon nuoc dinh danh
     private String tenTram;
     private String diaDiem;
     private long latitude; //vi do
@@ -19,14 +19,13 @@ public class WaterStation {
 
     }
 
-    public WaterStation(String tenTram, String diaDiem, long latitude, long longitude, List<String> hinhAnh,long luongNuocConLai,String maNguonNuoc) {
+    public WaterStation(String tenTram, String diaDiem, long latitude, long longitude, List<String> hinhAnh,long luongNuocConLai) {
         this.tenTram = tenTram;
         this.diaDiem = diaDiem;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hinhAnh = hinhAnh;
         this.luongNuocConLai = luongNuocConLai;
-        this.maNguonNuoc = maNguonNuoc;
     }
 
     public long getLuongNuocConLai() {

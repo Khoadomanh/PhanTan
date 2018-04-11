@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +45,8 @@ public class SignUpActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private GPSTracker gps;
     private static final String TAG = "SignUpActivity";
-
+    private List<String> listKeyUser = new ArrayList<>();
+    private ChildEventListener childEventListener;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,33 @@ public class SignUpActivity extends BaseActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                listKeyUser.add(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mDatabase.child("users").addChildEventListener(childEventListener);
     }
 
     private boolean checkGPS() {
@@ -77,27 +106,12 @@ public class SignUpActivity extends BaseActivity {
         }
     }
     private boolean checkEmailIsExist() {
-        final List<String> listKey = new ArrayList<>();
-        mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
-                    listKey.clear();
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        listKey.add(dataSnapshot1.getKey());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         String keySignUp = usernameFromEmail(etUsername.getText().toString());
-        if (listKey.contains(keySignUp)) {
+        if (listKeyUser.contains(keySignUp)) {
+            etUsername.setError(null);
             return true;
         } else {
+            etUsername.setError("Email đã tồn tại");
             return false;
         }
     }
@@ -143,7 +157,7 @@ public class SignUpActivity extends BaseActivity {
                 if (task.isSuccessful()) {
                     onAuthSuccess(task.getResult().getUser());
                 } else {
-                    Toast.makeText(SignUpActivity.this, "Sign In Failed",
+                    Toast.makeText(SignUpActivity.this, "Tên đăng nhập hoặc mật khẩu chưa đúng",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -158,7 +172,7 @@ public class SignUpActivity extends BaseActivity {
         writeNewUser(username, tenNguoiDung, user.getEmail());
 
         // Go to MainActivity
-        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+        startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
         finish();
     }
 
@@ -173,14 +187,11 @@ public class SignUpActivity extends BaseActivity {
     private void writeNewUser(String userId, String name, String email) {
         Log.d(TAG, "writeNewUser: ");
         User user = new User();
-        user.setMaUser(userId);
+        user.setMaUser(Utils.taoMaUser());
         user.setTenHienThi(name);
         user.setEmail(email);
         user.setLatitude(gps.getLatitude());
         user.setLongitude(gps.getLongitude());
-        if (getAddressFromLatAndLong()!=null) {
-            user.setDiaDiem(getAddressFromLatAndLong());
-        }
         user.setTrangThai("online");
         mDatabase.child("users").child(userId).setValue(user);
     }
@@ -203,4 +214,9 @@ public class SignUpActivity extends BaseActivity {
         return null;
     }
 
+    @Override
+    protected void onDestroy() {
+        mDatabase.removeEventListener(childEventListener);
+        super.onDestroy();
+    }
 }

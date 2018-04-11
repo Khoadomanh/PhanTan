@@ -39,6 +39,7 @@
             android:label="@string/title_activity_information_tree"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.InforWaterStationActivity"></activity>
+        <activity android:name=".ui.SignUpActivity"></activity>
     </application>
 
 </manifest>

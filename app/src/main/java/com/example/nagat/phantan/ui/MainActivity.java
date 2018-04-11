@@ -1,6 +1,7 @@
 package com.example.nagat.phantan.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,6 +26,14 @@ import com.example.nagat.phantan.fragment.FragmentInfor;
 import com.example.nagat.phantan.fragment.FragmentListTree;
 import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +66,20 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         displaySelectedScreen(R.id.item_maps);
+        updateStatusUser(FirebaseAuth.getInstance().getCurrentUser());
+        FirebaseDatabase.getInstance().getReference().child("testDisconnect").onDisconnect().setValue("disconnect");
     }
+    private void updateStatusUser(FirebaseUser firebaseUser) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = database.getReference().child("users").child(Utils.usernameFromEmail(firebaseUser.getEmail()));
+        databaseReference.child("trangThai").setValue("online");
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -93,8 +116,17 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         displaySelectedScreen(id);
-
+        if (item.getItemId() == R.id.item_signout) {
+            signOut();
+        }
         return true;
+    }
+    private void signOut() {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+        databaseReference.child("trangThai").setValue("offline");
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
     private void displaySelectedScreen(int itemId) {
 
@@ -143,5 +175,12 @@ public class MainActivity extends BaseActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    protected void onDestroy() {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+        databaseReference.child("trangThai").setValue("offline");
+        super.onDestroy();
     }
 }

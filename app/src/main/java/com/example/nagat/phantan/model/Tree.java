@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 public class Tree {
+    //ma cay dinh dang ma loai cay - thu tu them.
+    public static final long luongNuocMax = 100;
     private String maCay;
     private String tenCay;
     private String trangThai;
@@ -17,6 +19,7 @@ public class Tree {
     private long latitude; //vi do
     private long longitude; //kinh do
     private List<String> hinhAnh = new ArrayList<>();
+
     private long luongNuocCanTuoi;
 
     public Tree() {
