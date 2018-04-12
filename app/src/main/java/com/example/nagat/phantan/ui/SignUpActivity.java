@@ -193,6 +193,7 @@ public class SignUpActivity extends BaseActivity {
         user.setLatitude(gps.getLatitude());
         user.setLongitude(gps.getLongitude());
         user.setTrangThai("online");
+        user.setAvatar("Null");
         mDatabase.child("users").child(userId).setValue(user);
     }
     public String getAddressFromLatAndLong() {
