@@ -96,6 +96,8 @@ public class LoginActivity extends BaseActivity {
         // Check auth on Activity start
         if (auth.getCurrentUser() != null) {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                    .getCurrentUser().getEmail())).child("trangThai").setValue("online");
             startActivity(intent);
             finish();
         }
@@ -114,6 +116,8 @@ public class LoginActivity extends BaseActivity {
                 hideProgress();
                 if (task.isSuccessful()) {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                            .getCurrentUser().getEmail())).child("trangThai").setValue("online");
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu chưa đúng",
