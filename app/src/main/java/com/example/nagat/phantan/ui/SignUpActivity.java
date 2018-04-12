@@ -108,10 +108,10 @@ public class SignUpActivity extends BaseActivity {
     private boolean checkEmailIsExist() {
         String keySignUp = usernameFromEmail(etUsername.getText().toString());
         if (listKeyUser.contains(keySignUp)) {
-            etUsername.setError(null);
+            etUsername.setError("Email đã tồn tại");
             return true;
         } else {
-            etUsername.setError("Email đã tồn tại");
+            etUsername.setError(null);
             return false;
         }
     }
@@ -187,33 +187,17 @@ public class SignUpActivity extends BaseActivity {
     private void writeNewUser(String userId, String name, String email) {
         Log.d(TAG, "writeNewUser: ");
         User user = new User();
-        user.setMaUser(Utils.taoMaUser());
+        user.setMaUser(Utils.taoMaUser(userId));
         user.setTenHienThi(name);
         user.setEmail(email);
         user.setLatitude(gps.getLatitude());
         user.setLongitude(gps.getLongitude());
         user.setTrangThai("online");
         user.setAvatar("Null");
+        user.setVaiTro("Tình nguyện viên");
         mDatabase.child("users").child(userId).setValue(user);
     }
-    public String getAddressFromLatAndLong() {
-        Double latitude = gps.getLatitude();
-        Double longitude = gps.getLongitude();
-        String postalCode;
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addresses != null && addresses.size() > 0) {
-                String address = addresses.get(0).getAddressLine(0);
-                postalCode = addresses.get(0).getPostalCode();
-                return address;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     @Override
     protected void onDestroy() {

@@ -106,6 +106,8 @@ public class LoginActivity extends BaseActivity {
         if (auth.getCurrentUser() != null) {
             SIGN_IN_EMAIL = auth.getCurrentUser().getEmail();
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                    .getCurrentUser().getEmail())).child("trangThai").setValue("online");
             startActivity(intent);
             finish();
         }
@@ -125,6 +127,8 @@ public class LoginActivity extends BaseActivity {
                 if (task.isSuccessful()) {
                     SIGN_IN_EMAIL = username;
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                            .getCurrentUser().getEmail())).child("trangThai").setValue("online");
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu chưa đúng",
