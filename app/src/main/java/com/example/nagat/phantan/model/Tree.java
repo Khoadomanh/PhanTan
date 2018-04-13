@@ -1,7 +1,5 @@
 package com.example.nagat.phantan.model;
 
-import android.media.Image;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
 
 public class Tree {
     //ma cay dinh dang ma loai cay - thu tu them.
-    public static final long luongNuocMax = 100;
     private String maCay;
     private String tenCay;
     private String trangThai;
@@ -19,9 +16,9 @@ public class Tree {
     private long latitude; //vi do
     private long longitude; //kinh do
     private List<String> hinhAnh = new ArrayList<>();
-
-    private long luongNuocCanTuoi;
-
+    private String currentUserWatering; //nguoi hien tai dang tuoi
+    private long luongNuocMax;
+    private String maSensor; //sensor gan' voi cay
     public Tree() {
 
     }
@@ -34,15 +31,31 @@ public class Tree {
         this.maCay = maCay;
     }
 
-    public Tree(String tenCay, String trangThai, String diaDiem, long latitude, long longitude, List<String> hinhAnh, long luongNuocCanTuoi, String maCay) {
+    public Tree(String tenCay, String trangThai, String diaDiem, long latitude, long longitude, List<String> hinhAnh, long luongNuocMax, String maCay) {
         this.tenCay = tenCay;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hinhAnh = hinhAnh;
-        this.luongNuocCanTuoi = luongNuocCanTuoi;
+        this.luongNuocMax = luongNuocMax;
         this.maCay = maCay;
+    }
+
+    public String getMaSensor() {
+        return maSensor;
+    }
+
+    public void setMaSensor(String maSensor) {
+        this.maSensor = maSensor;
+    }
+
+    public String getCurrentUserWatering() {
+        return currentUserWatering;
+    }
+
+    public void setCurrentUserWatering(String currentUserWatering) {
+        this.currentUserWatering = currentUserWatering;
     }
 
     public String getTenCay() {
@@ -93,11 +106,11 @@ public class Tree {
         this.hinhAnh = hinhAnh;
     }
 
-    public double getLuongNuocCanTuoi() {
-        return luongNuocCanTuoi;
+    public double getLuongNuocMax() {
+        return luongNuocMax;
     }
 
-    public void setLuongNuocCanTuoi(long luongNuocCanTuoi) {
-        this.luongNuocCanTuoi = luongNuocCanTuoi;
+    public void setLuongNuocMax(long luongNuocMax) {
+        this.luongNuocMax = luongNuocMax;
     }
 }
