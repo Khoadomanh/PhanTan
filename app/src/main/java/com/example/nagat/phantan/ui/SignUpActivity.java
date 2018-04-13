@@ -193,7 +193,7 @@ public class SignUpActivity extends BaseActivity {
         user.setLatitude(gps.getLatitude());
         user.setLongitude(gps.getLongitude());
         user.setTrangThai("online");
-        user.setAvatar("Null");
+
         user.setVaiTro("Tình nguyện viên");
         mDatabase.child("users").child(userId).setValue(user);
     }

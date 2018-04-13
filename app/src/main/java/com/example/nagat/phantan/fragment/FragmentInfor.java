@@ -15,11 +15,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,6 +28,7 @@ import com.example.nagat.phantan.BuildConfig;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.ui.LoginActivity;
+import com.example.nagat.phantan.ui.MainActivity;
 import com.example.nagat.phantan.utils.MyUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +39,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
 
 import java.io.File;
 import java.util.Date;
@@ -53,7 +59,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 
-public class FragmentInfor extends Fragment  implements View.OnClickListener {
+public class FragmentInfor extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.tv_name_infor)
     TextView tvNameInfor;
@@ -87,6 +93,7 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
     User user = new User();
     final CharSequence[] options = {"Camera", "Gallery"};
     String stDateFormat = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
@@ -94,11 +101,9 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
 
         imageAvatar.setOnClickListener(this);
 
-        myRef = LoginActivity.mDatabase.getReference().child("users");
+        myRef = LoginActivity.mDatabase.getReference().child("users").child(MyUtil.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
 
         myRef.keepSynced(true);
-
-        myRef.child(MyUtil.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,7 +116,12 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
                 else
                     tvSexUser.setText("Nữ");
 
-                setImageUser(user.getAvatar(), imageAvatar);
+                if (MyUtil.PATH_AVATA == null) {
+                    setImageUser(user.getAvatar(), imageAvatar);
+                }
+                else {
+                    Glide.with(FragmentInfor.this).load(MyUtil.PATH_AVATA).into(imageAvatar);
+                }
                 tvRoleUser.setText(user.getVaiTro());
                 tvStatusUser.setText(user.getTrangThai());
             }
@@ -139,7 +149,7 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
         if (imageAvatar == null)
             return;
 
-        if (urlPhotoUser.equals("Null")) {
+        if (urlPhotoUser == null) {
             imageAvatar.setImageResource(R.drawable.avatar_default);
             return;
         }
@@ -152,7 +162,7 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.img_avatar_infor:
                 changeAvatar();
                 break;
@@ -222,7 +232,6 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    setImageUser(downloadUrl.toString(), imageAvatar);
                     myRef.child(MyUtil.usernameFromEmail(user.getEmail())).child("avatar").setValue(downloadUrl.toString());
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -247,8 +256,8 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    setImageUser(downloadUrl.toString(), imageAvatar);
-                    myRef.child(MyUtil.usernameFromEmail(user.getEmail())).child("").setValue(downloadUrl.toString());
+                    Log.e("aaa", MyUtil.usernameFromEmail(user.getEmail()));
+                    myRef.child("avatar").setValue(downloadUrl.toString());
                 }
             });
         }
@@ -262,8 +271,12 @@ public class FragmentInfor extends Fragment  implements View.OnClickListener {
         if (requestCode == IMAGE_GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Uri selectedImageUri = data.getData();
+                Glide.with(this).load(selectedImageUri).into(imageAvatar);
+                MyUtil.PATH_AVATA = selectedImageUri;
+                ((MainActivity) getActivity()).onChangeAvatar();
                 if (selectedImageUri != null) {
                     sendFile(storageRef, selectedImageUri);
+
                 } else {
 
                 }
