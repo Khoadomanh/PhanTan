@@ -12,9 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.ui.InforWaterStationActivity;
 import com.example.nagat.phantan.ui.InformationTreeActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.ui.LoginActivity;
+import com.example.nagat.phantan.ui.Utils;
+import com.example.nagat.phantan.utils.Contants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -27,6 +32,11 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +50,7 @@ public class FragmentBanDo extends Fragment{
     private GoogleMap mMap;
     private UiSettings mUiSettings;
     LatLng MELBOURNE = new LatLng(21.004364, 105.843980);
-    List<LatLng> listTree = new ArrayList<>();
+    List<Tree> listTree = new ArrayList<>();
     List<LatLng> listWaterStation = new ArrayList<>();
 
     private Marker mPerth;
@@ -49,19 +59,36 @@ public class FragmentBanDo extends Fragment{
     MapFragment mapFragment;
     MapView mMapView;
     private GoogleMap googleMap;
-
-
+    private String cayDangTuoi;
+    private ChildEventListener childEventListener;
     public static FragmentBanDo init() {
         return new FragmentBanDo();
     }
-
+    private TextView tvCayDangTuoi;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_test_map, container, false);
-        addTree();
         addWaterStation();
         mMapView = (MapView) view.findViewById(R.id.mapView);
+        tvCayDangTuoi = view.findViewById(R.id.cayDangTuoi);
+        FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                if (user.getTreeWatering()!=null ){
+                    tvCayDangTuoi.setVisibility(View.VISIBLE);
+                    tvCayDangTuoi.setText("Cây bạn đang tưới: "+user.getTreeWatering());
+                } else {
+                    tvCayDangTuoi.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
@@ -78,26 +105,17 @@ public class FragmentBanDo extends Fragment{
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
                 googleMap.setMyLocationEnabled(true);
-
+                addTree();
                 Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
                 Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_station);
 
                 int height = 50;
                 int width = 50;
-                Bitmap smallMarker = Bitmap.createScaledBitmap(img, width, height, false);
-                BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(smallMarker);
+
 
                 Bitmap smallMarkerWater  = Bitmap.createScaledBitmap(imgWater, width, height, false);
                 BitmapDescriptor bitmapDescriptorWater = BitmapDescriptorFactory.fromBitmap(smallMarkerWater);
-                for(int i = 0; i < listTree.size(); i++) {
-                    Marker marker = googleMap.addMarker(new MarkerOptions()
-                            .position(listTree.get(i))
-                            .title("D35_XC1110")
-                            .snippet("Population: 4,137,400")
-                            .icon(bitmapDescriptor)
-                    );
-                    marker.setTag(0);
-                }
+
 
                 for(int i = 0; i < listWaterStation.size(); i++) {
                     Marker marker = googleMap.addMarker(new MarkerOptions()
@@ -121,6 +139,7 @@ public class FragmentBanDo extends Fragment{
                         Integer clickCount = (Integer) marker.getTag();
                         if (clickCount.compareTo(0) == 0) {
                             Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
+                            intent.putExtra(Contants.KEYTREE,marker.getTitle());
                             startActivity(intent);
 
                         }else if(clickCount.compareTo(1) == 0){
@@ -141,20 +160,52 @@ public class FragmentBanDo extends Fragment{
 
         return view;
     }
+   private void addMarker(Tree tree) {
+       final Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
+       int height = 50;
+       int width = 50;
+       final Bitmap smallMarker = Bitmap.createScaledBitmap(img, width, height, false);
+       final BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(smallMarker);
+       Marker marker = googleMap.addMarker(new MarkerOptions()
+               .position(new LatLng(tree.getLatitude(),tree.getLongitude()))
+               .title(tree.getMaCay())
+               .snippet(tree.getTenCay())
+               .icon(bitmapDescriptor)
+       );
+       marker.setTag(0);
+   }
 
+    private void addTree(){
 
-    private  void addTree(){
-        LatLng tree01 = new LatLng(21.004364, 105.843980);
-        LatLng tree02 = new LatLng(21.004364, 105.847322);
-        LatLng tree03 = new LatLng(21.005639, 105.846886);
-        LatLng tree04 = new LatLng(21.006237,105.846110);
-        LatLng tree05 = new LatLng(21.006447,105.842307);
-        listTree.add(tree01);
-        listTree.add(tree02);
-        listTree.add(tree03);
-        listTree.add(tree04);
-        listTree.add(tree05);
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Tree tree = dataSnapshot.getValue(Tree.class);
+                addMarker(tree);
 
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        FirebaseDatabase.getInstance().getReference().child("trees").addChildEventListener(childEventListener);
     }
 
     private  void addWaterStation(){

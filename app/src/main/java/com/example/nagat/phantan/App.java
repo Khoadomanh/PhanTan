@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.example.nagat.phantan.ui.Utils;
+import com.example.nagat.phantan.utils.DummyData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-
+//        DummyData.addSensor();
+//        DummyData.addTree();
 //        mGSon = new Gson();
     }
 

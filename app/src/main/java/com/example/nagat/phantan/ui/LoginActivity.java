@@ -71,7 +71,6 @@ public class LoginActivity extends BaseActivity {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();
             mDatabase.setPersistenceEnabled(true);
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
 
         auth = FirebaseAuth.getInstance();

@@ -16,10 +16,19 @@ public class User {
     private String trangThai;
     private boolean gioiTinh;
     private String vaiTro;
+    private String treeWatering;
     private String email;
     private String avatar;
     private double latitude; //vi do
     private double longitude; //kinh do
+
+    public String getTreeWatering() {
+        return treeWatering;
+    }
+
+    public void setTreeWatering(String treeWatering) {
+        this.treeWatering = treeWatering;
+    }
 
     public User() {
 

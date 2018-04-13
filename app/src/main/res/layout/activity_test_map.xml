@@ -9,20 +9,22 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/thongTinCay"/>
     <!--<FrameLayout-->
         <!--android:id="@+id/myMap"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
        <!--/>-->
-    <!--<TextView-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:id="@+id/thongTinCay"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/myMap"-->
-        <!--android:text="Thông tin cây"-->
-        <!--android:textSize="20sp"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:background="@color/colorAccent"/>-->
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/cayDangTuoi"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_height="40dp"
+        android:text="Bạn đang tưới cây: AQ-001"
+        android:textSize="20sp"
+        android:background="#005eff"/>
+
 </RelativeLayout>

@@ -13,8 +13,8 @@ public class Tree {
     private String tenCay;
     private String trangThai;
     private String diaDiem;
-    private long latitude; //vi do
-    private long longitude; //kinh do
+    private double latitude; //vi do
+    private double longitude; //kinh do
     private List<String> hinhAnh = new ArrayList<>();
     private String currentUserWatering; //nguoi hien tai dang tuoi
     private long luongNuocMax;
@@ -31,13 +31,22 @@ public class Tree {
         this.maCay = maCay;
     }
 
-    public Tree(String tenCay, String trangThai, String diaDiem, long latitude, long longitude, List<String> hinhAnh, long luongNuocMax, String maCay) {
+    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude, List<String> hinhAnh, long luongNuocMax, String maCay) {
         this.tenCay = tenCay;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hinhAnh = hinhAnh;
+        this.luongNuocMax = luongNuocMax;
+        this.maCay = maCay;
+    }
+    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude,  long luongNuocMax, String maCay) {
+        this.tenCay = tenCay;
+        this.trangThai = trangThai;
+        this.diaDiem = diaDiem;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.luongNuocMax = luongNuocMax;
         this.maCay = maCay;
     }
@@ -82,19 +91,19 @@ public class Tree {
         this.diaDiem = diaDiem;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
