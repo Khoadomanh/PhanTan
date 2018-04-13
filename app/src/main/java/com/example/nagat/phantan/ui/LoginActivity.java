@@ -32,6 +32,9 @@ public class LoginActivity extends BaseActivity {
     private EditText etUserName,etPassword;
     private TextView tvDangKy;
     private FirebaseAuth auth;
+    public static String SIGN_IN_EMAIL;
+
+    public static FirebaseDatabase mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,12 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        if (mDatabase == null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mDatabase.setPersistenceEnabled(true);
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
+
         auth = FirebaseAuth.getInstance();
 
     }
@@ -95,6 +104,7 @@ public class LoginActivity extends BaseActivity {
 
         // Check auth on Activity start
         if (auth.getCurrentUser() != null) {
+            SIGN_IN_EMAIL = auth.getCurrentUser().getEmail();
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
                     .getCurrentUser().getEmail())).child("trangThai").setValue("online");
@@ -106,7 +116,7 @@ public class LoginActivity extends BaseActivity {
 
     private void logIn() {
         showProgress("Loading...");
-        String username = etUserName.getText().toString();
+        final String username = etUserName.getText().toString();
         String password = etPassword.getText().toString();
 
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -115,6 +125,7 @@ public class LoginActivity extends BaseActivity {
                 Log.d(TAG, "logIn:onComplete:" + task.isSuccessful());
                 hideProgress();
                 if (task.isSuccessful()) {
+                    SIGN_IN_EMAIL = username;
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
                             .getCurrentUser().getEmail())).child("trangThai").setValue("online");

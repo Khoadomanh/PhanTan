@@ -18,9 +18,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.common.GPSTracker;
@@ -31,6 +33,7 @@ import com.example.nagat.phantan.fragment.FragmentListTree;
 import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 import com.example.nagat.phantan.model.User;
+import com.example.nagat.phantan.utils.MyUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +46,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
@@ -53,6 +58,7 @@ public class MainActivity extends BaseActivity
     private int menuId = R.menu.menu_ban_do;
     private String email = FirebaseAuth.getInstance()
             .getCurrentUser().getEmail();
+    private CircleImageView imAvatar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +94,19 @@ public class MainActivity extends BaseActivity
         navTenNguoiDung = headerView.findViewById(R.id.navTenNguoiDung);
         navChucVu = headerView.findViewById(R.id.navChucVu);
         navViTriHienTai = headerView.findViewById(R.id.navViTriHienTai);
+        imAvatar = headerView.findViewById(R.id.imageView);
         initUI();
     }
+
+
+    public void onChangeAvatar(){
+        Glide.with(this).load(MyUtil.PATH_AVATA).into(imAvatar);
+    }
+
+
     private void initUI() {
-        GPSTracker gpsTracker = new GPSTracker(this);
-        gpsTracker.getClassLoader();
+//        GPSTracker gpsTracker = new GPSTracker(this);
+//        gpsTracker.getClassLoader();
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -101,6 +115,12 @@ public class MainActivity extends BaseActivity
                     user = dataSnapshot.getValue(User.class);
                     navTenNguoiDung.setText(user.getTenHienThi());
                     navChucVu.setText(user.getVaiTro());
+                    if(MyUtil.PATH_AVATA == null){
+                        MyUtil.setImageUser(user.getAvatar(),imAvatar);
+                    }
+                    else{
+                        Glide.with(MainActivity.this).load(MyUtil.PATH_AVATA).into(imAvatar);
+                    }
                     Log.e(TAG,"address: "+Utils.getAddressFromLatAndLong(user.getLatitude(),user.getLongitude()));
                     navViTriHienTai.setText(Utils.getAddressFromLatAndLong(user.getLatitude(),user.getLongitude()));
                 }
