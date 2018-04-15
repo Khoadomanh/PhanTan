@@ -5,6 +5,11 @@ import android.net.Uri;
 import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -39,6 +44,12 @@ public class MyUtil {
                 .load(urlPhotoUser).centerCrop()
                 .fitCenter()
                 .into(imageAvatar);
+    }
+    public static String convertLongDateToStringDate(long ngayGio) {
+        Date today = new Date();
+        DateFormat formatter= new SimpleDateFormat("dd-M-yyyy hh:mm:ss a");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        return  formatter.format((long)ngayGio);
     }
 
 }

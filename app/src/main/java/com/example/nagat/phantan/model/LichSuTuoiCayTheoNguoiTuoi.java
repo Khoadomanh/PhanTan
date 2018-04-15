@@ -10,8 +10,8 @@ public class LichSuTuoiCayTheoNguoiTuoi {
 
     private String maCayTuoi;
     private String tenCayTuoi;
-    private long luongNuocTuoi;
-    private Date thoiGianTuoi;
+    private double luongNuocTuoi;
+    private long thoiGianTuoi;
 
     public LichSuTuoiCayTheoNguoiTuoi() {
 
@@ -25,7 +25,7 @@ public class LichSuTuoiCayTheoNguoiTuoi {
         this.maCayTuoi = maCayTuoi;
     }
 
-    public LichSuTuoiCayTheoNguoiTuoi(String tenCayTuoi, long luongNuocTuoi, Date thoiGianTuoi, String maCayTuoi) {
+    public LichSuTuoiCayTheoNguoiTuoi(String tenCayTuoi, long luongNuocTuoi, long thoiGianTuoi, String maCayTuoi) {
         this.tenCayTuoi = tenCayTuoi;
         this.luongNuocTuoi = luongNuocTuoi;
         this.thoiGianTuoi = thoiGianTuoi;
@@ -41,19 +41,19 @@ public class LichSuTuoiCayTheoNguoiTuoi {
         this.tenCayTuoi = tenCayTuoi;
     }
 
-    public long getLuongNuocTuoi() {
+    public double getLuongNuocTuoi() {
         return luongNuocTuoi;
     }
 
-    public void setLuongNuocTuoi(long luongNuocTuoi) {
+    public void setLuongNuocTuoi(double luongNuocTuoi) {
         this.luongNuocTuoi = luongNuocTuoi;
     }
 
-    public Date getThoiGianTuoi() {
+    public long getThoiGianTuoi() {
         return thoiGianTuoi;
     }
 
-    public void setThoiGianTuoi(Date thoiGianTuoi) {
+    public void setThoiGianTuoi(long thoiGianTuoi) {
         this.thoiGianTuoi = thoiGianTuoi;
     }
 }

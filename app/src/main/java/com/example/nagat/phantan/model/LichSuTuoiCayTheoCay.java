@@ -10,8 +10,8 @@ public class LichSuTuoiCayTheoCay {
 
     private String tenNguoiTuoi;
     private String maNguoiTuoi;
-    private long luongNuocTuoi;
-    private Date ngayGioTuoi;
+    private double luongNuocTuoi;
+    private long ngayGioTuoi;
 
     public LichSuTuoiCayTheoCay()  {
 
@@ -33,23 +33,23 @@ public class LichSuTuoiCayTheoCay {
         this.maNguoiTuoi = maNguoiTuoi;
     }
 
-    public long getLuongNuocTuoi() {
+    public double getLuongNuocTuoi() {
         return luongNuocTuoi;
     }
 
-    public void setLuongNuocTuoi(long luongNuocTuoi) {
+    public void setLuongNuocTuoi(double luongNuocTuoi) {
         this.luongNuocTuoi = luongNuocTuoi;
     }
 
-    public Date getNgayGioTuoi() {
+    public long getNgayGioTuoi() {
         return ngayGioTuoi;
     }
 
-    public void setNgayGioTuoi(Date ngayGioTuoi) {
+    public void setNgayGioTuoi(long ngayGioTuoi) {
         this.ngayGioTuoi = ngayGioTuoi;
     }
 
-    public LichSuTuoiCayTheoCay(String tenNguoiTuoi, String maNguoiTuoi, long luongNuocTuoi, Date ngayGioTuoi) {
+    public LichSuTuoiCayTheoCay(String tenNguoiTuoi, String maNguoiTuoi, long luongNuocTuoi, long ngayGioTuoi) {
 
         this.tenNguoiTuoi = tenNguoiTuoi;
         this.maNguoiTuoi = maNguoiTuoi;

@@ -78,6 +78,7 @@ public class FragmentBanDo extends Fragment{
                 User user = dataSnapshot.getValue(User.class);
                 if (user.getTreeWatering()!=null ){
                     tvCayDangTuoi.setVisibility(View.VISIBLE);
+                    cayDangTuoi = user.getTreeWatering();
                     tvCayDangTuoi.setText("Cây bạn đang tưới: "+user.getTreeWatering());
                 } else {
                     tvCayDangTuoi.setVisibility(View.GONE);
@@ -87,6 +88,14 @@ public class FragmentBanDo extends Fragment{
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        tvCayDangTuoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
+                intent.putExtra(Contants.KEYTREE,cayDangTuoi);
+                startActivity(intent);
             }
         });
         mMapView.onCreate(savedInstanceState);

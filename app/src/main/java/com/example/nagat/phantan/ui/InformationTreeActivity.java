@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
+import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.utils.Contants;
@@ -24,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class InformationTreeActivity extends BaseActivity {
     private String keyTree;
@@ -40,7 +44,11 @@ public class InformationTreeActivity extends BaseActivity {
     private double luongNuocMax;
     private String idNguoiDangNhap;
     private ArrayList<ImageView> arrHinhAnh = new ArrayList<>();
-
+    private String maSensor;
+    private String tenCay;
+    private TextView tvLuongNuocDaTuoi;
+    private TextView tvLuongNuocHienTai;
+    private TextView tvLuongNuocMax;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,9 @@ public class InformationTreeActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         idNguoiDangNhap = Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL);
         //setColor statusbar
+        tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
+        tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
+        tvLuongNuocMax = findViewById(R.id.luongNuocMax);
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -66,12 +77,18 @@ public class InformationTreeActivity extends BaseActivity {
         tvDiaDiemTree = findViewById(R.id.address_tree);
         luongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         seekBar = findViewById(R.id.mSeekBar);
-        seekBar.setEnabled(false);
+        seekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         btTuoiCay = findViewById(R.id.btTuoiCay);
         btTuoiCay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(idNguoiDangNhap);
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(keyTree);
             }
         });
         btTuoiCayXong = findViewById(R.id.btDoneWater);
@@ -80,7 +97,10 @@ public class InformationTreeActivity extends BaseActivity {
             public void onClick(View v) {
                 //khi nguoi dung an vao tuoi cay xong
                 FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
+                setHistory();
                 //set lich su tuoi cay is here;
+
             }
         });
         tvNguoiDangTuoi = findViewById(R.id.currentWater);
@@ -96,8 +116,10 @@ public class InformationTreeActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Tree tree = dataSnapshot.getValue(Tree.class);
                 tvTenTree.setText(tree.getTenCay());
+                tenCay = tree.getTenCay();
                 tvDiaDiemTree.setText(tree.getDiaDiem());
                 luongNuocMax = tree.getLuongNuocMax();
+                tvLuongNuocMax.setText(luongNuocMax+" ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);
                 if (tree.getHinhAnh() != null) {
@@ -132,7 +154,8 @@ public class InformationTreeActivity extends BaseActivity {
                             if (!treeWatering.equals(keyTree)) {
                                 btTuoiCayXong.setVisibility(View.GONE);
                                 btTuoiCay.setVisibility(View.GONE);
-                                tvNguoiDangTuoi.setVisibility(View.GONE);
+                                tvNguoiDangTuoi.setVisibility(View.VISIBLE);
+                                tvNguoiDangTuoi.setText("Bạn đang tưới cây: " +treeWatering);
                             }
                         }
                     }
@@ -142,6 +165,7 @@ public class InformationTreeActivity extends BaseActivity {
 
                     }
                 });
+                maSensor = tree.getMaSensor();
                 getSensor(tree.getMaSensor());
             }
 
@@ -151,15 +175,42 @@ public class InformationTreeActivity extends BaseActivity {
             }
         };
         FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).addValueEventListener(valueEventListenerTree);
+    }
+    private void setHistory() {
+        FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Sensor sensor = dataSnapshot.getValue(Sensor.class);
+                LichSuTuoiCayTheoCay lichSuTuoiCayTheoCay = new LichSuTuoiCayTheoCay();
+                lichSuTuoiCayTheoCay.setMaNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
+                lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
+                lichSuTuoiCayTheoCay.setTenNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).push().setValue(lichSuTuoiCayTheoCay);
+                LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
+                lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
+                lichSuTuoiCayTheoNguoiTuoi.setMaCayTuoi(keyTree);
+                lichSuTuoiCayTheoNguoiTuoi.setTenCayTuoi(tenCay);
+                lichSuTuoiCayTheoNguoiTuoi.setThoiGianTuoi(System.currentTimeMillis());
+                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoNguoiTuoi").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child(keyTree).push().setValue(lichSuTuoiCayTheoNguoiTuoi);
+                FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).child("luongNuocTruocDo").setValue(sensor.getLuongNuocHienTai());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
-
     private void getSensor(String maSensor) {
         valueEventListenerSensor = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Sensor sensor = dataSnapshot.getValue(Sensor.class);
                 seekBar.setProgress((int) sensor.getLuongNuocHienTai());
+                tvLuongNuocHienTai.setText(sensor.getLuongNuocHienTai()+" ml");
             }
 
             @Override

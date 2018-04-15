@@ -6,14 +6,14 @@ package com.example.nagat.phantan.model;
 
 public class Sensor {
     private String idSensor;
-    private long luongNuocHienTai;
-    private long luongNuocTruocDo;
+    private double luongNuocHienTai;
+    private double luongNuocTruocDo;
     private String maCayKetNoi;
     public Sensor() {
 
     }
 
-    public Sensor(String idSensor, long luongNuocHienTai, long luongNuocTruocDo, String maCayKetNoi) {
+    public Sensor(String idSensor, double luongNuocHienTai, double luongNuocTruocDo, String maCayKetNoi) {
         this.idSensor = idSensor;
         this.luongNuocHienTai = luongNuocHienTai;
         this.luongNuocTruocDo = luongNuocTruocDo;
@@ -28,19 +28,19 @@ public class Sensor {
         this.idSensor = idSensor;
     }
 
-    public long getLuongNuocHienTai() {
+    public double getLuongNuocHienTai() {
         return luongNuocHienTai;
     }
 
-    public void setLuongNuocHienTai(long luongNuocHienTai) {
+    public void setLuongNuocHienTai(double luongNuocHienTai) {
         this.luongNuocHienTai = luongNuocHienTai;
     }
 
-    public long getLuongNuocTruocDo() {
+    public double getLuongNuocTruocDo() {
         return luongNuocTruocDo;
     }
 
-    public void setLuongNuocTruocDo(long luongNuocTruocDo) {
+    public void setLuongNuocTruocDo(double luongNuocTruocDo) {
         this.luongNuocTruocDo = luongNuocTruocDo;
     }
 
