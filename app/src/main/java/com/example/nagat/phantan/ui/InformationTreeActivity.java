@@ -49,6 +49,7 @@ public class InformationTreeActivity extends BaseActivity {
     private TextView tvLuongNuocDaTuoi;
     private TextView tvLuongNuocHienTai;
     private TextView tvLuongNuocMax;
+    private Button btLichSuCay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,13 @@ public class InformationTreeActivity extends BaseActivity {
         tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
         tvLuongNuocMax = findViewById(R.id.luongNuocMax);
+        btLichSuCay = findViewById(R.id.btLichSu);
+        btLichSuCay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //mo fragment lich su tuoi cay theo cay;
+            }
+        });
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -186,13 +194,13 @@ public class InformationTreeActivity extends BaseActivity {
                 lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
                 lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
                 lichSuTuoiCayTheoCay.setTenNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
-                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).push().setValue(lichSuTuoiCayTheoCay);
+                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
                 LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
                 lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
                 lichSuTuoiCayTheoNguoiTuoi.setMaCayTuoi(keyTree);
                 lichSuTuoiCayTheoNguoiTuoi.setTenCayTuoi(tenCay);
                 lichSuTuoiCayTheoNguoiTuoi.setThoiGianTuoi(System.currentTimeMillis());
-                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoNguoiTuoi").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child(keyTree).push().setValue(lichSuTuoiCayTheoNguoiTuoi);
+                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoNguoiTuoi").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).push().setValue(lichSuTuoiCayTheoNguoiTuoi);
                 FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).child("luongNuocTruocDo").setValue(sensor.getLuongNuocHienTai());
             }
 

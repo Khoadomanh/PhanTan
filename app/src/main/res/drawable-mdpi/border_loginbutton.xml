@@ -5,7 +5,7 @@
 
     <!-- Set color background-->
     <solid
-        android:color="@color/colorAccent" >
+        android:color="#00ff95" >
     </solid>
 
     <!-- Set the color attributes and width of the path -->

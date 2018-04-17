@@ -214,26 +214,36 @@
                 android:layout_below="@id/main_view"
                 >
                 <Button
-                    android:layout_marginLeft="40dp"
-                    android:layout_width="120dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/border_loginbutton"
                     android:id="@+id/btLichSu"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/border_loginbutton"
                     android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:text="Lịch sử tưới cây">
+                    android:textSize="12sp"
+                    android:text="Lịch sử tưới">
 
                 </Button>
                 <Button
-                    android:layout_marginLeft="50dp"
-                    android:layout_width="120dp"
+                    android:id="@+id/btReport"
+                    android:layout_centerInParent="true"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:background="@drawable/border_loginbutton"
-                    android:id="@+id/btReport"
-                    android:layout_toRightOf="@+id/btLichSu"
                     android:textColor="#fff"
                     android:textSize="12sp"
                     android:text="Báo cáo tình trạng cây">
+
+                </Button>
+                <Button
+                    android:id="@+id/btTimDuong"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_loginbutton"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#fff"
+                    android:textSize="12sp"
+                    android:text="Tìm đường">
 
                 </Button>
             </RelativeLayout>
