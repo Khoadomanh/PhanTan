@@ -21,10 +21,13 @@ import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.utils.Contants;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +53,9 @@ public class InformationTreeActivity extends BaseActivity {
     private TextView tvLuongNuocHienTai;
     private TextView tvLuongNuocMax;
     private Button btLichSuCay;
+    private Button btTimDuongToiCay;
+    private double latitude;
+    private double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +74,14 @@ public class InformationTreeActivity extends BaseActivity {
         tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
         tvLuongNuocMax = findViewById(R.id.luongNuocMax);
+        btTimDuongToiCay = findViewById(R.id.btTimDuong);
+        btTimDuongToiCay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new LatLng(latitude,longitude));
+                onBackPressed();
+            }
+        });
         btLichSuCay = findViewById(R.id.btLichSu);
         btLichSuCay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +141,8 @@ public class InformationTreeActivity extends BaseActivity {
                 tenCay = tree.getTenCay();
                 tvDiaDiemTree.setText(tree.getDiaDiem());
                 luongNuocMax = tree.getLuongNuocMax();
+                latitude = tree.getLatitude();
+                longitude = tree.getLongitude();
                 tvLuongNuocMax.setText(luongNuocMax+" ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);

@@ -3,7 +3,17 @@ package com.example.nagat.phantan.utils;
 import android.net.Uri;
 
 import com.bumptech.glide.Glide;
+import com.example.nagat.phantan.App;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.common.GPSTracker;
+import com.example.nagat.phantan.model.User;
+import com.example.nagat.phantan.ui.Utils;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -61,4 +71,12 @@ public class MyUtil {
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         return  formatter.format((long)ngayGio);
     }
+    private static GPSTracker gps;
+    public static LatLng getLocationUser() {
+        gps = new GPSTracker(App.self());
+        return new LatLng(gps.getLatitude(),gps.getLongitude());
+
+
+    }
+
 }
