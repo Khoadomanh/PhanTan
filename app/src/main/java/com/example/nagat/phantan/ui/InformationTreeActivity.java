@@ -20,6 +20,7 @@ import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.utils.Contants;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
@@ -170,10 +171,13 @@ public class InformationTreeActivity extends BaseActivity {
                     btTuoiCay.setVisibility(View.VISIBLE);
                     tvNguoiDangTuoi.setVisibility(View.GONE);
                 }
-                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String treeWatering = dataSnapshot.getValue(String.class);
+                        User user = dataSnapshot.getValue(User.class);
+                        String treeWatering = user.getTreeWatering();
+                        maNguoiTuoi = user.getMaUser();
+                        tenNguoiTuoi = user.getTenHienThi();
                         if (treeWatering!=null ){
                             if (!treeWatering.equals(keyTree)) {
                                 btTuoiCayXong.setVisibility(View.GONE);
@@ -200,16 +204,18 @@ public class InformationTreeActivity extends BaseActivity {
         };
         FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).addValueEventListener(valueEventListenerTree);
     }
+    private String maNguoiTuoi;
+    private String tenNguoiTuoi;
     private void setHistory() {
         FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Sensor sensor = dataSnapshot.getValue(Sensor.class);
                 LichSuTuoiCayTheoCay lichSuTuoiCayTheoCay = new LichSuTuoiCayTheoCay();
-                lichSuTuoiCayTheoCay.setMaNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                lichSuTuoiCayTheoCay.setMaNguoiTuoi(maNguoiTuoi);
                 lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
                 lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
-                lichSuTuoiCayTheoCay.setTenNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                lichSuTuoiCayTheoCay.setTenNguoiTuoi(tenNguoiTuoi);
                 FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
                 LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
                 lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
