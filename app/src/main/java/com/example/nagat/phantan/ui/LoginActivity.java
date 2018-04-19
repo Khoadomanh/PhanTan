@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.common.GPSTracker;
+import com.example.nagat.phantan.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,7 +41,7 @@ public class LoginActivity extends BaseActivity {
     private TextView tvDangKy;
     private FirebaseAuth auth;
     public static String SIGN_IN_EMAIL;
-
+    public static User USERCURRENT;
     public static FirebaseDatabase mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

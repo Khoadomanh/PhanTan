@@ -1,8 +1,11 @@
 package com.example.nagat.phantan.ui;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,6 +20,9 @@ import android.widget.TextView;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.adapter.HistoryWaterTreeForTreeAdapter;
+import com.example.nagat.phantan.fragment.FragmentHistoryWater;
+import com.example.nagat.phantan.fragment.FragmentWaterTreeForTree;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
@@ -27,6 +33,7 @@ import com.example.nagat.phantan.utils.MyUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -89,7 +96,12 @@ public class InformationTreeActivity extends BaseActivity {
         btLichSuCay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mo fragment lich su tuoi cay theo cay;
+                FragmentWaterTreeForTree fragmentHistoryWater = new FragmentWaterTreeForTree(keyTree);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.full,fragmentHistoryWater);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         Window window = getWindow();
@@ -112,7 +124,7 @@ public class InformationTreeActivity extends BaseActivity {
         btTuoiCay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(idNguoiDangNhap);
+                FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(MainActivity.USERCURRENT);
                 FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(keyTree);
             }
         });
@@ -164,7 +176,7 @@ public class InformationTreeActivity extends BaseActivity {
                     //set hinh anh is here;
                 }
                 if (tree.getCurrentUserWatering() != null) {
-                    if (tree.getCurrentUserWatering().equals(idNguoiDangNhap)) {
+                    if (Utils.usernameFromEmail(tree.getCurrentUserWatering().getEmail()).equals(idNguoiDangNhap)) {
                         btTuoiCayXong.setVisibility(View.VISIBLE);
                         btTuoiCay.setVisibility(View.GONE);
                         tvNguoiDangTuoi.setVisibility(View.GONE);
@@ -172,7 +184,7 @@ public class InformationTreeActivity extends BaseActivity {
                         btTuoiCayXong.setVisibility(View.GONE);
                         btTuoiCay.setVisibility(View.GONE);
                         tvNguoiDangTuoi.setVisibility(View.VISIBLE);
-                        tvNguoiDangTuoi.setText("Người đang tưới: "+tree.getCurrentUserWatering());
+                        tvNguoiDangTuoi.setText("Người đang tưới: "+tree.getCurrentUserWatering().getMaUser());
                     } else {
                         btTuoiCayXong.setVisibility(View.GONE);
                         btTuoiCay.setVisibility(View.VISIBLE);
@@ -191,6 +203,7 @@ public class InformationTreeActivity extends BaseActivity {
                         String treeWatering = user.getTreeWatering();
                         maNguoiTuoi = user.getMaUser();
                         tenNguoiTuoi = user.getTenHienThi();
+                        vaiTroNguoiTuoi = user.getVaiTro();
                         if (treeWatering!=null ){
                             if (!treeWatering.equals(keyTree)) {
                                 btTuoiCayXong.setVisibility(View.GONE);
@@ -219,6 +232,7 @@ public class InformationTreeActivity extends BaseActivity {
     }
     private String maNguoiTuoi;
     private String tenNguoiTuoi;
+    private String vaiTroNguoiTuoi;
     private void setHistory() {
         FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -229,6 +243,7 @@ public class InformationTreeActivity extends BaseActivity {
                 lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
                 lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
                 lichSuTuoiCayTheoCay.setTenNguoiTuoi(tenNguoiTuoi);
+                lichSuTuoiCayTheoCay.setVaiTroNguoiToi(vaiTroNguoiTuoi);
                 FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
                 LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
                 lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());

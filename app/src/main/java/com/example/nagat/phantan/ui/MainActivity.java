@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.adapter.HistoryWaterTreeAdapter;
 import com.example.nagat.phantan.common.GPSTracker;
 import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
@@ -34,6 +35,7 @@ import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.utils.MyUtil;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,7 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    public static User USERCURRENT;
     private static final int INITIAL_REQUEST=1337;
     private static final String[] INITIAL_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -118,6 +122,7 @@ public class MainActivity extends BaseActivity
                 User user;
                 if (dataSnapshot!=null) {
                     user = dataSnapshot.getValue(User.class);
+                    USERCURRENT = user;
                     navTenNguoiDung.setText(user.getTenHienThi());
                     navChucVu.setText(user.getVaiTro());
                     if(MyUtil.PATH_AVATA == null){

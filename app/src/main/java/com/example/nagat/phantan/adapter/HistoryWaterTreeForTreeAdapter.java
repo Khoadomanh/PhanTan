@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
+import com.example.nagat.phantan.ui.Utils;
+import com.example.nagat.phantan.utils.Contants;
 import com.example.nagat.phantan.utils.MyUtil;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -104,7 +107,7 @@ public class HistoryWaterTreeForTreeAdapter extends RecyclerView.Adapter<History
     @Override
     public ListHistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = layoutInflater
-                .inflate(R.layout.item_history, parent, false);
+                .inflate(R.layout.item_history_water_tree, parent, false);
 
         return new ListHistoryViewHolder(itemView);
     }
@@ -112,6 +115,17 @@ public class HistoryWaterTreeForTreeAdapter extends RecyclerView.Adapter<History
     @Override
     public void onBindViewHolder(ListHistoryViewHolder holder, int position) {
         LichSuTuoiCayTheoCay ls = list.get(position);
+        if (ls.getVaiTroNguoiToi().equals(Contants.TINH_NGUYEN_VIEN)) {
+            //set Image tinh nguyen vien
+        } else if (ls.getVaiTroNguoiToi().equals(Contants.NHAN_VIEN)) {
+            //set Image nhan vien;
+        } else {
+            //set image cho admin;
+        }
+        holder.tv_date_history_water.setText(MyUtil.converLongDateToStringNgayThangName(ls.getNgayGioTuoi()));
+        holder.tv_time_history_water.setText(MyUtil.converLongDateToStringGioPhut(ls.getNgayGioTuoi()));
+        holder.tv_water.setText(ls.getLuongNuocTuoi()+" ml");
+        holder.tv_name_people_history.setText(ls.getMaNguoiTuoi() +" "+ls.getTenNguoiTuoi());
 
     }
 
@@ -121,19 +135,21 @@ public class HistoryWaterTreeForTreeAdapter extends RecyclerView.Adapter<History
     }
 
     public class ListHistoryViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNgayTuoi;
-        TextView tvMaCay;
-        TextView tvTenCay;
-        TextView tvLuongNuocTuoi;
-        TextView tvThoiGianTuoiTheoGioPhut;
+
+        ImageView img_role_people;
+        TextView tv_date_history_water;
+        TextView tv_time_history_water;
+        TextView tv_water;
+        TextView tv_name_people_history;
 
         public ListHistoryViewHolder(View itemView) {
             super(itemView);
-            tvNgayTuoi = itemView.findViewById(R.id.date_water);
-            tvMaCay = itemView.findViewById(R.id.maCay);
-            tvTenCay = itemView.findViewById(R.id.tenCay);
-            tvLuongNuocTuoi = itemView.findViewById(R.id.luongNuocTuoi);
-            tvThoiGianTuoiTheoGioPhut = itemView.findViewById(R.id.thoiGianTuoi);
+
+            img_role_people = itemView.findViewById(R.id.img_role_people);
+            tv_date_history_water = itemView.findViewById(R.id.tv_date_history_water);
+            tv_time_history_water = itemView.findViewById(R.id.tv_time_history_water);
+            tv_water = itemView.findViewById(R.id.tv_water);
+            tv_name_people_history = itemView.findViewById(R.id.tv_name_people_history);
         }
     }
 }

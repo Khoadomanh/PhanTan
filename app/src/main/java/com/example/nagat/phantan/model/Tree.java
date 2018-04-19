@@ -16,7 +16,7 @@ public class Tree {
     private double latitude; //vi do
     private double longitude; //kinh do
     private List<String> hinhAnh = new ArrayList<>();
-    private String currentUserWatering; //nguoi hien tai dang tuoi
+    private User currentUserWatering; //nguoi hien tai dang tuoi
     private long luongNuocMax;
     private String maSensor; //sensor gan' voi cay
     public Tree() {
@@ -59,11 +59,11 @@ public class Tree {
         this.maSensor = maSensor;
     }
 
-    public String getCurrentUserWatering() {
+    public User getCurrentUserWatering() {
         return currentUserWatering;
     }
 
-    public void setCurrentUserWatering(String currentUserWatering) {
+    public void setCurrentUserWatering(User currentUserWatering) {
         this.currentUserWatering = currentUserWatering;
     }
 

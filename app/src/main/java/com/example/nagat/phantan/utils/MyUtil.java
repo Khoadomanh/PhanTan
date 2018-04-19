@@ -84,6 +84,11 @@ public class MyUtil {
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         return  formatter.format((long)ngayGio);
     }
+    public static String converLongDateToStringNgayThangName(long ngayGio) {
+        DateFormat formatter= new SimpleDateFormat("dd-M-yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        return  formatter.format((long)ngayGio);
+    }
     public static String converLongDateToStringGioPhut(long ngayGio) {
         DateFormat formatter= new SimpleDateFormat("hh:mm a");
         formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));

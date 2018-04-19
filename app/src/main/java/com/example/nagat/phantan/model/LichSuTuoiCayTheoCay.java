@@ -12,6 +12,15 @@ public class LichSuTuoiCayTheoCay {
     private String maNguoiTuoi;
     private double luongNuocTuoi;
     private long ngayGioTuoi;
+    private String vaiTroNguoiToi;
+
+    public String getVaiTroNguoiToi() {
+        return vaiTroNguoiToi;
+    }
+
+    public void setVaiTroNguoiToi(String vaiTroNguoiToi) {
+        this.vaiTroNguoiToi = vaiTroNguoiToi;
+    }
 
     public LichSuTuoiCayTheoCay()  {
 
