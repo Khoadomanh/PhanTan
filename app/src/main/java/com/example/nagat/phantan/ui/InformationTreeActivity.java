@@ -1,5 +1,6 @@
 package com.example.nagat.phantan.ui;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -20,11 +21,16 @@ import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.utils.Contants;
+import com.example.nagat.phantan.utils.MyUtil;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +56,9 @@ public class InformationTreeActivity extends BaseActivity {
     private TextView tvLuongNuocHienTai;
     private TextView tvLuongNuocMax;
     private Button btLichSuCay;
+    private Button btTimDuongToiCay;
+    private double latitude;
+    private double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +77,14 @@ public class InformationTreeActivity extends BaseActivity {
         tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
         tvLuongNuocMax = findViewById(R.id.luongNuocMax);
+        btTimDuongToiCay = findViewById(R.id.btTimDuong);
+        btTimDuongToiCay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new LatLng(latitude,longitude));
+                onBackPressed();
+            }
+        });
         btLichSuCay = findViewById(R.id.btLichSu);
         btLichSuCay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,9 +121,20 @@ public class InformationTreeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //khi nguoi dung an vao tuoi cay xong
-                FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
-                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
-                setHistory();
+                MyUtil.showDialog(InformationTreeActivity.this, "Tưới Cây Xong", "Bạn có chắc đã hoàn thành việc tưới cây?", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
+                        FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
+                        setHistory();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // click no dothing
+                    }
+                });
+
                 //set lich su tuoi cay is here;
 
             }
@@ -127,6 +155,8 @@ public class InformationTreeActivity extends BaseActivity {
                 tenCay = tree.getTenCay();
                 tvDiaDiemTree.setText(tree.getDiaDiem());
                 luongNuocMax = tree.getLuongNuocMax();
+                latitude = tree.getLatitude();
+                longitude = tree.getLongitude();
                 tvLuongNuocMax.setText(luongNuocMax+" ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);
@@ -154,10 +184,13 @@ public class InformationTreeActivity extends BaseActivity {
                     btTuoiCay.setVisibility(View.VISIBLE);
                     tvNguoiDangTuoi.setVisibility(View.GONE);
                 }
-                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String treeWatering = dataSnapshot.getValue(String.class);
+                        User user = dataSnapshot.getValue(User.class);
+                        String treeWatering = user.getTreeWatering();
+                        maNguoiTuoi = user.getMaUser();
+                        tenNguoiTuoi = user.getTenHienThi();
                         if (treeWatering!=null ){
                             if (!treeWatering.equals(keyTree)) {
                                 btTuoiCayXong.setVisibility(View.GONE);
@@ -184,16 +217,18 @@ public class InformationTreeActivity extends BaseActivity {
         };
         FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).addValueEventListener(valueEventListenerTree);
     }
+    private String maNguoiTuoi;
+    private String tenNguoiTuoi;
     private void setHistory() {
         FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Sensor sensor = dataSnapshot.getValue(Sensor.class);
                 LichSuTuoiCayTheoCay lichSuTuoiCayTheoCay = new LichSuTuoiCayTheoCay();
-                lichSuTuoiCayTheoCay.setMaNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                lichSuTuoiCayTheoCay.setMaNguoiTuoi(maNguoiTuoi);
                 lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
                 lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
-                lichSuTuoiCayTheoCay.setTenNguoiTuoi(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
+                lichSuTuoiCayTheoCay.setTenNguoiTuoi(tenNguoiTuoi);
                 FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
                 LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
                 lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());

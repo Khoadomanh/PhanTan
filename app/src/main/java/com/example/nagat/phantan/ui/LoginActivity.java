@@ -1,6 +1,8 @@
 package com.example.nagat.phantan.ui;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.common.GPSTracker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,6 +28,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
@@ -107,9 +114,37 @@ public class LoginActivity extends BaseActivity {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
                     .getCurrentUser().getEmail())).child("trangThai").setValue("online");
+            //get Location user;
+            gps = new GPSTracker(this);
+
+            // check if GPS enabled
+            if (gps.canGetLocation()) {
+                geocoder();
+
+
+                // \n is for new line
+//            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            } else {
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                gps.showSettingsAlert();
+            }
             startActivity(intent);
             finish();
         }
+
+    }
+    private double latitude;
+    private double longitude;
+    private GPSTracker gps;
+    public void geocoder() {
+        latitude = gps.getLatitude();
+        longitude = gps.getLongitude();
+        FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                .getCurrentUser().getEmail())).child("latitude").setValue(latitude);
+        FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
+                .getCurrentUser().getEmail())).child("longitude").setValue(longitude);
 
     }
 
