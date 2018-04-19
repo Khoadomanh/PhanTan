@@ -1,5 +1,6 @@
 package com.example.nagat.phantan.ui;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +23,7 @@ import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.model.User;
 import com.example.nagat.phantan.utils.Contants;
+import com.example.nagat.phantan.utils.MyUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -119,9 +121,20 @@ public class InformationTreeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //khi nguoi dung an vao tuoi cay xong
-                FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
-                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
-                setHistory();
+                MyUtil.showDialog(InformationTreeActivity.this, "Tưới Cây Xong", "Bạn có chắc đã hoàn thành việc tưới cây?", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
+                        FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
+                        setHistory();
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // click no dothing
+                    }
+                });
+
                 //set lich su tuoi cay is here;
 
             }

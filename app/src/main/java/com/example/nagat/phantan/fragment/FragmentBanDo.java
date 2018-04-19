@@ -1,14 +1,17 @@
 package com.example.nagat.phantan.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,10 +87,12 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     }
     private TextView tvCayDangTuoi;
     private EventBus eventBus;
-
+    private boolean mIsDetachedFromWindow = false;
+    private ProgressDialog mProgressDialog;
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public void onEvent(LatLng latLgnEnd) {
         Log.e("Khoado","latTree = " + latLgnEnd.latitude);
+        showProcess("Loading...");
         drawPathBetweenTwoPoint(MyUtil.getLocationUser(),latLgnEnd);
         Log.e("Khoado","latUser = " + MyUtil.getLocationUser().latitude);
         if (line!=null) {
@@ -95,7 +100,23 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             line.remove();
         }
     }
+    private void showProcess(String message) {
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        if (!TextUtils.isEmpty(message)) {
+            mProgressDialog.setMessage(message);
+        }
 
+
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+    public synchronized void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing() && !mIsDetachedFromWindow) {
+            mProgressDialog.dismiss();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -308,6 +329,14 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(MELBOURNE).zoom(16).build();
         this.mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("latitude").setValue(location.getLatitude());
+                FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("longitude").setValue(location.getLongitude());
+                Log.e("khoado","location change: lat = "+location.getLatitude() );
+            }
+        });
 
     }
 
@@ -402,6 +431,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             if (lineOptions!=null) {
                 line = mMap.addPolyline(lineOptions);
             }
+            hideProgress();
 
         }
     }
