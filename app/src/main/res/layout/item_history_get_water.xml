@@ -15,7 +15,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_name_computer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/margin_small"
@@ -34,7 +33,6 @@
             android:textSize="@dimen/text_size_middle" />
 
         <TextView
-            android:id="@+id/tv_status_item_list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/margin_small"
@@ -44,7 +42,7 @@
             android:textSize="@dimen/text_size_middle" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -101,7 +99,6 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tv_title_time_start_item_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

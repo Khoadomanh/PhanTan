@@ -5,7 +5,7 @@
 
     <!-- Set color background-->
     <solid
-        android:color="#00ff95" >
+        android:color="#fc3e8a" >
     </solid>
 
     <!-- Set the color attributes and width of the path -->
@@ -24,7 +24,7 @@
 
     <!--Circle radius at 4 corners -->
     <corners
-        android:radius="10dp" >
+        android:radius="5dp" >
     </corners>
 
 </shape>

@@ -8,13 +8,15 @@
     android:orientation="horizontal"
     android:paddingLeft="10dp"
     android:paddingTop="5dp"
-    android:weightSum="4">
+    android:weightSum="4"
+    android:layout_margin="8dp">
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_weight="3"
     android:padding="@dimen/padding_small">
     <ImageView
+        android:id="@+id/img_role_people"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/ic_list_tree"/>
@@ -41,7 +43,7 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
-                android:id="@+id/tv_time_history_water"
+                android:id="@+id/tv_date_history_water"
                 android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -65,7 +67,7 @@
                 android:textSize="@dimen/text_size_middle" />
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_time_history_water"
                 android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -95,7 +97,7 @@
                     android:textSize="@dimen/text_size_middle" />
 
                 <TextView
-                    android:id="@+id/tv_time_depart"
+                    android:id="@+id/tv_water"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -132,7 +134,7 @@
                     android:textSize="@dimen/text_size_middle"/>
 
                 <TextView
-                    android:id="@+id/tv_name_people"
+                    android:id="@+id/tv_name_people_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

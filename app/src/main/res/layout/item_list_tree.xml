@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="85dp"
+    android:layout_height="95dp"
     android:background="@drawable/bg_white_corners"
     android:layout_margin="5dp"
     android:elevation="2dp">
 
     <ImageView
-        android:id="@+id/ivTree"
+        android:id="@+id/iv_tree_list"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_tree"/>
@@ -18,24 +18,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/ivTree"
+        android:layout_toEndOf="@id/iv_tree_list"
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/tvIDTitle"
+            android:id="@+id/tv_name_tree_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textStyle="bold"
             android:text="D35_XC110: Cây xà cừ"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_middle" />
+        <TextView
+            android:id="@+id/tv_address_tree_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:ellipsize="end"
+            android:layout_below="@id/tv_name_tree_list"
+            android:maxLines="1"
+            android:text="D6 KTX Bách Khoa Hà Nội"
             android:textColor="@color/text_black"
             android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvIDTitle">
+            android:layout_below="@id/tv_address_tree_list">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -49,7 +61,7 @@
                     android:src="@drawable/ic_list_tree" />
 
                 <TextView
-                    android:id="@+id/tvDistance"
+                    android:id="@+id/tv_distance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/ic_location"
@@ -62,10 +74,10 @@
                     android:textStyle="italic|bold" />
 
                 <TextView
-                    android:id="@+id/tvAddress"
+                    android:id="@+id/tv_title_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvDistance"
+                    android:layout_below="@id/tv_distance"
                     android:textSize="13sp"
                     android:text="Trạng thái:"
                     android:textColor="@color/text_black"/>
@@ -84,7 +96,7 @@
                     android:src="@drawable/ic_list_tree" />
 
                 <TextView
-                    android:id="@+id/tvWater"
+                    android:id="@+id/tv_water_current_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/ic_water"
@@ -97,10 +109,10 @@
                     android:textStyle="italic|bold" />
 
                 <TextView
-                    android:id="@+id/tvWaterDetail"
+                    android:id="@+id/tv_status_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvWater"
+                    android:layout_below="@id/tv_water_current_list"
                     android:maxLines="2"
                     android:text="Sống"
                     android:textColor="@color/green"
