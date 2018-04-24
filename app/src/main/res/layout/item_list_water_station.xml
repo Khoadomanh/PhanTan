@@ -6,40 +6,39 @@
     android:layout_margin="5dp"
     android:elevation="2dp">
 
-    <ImageView
-        android:padding="10dp"
-        android:id="@+id/iv_tree_list"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_water_station"
         android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_tree"/>
-
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:src="@drawable/icon_water1"
+        android:tint="#00b7ff"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/iv_tree_list"
+        android:layout_toEndOf="@id/iv_water_station"
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/tv_name_tree_list"
+            android:id="@+id/tv_name_water_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textStyle="bold"
-            android:text="D35_XC110: Cây xà cừ"
+            android:text="D35_TN01: Trạm nước 001"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_middle" />
         <TextView
-            android:id="@+id/tv_address_tree_list"
+            android:id="@+id/tv_address_water_station"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:ellipsize="end"
-            android:layout_below="@id/tv_name_tree_list"
+            android:layout_below="@id/tv_name_water_station"
             android:maxLines="1"
             android:text="D6 KTX Bách Khoa Hà Nội"
             android:textColor="@color/text_black"
@@ -48,7 +47,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_address_tree_list">
+            android:layout_below="@id/tv_address_water_station">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -94,7 +93,7 @@
                     android:id="@+id/ic_water"
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_list_tree" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_water_current_list"
@@ -104,7 +103,6 @@
                     android:layout_alignTop="@id/ic_water"
                     android:layout_toEndOf="@id/ic_water"
                     android:gravity="center_vertical"
-                    android:text="50 l"
                     android:textColor="@color/colorAccent"
                     android:textSize="15sp"
                     android:textStyle="italic|bold" />
@@ -115,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_water_current_list"
                     android:maxLines="2"
-                    android:text="Sống"
+                    android:text="Còn nước"
                     android:textColor="@color/green"
                     android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
@@ -123,4 +121,5 @@
 
         </LinearLayout>
     </RelativeLayout>
+
 </RelativeLayout>

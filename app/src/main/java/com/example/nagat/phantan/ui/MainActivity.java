@@ -31,6 +31,7 @@ import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
 import com.example.nagat.phantan.fragment.FragmentInfor;
 import com.example.nagat.phantan.fragment.FragmentListTree;
+import com.example.nagat.phantan.fragment.FragmentListWaterStation;
 import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 import com.example.nagat.phantan.model.User;
@@ -248,6 +249,10 @@ public class MainActivity extends BaseActivity
             menuId = R.menu.menu_ban_do;
             invalidateOptionsMenu();
 
+        } else if (itemId == R.id.item_list_waterStation) {
+            fragment = new FragmentListWaterStation();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
         }
 
         //replacing the fragment

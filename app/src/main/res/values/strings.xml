@@ -25,5 +25,6 @@
     <string name="role">Vai trò</string>
     <string name="bao_cao_su_co">Báo cáo sự cố</string>
     <string name="select_picture_title">select_title</string>
+    <string name="list_water_station">Danh sách nguồn nước</string>
 
 </resources>

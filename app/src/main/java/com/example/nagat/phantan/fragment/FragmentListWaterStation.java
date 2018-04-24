@@ -1,4 +1,6 @@
 package com.example.nagat.phantan.fragment;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nagat.phantan.R;
-import com.example.nagat.phantan.adapter.HistoryWaterTreeAdapter;
 import com.example.nagat.phantan.adapter.OnClickLisner;
 import com.example.nagat.phantan.adapter.TreeAdapter;
+import com.example.nagat.phantan.adapter.WaterStationAdapter;
 import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.model.WaterStation;
+import com.example.nagat.phantan.ui.InforWaterStationActivity;
 import com.example.nagat.phantan.ui.InformationTreeActivity;
-import com.example.nagat.phantan.ui.LoginActivity;
-import com.example.nagat.phantan.ui.Utils;
 import com.example.nagat.phantan.utils.Contants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,13 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 /**
- * Created by Win 8.1 Version 2 on 23/03/2018.
+ * Created by nagat on 23/4/2018.
  */
 
-public class FragmentListTree extends Fragment {
+public class FragmentListWaterStation extends Fragment {
     RecyclerView rv;
-    TreeAdapter adapter;
-    ArrayList<Tree> list = new ArrayList<>();
+    WaterStationAdapter adapter;
     DatabaseReference mDatabaseReference;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,13 +39,13 @@ public class FragmentListTree extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_list_tree, container, false);
         rv = v.findViewById(R.id.rv_list_tree);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("trees");
-        adapter = new TreeAdapter(getActivity(),mDatabaseReference);
-        adapter.setOnClickLisner(new OnClickLisner() {
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("water-station");
+        adapter = new WaterStationAdapter(getActivity(),mDatabaseReference);
+        adapter.setOnClick(new OnClickLisner() {
             @Override
             public void OnClick(String key) {
-                Intent intent = new Intent(getActivity(), InformationTreeActivity.class);
-                intent.putExtra(Contants.KEYTREE,key);
+                Intent intent = new Intent(getActivity(), InforWaterStationActivity.class);
+                intent.putExtra(Contants.KEYWATERSTATION,key);
                 startActivity(intent);
             }
         });
@@ -59,6 +60,6 @@ public class FragmentListTree extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Danh sách cây");
+        getActivity().setTitle("Danh sách nguồn nước");
     }
 }

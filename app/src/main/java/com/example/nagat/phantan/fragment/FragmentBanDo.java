@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.model.User;
+import com.example.nagat.phantan.model.WaterStation;
 import com.example.nagat.phantan.ui.InforWaterStationActivity;
 import com.example.nagat.phantan.ui.InformationTreeActivity;
 import com.example.nagat.phantan.R;
@@ -121,7 +122,6 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_test_map, container, false);
-        addWaterStation();
         mMapView = (MapView) view.findViewById(R.id.mapView);
         tvCayDangTuoi = view.findViewById(R.id.cayDangTuoi);
         FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).addValueEventListener(new ValueEventListener() {
@@ -177,7 +177,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         EventBus.getDefault().unregister(this);
     }
 
-    private void addMarker(Tree tree) {
+    private void addMarkerTree(Tree tree) {
        final Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
        int height = 50;
        int width = 50;
@@ -191,14 +191,59 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
        );
        marker.setTag(0);
    }
+    private void addMarketWaterStation(WaterStation waterStation) {
+        Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_station);
 
+        int height = 50;
+        int width = 50;
+
+
+        Bitmap smallMarkerWater  = Bitmap.createScaledBitmap(imgWater, width, height, false);
+        BitmapDescriptor bitmapDescriptorWater = BitmapDescriptorFactory.fromBitmap(smallMarkerWater);
+        Marker marker = this.mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(waterStation.getLatitude(),waterStation.getLongitude()))
+                .title(waterStation.getTenTram())
+                .snippet(waterStation.getTinhTrang())
+                .icon(bitmapDescriptorWater)
+        );
+        marker.setTag(1);
+    }
+    private void addWaterStation () {
+        FirebaseDatabase.getInstance().getReference().child("water-station").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                WaterStation waterStation = dataSnapshot.getValue(WaterStation.class);
+                addMarketWaterStation(waterStation);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void addTree(){
 
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Tree tree = dataSnapshot.getValue(Tree.class);
-                addMarker(tree);
+                addMarkerTree(tree);
 
             }
 
@@ -223,15 +268,6 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             }
         };
         FirebaseDatabase.getInstance().getReference().child("trees").addChildEventListener(childEventListener);
-    }
-
-    private  void addWaterStation(){
-        LatLng water01 = new LatLng(21.003783, 105.843759);
-        LatLng water02 = new LatLng(21.003703, 105.847006);
-        listWaterStation.add(water01);
-        listWaterStation.add(water02);
-
-
     }
 
 
@@ -280,26 +316,8 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         this.mMap = googleMap;
         this.mMap.setMyLocationEnabled(true);
         addTree();
-        Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
-        Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_station);
+        addWaterStation();
 
-        int height = 50;
-        int width = 50;
-
-
-        Bitmap smallMarkerWater  = Bitmap.createScaledBitmap(imgWater, width, height, false);
-        BitmapDescriptor bitmapDescriptorWater = BitmapDescriptorFactory.fromBitmap(smallMarkerWater);
-
-
-        for(int i = 0; i < listWaterStation.size(); i++) {
-            Marker marker = this.mMap.addMarker(new MarkerOptions()
-                    .position(listWaterStation.get(i))
-                    .title("D35_XC1110")
-                    .snippet("Population: 4,137,400")
-                    .icon(bitmapDescriptorWater)
-            );
-            marker.setTag(1);
-        }
 
 
         this.mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -318,6 +336,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
 
                 }else if(clickCount.compareTo(1) == 0){
                     Intent intent = new Intent(getActivity(), InforWaterStationActivity.class);
+                    intent.putExtra(Contants.KEYWATERSTATION,marker.getTitle());
                     startActivity(intent);
                 }
                 else{

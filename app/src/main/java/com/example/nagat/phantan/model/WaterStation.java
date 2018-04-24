@@ -11,30 +11,42 @@ public class WaterStation {
     //ma nguon nuoc dinh danh
     private String tenTram;
     private String diaDiem;
-    private long latitude; //vi do
-    private long longitude; //kinh do
+    private double latitude; //vi do
+    private double longitude; //kinh do
+    private String tinhTrang;
+    private long dungTichChua;
+
+    public long getDungTichChua() {
+        return dungTichChua;
+    }
+
+    public void setDungTichChua(long dungTichChua) {
+        this.dungTichChua = dungTichChua;
+    }
+
+    public String getTinhTrang() {
+        return tinhTrang;
+    }
+
+    public void setTinhTrang(String tinhTrang) {
+        this.tinhTrang = tinhTrang;
+    }
+
     private List<String> hinhAnh = new ArrayList<>();
-    private long luongNuocConLai;
     public WaterStation() {
 
     }
 
-    public WaterStation(String tenTram, String diaDiem, long latitude, long longitude, List<String> hinhAnh,long luongNuocConLai) {
+    public WaterStation(String tenTram, String diaDiem, double latitude, double longitude, List<String> hinhAnh,String tinhTrang) {
         this.tenTram = tenTram;
         this.diaDiem = diaDiem;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hinhAnh = hinhAnh;
-        this.luongNuocConLai = luongNuocConLai;
+        this.tinhTrang = tinhTrang;
     }
 
-    public long getLuongNuocConLai() {
-        return luongNuocConLai;
-    }
 
-    public void setLuongNuocConLai(long luongNuocConLai) {
-        this.luongNuocConLai = luongNuocConLai;
-    }
 
     public String getTenTram() {
         return tenTram;
@@ -52,19 +64,19 @@ public class WaterStation {
         this.diaDiem = diaDiem;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

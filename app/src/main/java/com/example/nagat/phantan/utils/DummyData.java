@@ -2,6 +2,7 @@ package com.example.nagat.phantan.utils;
 
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.model.WaterStation;
 import com.example.nagat.phantan.ui.Utils;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,5 +41,13 @@ public class DummyData {
         FirebaseDatabase.getInstance().getReference().child("trees").child("AQ-004").setValue(tree4);
         FirebaseDatabase.getInstance().getReference().child("trees").child("AQ-005").setValue(tree5);
 
+    }
+    public static void addWaterStation()  {
+        WaterStation waterStation1 = new WaterStation("TN-001",
+                Utils.getAddressFromLatAndLong(21.003783,105.843759),21.003783,105.843759,null,Contants.CON_NUOC);
+        WaterStation waterStation2 = new WaterStation("TN-002",
+                Utils.getAddressFromLatAndLong(21.003703,105.847006),21.003703,105.847006,null,Contants.HET_NUOC);
+        FirebaseDatabase.getInstance().getReference().child("water-station").child("TN-001").setValue(waterStation1);
+        FirebaseDatabase.getInstance().getReference().child("water-station").child("TN-002").setValue(waterStation2);
     }
 }

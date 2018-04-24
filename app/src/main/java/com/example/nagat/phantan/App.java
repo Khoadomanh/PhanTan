@@ -33,6 +33,7 @@ public class App extends Application {
         sInstance = this;
 //        DummyData.addSensor();
 //        DummyData.addTree();
+//        DummyData.addWaterStation();
 //        mGSon = new Gson();
     }
 

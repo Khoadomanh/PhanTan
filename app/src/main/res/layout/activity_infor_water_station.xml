@@ -28,14 +28,14 @@
             android:id="@+id/avatar_tree"/>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/avatar_tree"
 
             android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_marginTop="12dp"
-                android:id="@+id/name_tree"
+                android:id="@+id/name_water_station"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="D35_WS_01: Trạm nước D35"
@@ -44,10 +44,10 @@
                 android:gravity="center_vertical"
                 android:padding="3dp"/>
             <TextView
-                android:id="@+id/address_tree"
+                android:id="@+id/address_water_station"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name_tree"
+                android:layout_below="@+id/name_water_station"
                 android:text="Địa điểm:Tầng 1 nhà D35"
                 android:textStyle="italic"
                 android:gravity="center_vertical"
@@ -77,9 +77,10 @@
                     android:padding="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dung tích còn lại"
+                    android:text="Dung tích chứa"
                     />
                 <TextView
+                    android:id="@+id/dung_tich_chua"
                     android:layout_below="@+id/luongNuocDaTuoi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,11 +123,12 @@
                     android:text="Trạng thái:"
                     />
                 <TextView
+                    android:id="@+id/trang_thai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/status_water"
                     android:text="Hoạt động tốt"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="#f96a0a"/>
 
             </RelativeLayout>
@@ -198,57 +200,48 @@
             >
             <Button
                 android:layout_marginLeft="40dp"
-                android:layout_width="120dp"
+                android:layout_width="130dp"
                 android:layout_height="50dp"
+                android:layout_marginRight="30dp"
                 android:background="@drawable/border_loginbutton"
-                android:id="@+id/btTuoiCay"
+                android:id="@+id/btChiDuong"
                 android:textColor="#fff"
-                android:textSize="18sp"
-                android:text="Lịch sử lấy nước">
+                android:textSize="16sp"
+                android:text="Chỉ đường tới đây">
 
             </Button>
+
             <Button
-                android:layout_marginLeft="50dp"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:background="@drawable/border_loginbutton"
                 android:id="@+id/btReport"
-                android:layout_toRightOf="@+id/btTuoiCay"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/btChiDuong"
+                android:background="@drawable/border_loginbutton"
+                android:text="Báo cáo tình trạng trạm nước"
                 android:textColor="#fff"
-                android:textSize="12sp"
-                android:text="Danh sách người đang lấy nước">
+                android:textSize="13sp">
 
             </Button>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/view_tuoi">
-            <Button
-                android:visibility="gone"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#05b175"
-                android:id="@+id/btHistory"
-                android:textColor="#fff"
-                android:textSize="18sp"
-                android:text="Lấy nước">
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            android:id="@+id/rlHetNuoc">
 
-            </Button>
             <TextView
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="30dp"
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/currentWater"
+                android:id="@+id/hetNuoc"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:background="#ff0011"
                 android:text="Hết nước">
+
 
             </TextView>
         </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.nagat.phantan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,10 @@ import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
 import com.example.nagat.phantan.model.Sensor;
 import com.example.nagat.phantan.model.Tree;
+import com.example.nagat.phantan.ui.InformationTreeActivity;
+import com.example.nagat.phantan.ui.MainActivity;
+import com.example.nagat.phantan.utils.Contants;
+import com.example.nagat.phantan.utils.MyUtil;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +43,10 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
     private Context mContext;
     private LayoutInflater layoutInflater;
     private ArrayList<Tree> list = new ArrayList<>();
+    private OnClickLisner onClickLisner;
+    public void setOnClickLisner (OnClickLisner onClickLisner) {
+        this.onClickLisner = onClickLisner;
+    }
 
     public TreeAdapter(Context con, DatabaseReference mDatabaseReference) {
         mContext = con;
@@ -98,11 +107,15 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
         if( tree.getHinhAnh().size() != 0)
         setImageTree(holder.ivTree, tree.getHinhAnh().get(0));
         holder.tvNameTree.setText(tree.getMaCay() + ": " + tree.getTenCay() );
-        holder.tvDistance.setText(String.valueOf(tree.getLuongNuocMax()));
+        double lat1 = MainActivity.USERCURRENT.getLatitude();
+        double long1 = MainActivity.USERCURRENT.getLongitude();
+        double lat2 = tree.getLatitude();
+        double long2 = tree.getLongitude();
+        holder.tvDistance.setText(MyUtil.convertDistanceToString(MyUtil.distanceBetweenUser(lat1,long1,lat2,long2)));
         getSensor(tree.getMaSensor(), holder.waterCurrent);
         holder.tvAddressTree.setText(tree.getDiaDiem());
         holder.statusTree.setText(tree.getTrangThai());
-
+        holder.setOnClick(tree.getMaCay());
 
     }
 
@@ -149,7 +162,7 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
         TextView waterCurrent;
         TextView statusTree;
         TextView tvAddressTree;
-
+        View view;
         public ListTreeViewHolder(View itemView) {
             super(itemView);
 //            imgRolePeople = itemView.findViewById(R.id.img_role_people);
@@ -163,6 +176,15 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
             waterCurrent = itemView.findViewById(R.id.tv_water_current_list);
             statusTree = itemView.findViewById(R.id.tv_status_list);
             tvAddressTree = itemView.findViewById(R.id.tv_address_tree_list);
+            view = itemView;
+        }
+        void setOnClick(final String key) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickLisner.OnClick(key);
+                }
+            });
         }
     }
 

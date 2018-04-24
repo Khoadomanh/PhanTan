@@ -41,7 +41,6 @@ public class LoginActivity extends BaseActivity {
     private TextView tvDangKy;
     private FirebaseAuth auth;
     public static String SIGN_IN_EMAIL;
-    public static User USERCURRENT;
     public static FirebaseDatabase mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
