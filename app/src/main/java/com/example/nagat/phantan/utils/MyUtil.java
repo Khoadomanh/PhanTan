@@ -124,6 +124,8 @@ public class MyUtil {
         return Math.abs(6366000 * tt);
     }
 
+
+
     public static String convertDistanceToString(Double distance) {
         int d = (int) (distance / 1000);
         if (d > 1) return d + " km";

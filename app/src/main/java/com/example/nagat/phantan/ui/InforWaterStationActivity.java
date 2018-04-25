@@ -1,6 +1,8 @@
 package com.example.nagat.phantan.ui;
 
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
+import com.example.nagat.phantan.fragment.FragmentReportWaterStationToAdmin;
 import com.example.nagat.phantan.model.WaterStation;
 import com.example.nagat.phantan.utils.Contants;
 import com.example.nagat.phantan.utils.MyUtil;
@@ -62,6 +65,18 @@ public class InforWaterStationActivity extends BaseActivity {
         trang_thai = findViewById(R.id.trang_thai);
         btChiDuong = findViewById(R.id.btChiDuong);
         btReport = findViewById(R.id.btReport);
+        btReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReportWaterStationToAdmin fragmentReportWaterStationToAdmin = new FragmentReportWaterStationToAdmin(keyWaterStation);
+                FragmentManager fragmentManager= getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.full,fragmentReportWaterStationToAdmin);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
         rlHetNuoc = findViewById(R.id.rlHetNuoc);
         btChiDuong.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,126 +6,160 @@
     android:layout_height="match_parent"
     android:background="#e9e9e9"
     android:orientation="vertical">
-
     <RelativeLayout
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="45dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/Theme.MyFancyTheme"
+        >
         <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/tv1"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Báo cáo Tình Trạng Cây"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:padding="4dp"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Báo cáo tình trạng cây"
-            android:textSize="@dimen/size_text_de_muc"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv1"
-            android:text="Nếu cây có biểu hiện khác thường hãy cho chúng tôi biết! Cảm ơn sự đóng góp của các bạn"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv2"
-            android:text="Biểu hiện khác thường của cây:"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_layout_default"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Một số lá cây vàng khác thường, có thể cây bị héo"
-            android:textColor="@color/text_black"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_layout_default"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lá cây bị sâu ăn rất nhiều"
-            android:textColor="@color/text_black"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"/>
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_layout_default"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Có cành bị gãy"
-            android:textColor="@color/text_black"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_right"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"/>
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nếu cây có biểu hiện khác thường hãy cho chúng tôi biết! Cảm ơn sự đóng góp của các bạn"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv2"
+                    android:text="Biểu hiện khác thường của cây:"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/status1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_layout_default"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Một số lá cây vàng khác thường, có thể cây bị héo"
+                    android:textColor="@color/text_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/status2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_layout_default"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lá cây bị sâu ăn rất nhiều"
+                    android:textColor="@color/text_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"/>
+            </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Biểu hiện khác:"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp"/>
+            <RelativeLayout
+                android:id="@+id/status3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_layout_default"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Có cành bị gãy"
+                    android:textColor="@color/text_black"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"/>
+            </RelativeLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="Biểu hiện khác..."
-        android:gravity="start"
-        android:padding="5dp"
-        android:textSize="@dimen/text_size"/>
-    <TextView
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@drawable/border_loginbutton"
-        android:text="Gửi"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biểu hiện khác:"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"/>
+
+            <EditText
+                android:id="@+id/etReport"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="Biểu hiện khác..."
+                android:gravity="start"
+                android:padding="5dp"
+                android:textSize="@dimen/text_size"/>
+            <TextView
+                android:id="@+id/tvSend"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:background="@drawable/border_loginbutton"
+                android:text="Gửi"/>
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

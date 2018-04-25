@@ -22,6 +22,7 @@ import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.adapter.HistoryWaterTreeForTreeAdapter;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
+import com.example.nagat.phantan.fragment.FragmentReportTreeToAdmin;
 import com.example.nagat.phantan.fragment.FragmentWaterTreeForTree;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoCay;
 import com.example.nagat.phantan.model.LichSuTuoiCayTheoNguoiTuoi;
@@ -66,6 +67,7 @@ public class InformationTreeActivity extends BaseActivity {
     private Button btTimDuongToiCay;
     private double latitude;
     private double longitude;
+    private Button btReport;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +86,18 @@ public class InformationTreeActivity extends BaseActivity {
         tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
         tvLuongNuocMax = findViewById(R.id.luongNuocMax);
+        btReport = findViewById(R.id.btReport);
+        btReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(keyTree);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.full,fragmentReportTreeToAdmin);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         btTimDuongToiCay = findViewById(R.id.btTimDuong);
         btTimDuongToiCay.setOnClickListener(new View.OnClickListener() {
             @Override

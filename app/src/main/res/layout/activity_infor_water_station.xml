@@ -6,245 +6,278 @@
     android:layout_height="match_parent"
     tools:context="com.example.nagat.phantan.ui.InforWaterStationActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/Theme.MyFancyTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     <RelativeLayout
+        android:id="@+id/full"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
-        <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_height="match_parent">
 
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_water_station"
-            android:layout_margin="20dp"
-            android:id="@+id/avatar_tree"/>
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/avatar_tree"
+            android:layout_height="match_parent">
 
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_marginTop="12dp"
-                android:id="@+id/name_water_station"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="D35_WS_01: Trạm nước D35"
-                android:textColor="@color/text_black"
-                android:textSize="20sp"
-                android:gravity="center_vertical"
-                android:padding="3dp"/>
-            <TextView
-                android:id="@+id/address_water_station"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name_water_station"
-                android:text="Địa điểm:Tầng 1 nhà D35"
-                android:textStyle="italic"
-                android:gravity="center_vertical"
-                android:padding="5dp"/>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/main_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/avatar_tree"
-            android:layout_margin="20dp">
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:id="@+id/ivWater"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/icon_water"/>
             <RelativeLayout
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/ivWater"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/luongNuocDaTuoi"
-                    android:padding="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dung tích chứa"
-                    />
-                <TextView
-                    android:id="@+id/dung_tich_chua"
-                    android:layout_below="@+id/luongNuocDaTuoi"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="500l"
-                    android:textSize="20sp"
-                    android:textColor="#f96a0a"
-                    />
+                    android:layout_height="45dp"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    android:theme="@style/Theme.MyFancyTheme"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/toolbar">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:id="@+id/avatar_tree"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ic_water_station" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+
+                        android:layout_toRightOf="@+id/avatar_tree">
+
+                        <TextView
+                            android:id="@+id/name_water_station"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center_vertical"
+                            android:padding="3dp"
+                            android:text="D35_WS_01: Trạm nước D35"
+                            android:textColor="@color/text_black"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/address_water_station"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name_water_station"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="Địa điểm:Tầng 1 nhà D35"
+                            android:textStyle="italic" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/main_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/avatar_tree"
+                        android:layout_margin="20dp">
+
+                        <ImageView
+                            android:id="@+id/ivWater"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/icon_water" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/ivWater">
+
+                            <TextView
+                                android:id="@+id/luongNuocDaTuoi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp"
+                                android:text="Dung tích chứa" />
+
+                            <TextView
+                                android:id="@+id/dung_tich_chua"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/luongNuocDaTuoi"
+                                android:text="500l"
+                                android:textColor="#f96a0a"
+                                android:textSize="20sp" />
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/divine_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivWater"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/ivWater"
+                            android:background="#a3a3a3">
+
+                        </View>
+
+                        <ImageView
+                            android:id="@+id/status_tree"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/divine_1"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/icons_information" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/divine_1"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/ivWater">
+
+                            <TextView
+                                android:id="@+id/status_water"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Trạng thái:" />
+
+                            <TextView
+                                android:id="@+id/trang_thai"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/status_water"
+                                android:text="Hoạt động tốt"
+                                android:textColor="#f96a0a"
+                                android:textSize="15sp" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/divine_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/status_tree"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toRightOf="@+id/ivWater"
+                            android:background="#a3a3a3">
+
+                        </View>
+
+                        <ImageView
+                            android:id="@+id/piture_tree"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/divine_2"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/icon_pirture" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_below="@id/divine_2"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/ivWater">
+
+                            <TextView
+                                android:id="@+id/tvHinhAnh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="2dp"
+                                android:text="Một số hình ảnh của trạm nước:" />
+
+                            <ImageView
+                                android:id="@+id/piture1"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/tvHinhAnh"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/icon_history" />
+
+                            <ImageView
+                                android:id="@+id/piture2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/tvHinhAnh"
+                                android:layout_margin="5dp"
+                                android:layout_toRightOf="@+id/piture1"
+                                android:src="@drawable/icon_history" />
+
+                            <ImageView
+                                android:id="@+id/piture3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/tvHinhAnh"
+                                android:layout_margin="5dp"
+                                android:layout_toRightOf="@+id/piture2"
+                                android:src="@drawable/icon_history" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/view_tuoi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/main_view"
+                        android:layout_margin="10dp">
+
+                        <Button
+                            android:id="@+id/btChiDuong"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="30dp"
+                            android:background="@drawable/border_loginbutton"
+                            android:text="Chỉ đường tới đây"
+                            android:textColor="#fff"
+                            android:textSize="16sp">
+
+                        </Button>
+
+                        <Button
+                            android:id="@+id/btReport"
+                            android:layout_width="130dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/btChiDuong"
+                            android:background="@drawable/border_loginbutton"
+                            android:text="Báo cáo tình trạng trạm nước"
+                            android:textColor="#fff"
+                            android:textSize="13sp">
+
+                        </Button>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlHetNuoc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="gone">
+
+                        <TextView
+
+                            android:id="@+id/hetNuoc"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="#ff0011"
+                            android:gravity="center"
+                            android:text="Hết nước"
+                            android:textColor="@color/white"
+                            android:textSize="18sp">
+
+
+                        </TextView>
+                    </RelativeLayout>
+
+                </RelativeLayout>
             </RelativeLayout>
-            <View
-                android:id="@+id/divine_1"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/ivWater"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/ivWater"
-                android:background="#a3a3a3">
-
-            </View>
-            <ImageView
-                android:id="@+id/status_tree"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/divine_1"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/icons_information"
-                />
-            <RelativeLayout
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/ivWater"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/divine_1"
-                android:layout_marginTop="15dp">
-                <TextView
-                    android:id="@+id/status_water"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trạng thái:"
-                    />
-                <TextView
-                    android:id="@+id/trang_thai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/status_water"
-                    android:text="Hoạt động tốt"
-                    android:textSize="15sp"
-                    android:textColor="#f96a0a"/>
-
-            </RelativeLayout>
-            <View
-                android:id="@+id/divine_2"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/ivWater"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/status_tree"
-                android:background="#a3a3a3">
-
-            </View>
-            <ImageView
-                android:id="@+id/piture_tree"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/divine_2"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/icon_pirture"
-                />
-            <RelativeLayout
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/ivWater"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_below="@id/divine_2"
-                android:layout_marginTop="15dp">
-                <TextView
-                    android:id="@+id/tvHinhAnh"
-                    android:padding="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Một số hình ảnh của trạm nước:"
-                    />
-                <ImageView
-                    android:id="@+id/piture1"
-                    android:layout_margin="5dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/tvHinhAnh"
-                    android:src="@drawable/icon_history"/>
-                <ImageView
-                    android:id="@+id/piture2"
-                    android:layout_toRightOf="@+id/piture1"
-                    android:layout_margin="5dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/tvHinhAnh"
-                    android:src="@drawable/icon_history"/>
-                <ImageView
-                    android:id="@+id/piture3"
-                    android:layout_toRightOf="@+id/piture2"
-                    android:layout_margin="5dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@+id/tvHinhAnh"
-                    android:src="@drawable/icon_history"/>
-            </RelativeLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/view_tuoi"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/main_view"
-            >
-            <Button
-                android:layout_marginLeft="40dp"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/border_loginbutton"
-                android:id="@+id/btChiDuong"
-                android:textColor="#fff"
-                android:textSize="16sp"
-                android:text="Chỉ đường tới đây">
-
-            </Button>
-
-            <Button
-                android:id="@+id/btReport"
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/btChiDuong"
-                android:background="@drawable/border_loginbutton"
-                android:text="Báo cáo tình trạng trạm nước"
-                android:textColor="#fff"
-                android:textSize="13sp">
-
-            </Button>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            android:id="@+id/rlHetNuoc">
-
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/hetNuoc"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:background="#ff0011"
-                android:text="Hết nước">
-
-
-            </TextView>
-        </RelativeLayout>
-
+        </ScrollView>
     </RelativeLayout>
+
 </RelativeLayout>

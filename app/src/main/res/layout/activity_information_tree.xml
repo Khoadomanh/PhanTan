@@ -22,7 +22,7 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/my_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="45dp"
                     android:background="?attr/colorPrimary"
                     android:elevation="4dp"
                     android:theme="@style/Theme.MyFancyTheme"
@@ -96,7 +96,6 @@
                                 android:id="@+id/luongNuocDaTuoi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:padding="2dp"
                                 android:text="Lượng nước đã tưới: " />
 
                             <TextView
@@ -104,7 +103,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/luongNuocDaTuoi"
-                                android:padding="2dp"
                                 android:text="0ml" />
 
                             <TextView
@@ -112,7 +110,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/luongNuocHienTai"
-                                android:padding="2dp"
                                 android:text="/" />
 
                             <TextView
@@ -120,7 +117,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/abc"
-                                android:padding="2dp"
                                 android:text="150ml" />
 
                             <SeekBar

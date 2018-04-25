@@ -37,6 +37,7 @@
             android:layout_marginLeft="10dp"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/status1"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -58,6 +59,7 @@
             android:layout_marginTop="5dp"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/status2"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
@@ -80,6 +82,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/status3"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
@@ -110,6 +113,7 @@
         android:layout_marginTop="30dp"/>
 
     <EditText
+        android:id="@+id/etReport"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/white"
@@ -121,6 +125,7 @@
         android:padding="5dp"
         android:textSize="@dimen/text_size"/>
     <TextView
+        android:id="@+id/tvSend"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="10dp"
         android:layout_width="50dp"
