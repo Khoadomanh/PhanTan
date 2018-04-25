@@ -4,7 +4,11 @@ package com.example.nagat.phantan.utils;
 import android.location.Location;
 import android.util.Log;
 
+import com.example.nagat.phantan.model.User;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class DirectionHelper {
     public static MyPoint[] path = {
@@ -271,5 +275,17 @@ public class DirectionHelper {
             printPath(start, back[finish], back,list);
             list.add(finish);
         }
+    }
+    public static List<CustomLatLong> findDirection(LatLng latLng1, LatLng latLng2) {
+        int[] ints = DirectionHelper.findPointNearest(new CustomLatLong(latLng1.latitude,latLng1.longitude), new CustomLatLong(latLng2.latitude,latLng2.longitude));
+        List<Integer> dijkstra =
+                DirectionHelper.dijkstra(ints[0], ints[1]);
+        List<CustomLatLong> customLatLongs = new ArrayList<>();
+        customLatLongs.add(new CustomLatLong(latLng1.latitude,latLng1.longitude));
+        for (int i : dijkstra) {
+            customLatLongs.add(path[i].getCustomLatLong());
+        }
+        customLatLongs.add(new CustomLatLong(latLng2.latitude,latLng2.longitude));
+        return customLatLongs;
     }
 }

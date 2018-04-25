@@ -2,6 +2,7 @@ package com.example.nagat.phantan.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,8 @@ import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.ui.LoginActivity;
 import com.example.nagat.phantan.ui.Utils;
 import com.example.nagat.phantan.utils.Contants;
+import com.example.nagat.phantan.utils.CustomLatLong;
+import com.example.nagat.phantan.utils.DirectionHelper;
 import com.example.nagat.phantan.utils.DirectionsJSONParser;
 import com.example.nagat.phantan.utils.MyUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +46,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,6 +79,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     List<Tree> listTree = new ArrayList<>();
     List<LatLng> listWaterStation = new ArrayList<>();
     private Polyline line;
+    private Polyline polyline;
     private Marker mPerth;
     private Marker mSydney;
     private Marker mBrisbane;
@@ -90,16 +95,45 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     private EventBus eventBus;
     private boolean mIsDetachedFromWindow = false;
     private ProgressDialog mProgressDialog;
+
+    public static Polyline drawDirection(GoogleMap googleMap, List<CustomLatLong> customLatLongs, Context context) {
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.startCap(new RoundCap());
+        polylineOptions.endCap(new RoundCap());
+        polylineOptions.color(context.getResources().getColor(R.color.colorPrimary));
+        polylineOptions.addAll(convertLatLng(customLatLongs));
+
+        return googleMap.addPolyline(polylineOptions);
+    }
+    private static List<LatLng> convertLatLng(List<CustomLatLong> customLatLongs) {
+        List<LatLng> latLngs = new ArrayList<>();
+        for (CustomLatLong customLatLong : customLatLongs) {
+            latLngs.add(convertLatLng(customLatLong));
+        }
+        return latLngs;
+    }
+    public static LatLng convertLatLng(CustomLatLong customLatLong) {
+        return new LatLng(customLatLong.getLat(), customLatLong.getLog());
+    }
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public void onEvent(LatLng latLgnEnd) {
         Log.e("Khoado","latTree = " + latLgnEnd.latitude);
-        showProcess("Loading...");
-        drawPathBetweenTwoPoint(MyUtil.getLocationUser(),latLgnEnd);
-        Log.e("Khoado","latUser = " + MyUtil.getLocationUser().latitude);
-        if (line!=null) {
+        List<CustomLatLong> customLatLongs = DirectionHelper.findDirection(MyUtil.getLocationUser(),latLgnEnd);
+        if (polyline!=null) {
             Log.e("Khoado","remove line");
-            line.remove();
+            polyline.remove();
         }
+//        showProcess("Loading");
+//        if (line!=null) {
+//            Log.e("Khoado","remove line");
+//            line.remove();
+//        }
+        polyline = drawDirection(mMap, customLatLongs, this.getContext());
+//        drawPathBetweenTwoPoint(MyUtil.getLocationUser(),latLgnEnd);
+
+//        Log.e("Khoado","latUser = " + MyUtil.getLocationUser().latitude);
+
+
     }
     private void showProcess(String message) {
         mProgressDialog = new ProgressDialog(getContext());
@@ -465,7 +499,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
 
         // Sensor enabled
         String sensor = "sensor=false";
-        String mode = "mode=driving";
+        String mode = "mode=walking";
         // Building the parameters to the web service
         String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode;
 
