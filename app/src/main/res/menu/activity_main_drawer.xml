@@ -26,6 +26,11 @@
             android:icon="@drawable/icon_history"
             android:title="@string/history_watering" />
         <item
+            android:id="@+id/item_list_report"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="Danh sách báo cáo cây"
+            />
+        <item
             android:id="@+id/item_edit"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/tools" />

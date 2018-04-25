@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.ReportSystem;
+import com.example.nagat.phantan.model.ReportWaterStation;
+import com.example.nagat.phantan.model.WaterStation;
 import com.example.nagat.phantan.ui.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,10 +36,10 @@ public class FragmentReportWaterStationToAdmin extends Fragment {
     private RelativeLayout rl_status_2;
     private EditText etReport;
     private TextView tvSend;
-    private String keyWaterStation;
+    private WaterStation currentWaterStation;
     @SuppressLint("ValidFragment")
-    public FragmentReportWaterStationToAdmin(String keyWaterStation) {
-        this.keyWaterStation = keyWaterStation;
+    public FragmentReportWaterStationToAdmin(WaterStation keyWaterStation) {
+        this.currentWaterStation = keyWaterStation;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,8 +65,8 @@ public class FragmentReportWaterStationToAdmin extends Fragment {
             public void onClick(View v) {
                 if (etReport.getText().toString().trim()!=null) {
                     showProcess("Sending....");
-                    ReportSystem reportSystem = new ReportSystem(MainActivity.USERCURRENT,etReport.getText().toString().trim(),System.currentTimeMillis());
-                    FirebaseDatabase.getInstance().getReference().child("report-water-station").child(keyWaterStation).push().setValue(reportSystem).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    ReportWaterStation reportSystem = new ReportWaterStation(MainActivity.USERCURRENT,etReport.getText().toString().trim(),System.currentTimeMillis(),currentWaterStation);
+                    FirebaseDatabase.getInstance().getReference().child("report-water-station").push().setValue(reportSystem).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             hideProgress();

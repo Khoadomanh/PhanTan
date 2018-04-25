@@ -30,11 +30,13 @@ import com.example.nagat.phantan.common.GPSTracker;
 import com.example.nagat.phantan.fragment.FragmentBanDo;
 import com.example.nagat.phantan.fragment.FragmentHistoryWater;
 import com.example.nagat.phantan.fragment.FragmentInfor;
+import com.example.nagat.phantan.fragment.FragmentListReport;
 import com.example.nagat.phantan.fragment.FragmentListTree;
 import com.example.nagat.phantan.fragment.FragmentListWaterStation;
 import com.example.nagat.phantan.fragment.FragmentReportToAdmin;
 import com.example.nagat.phantan.fragment.FragmentSchedule;
 import com.example.nagat.phantan.model.User;
+import com.example.nagat.phantan.utils.Contants;
 import com.example.nagat.phantan.utils.MyUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static User USERCURRENT;
     private static final int INITIAL_REQUEST=1337;
+    public static String vaiTro;
     private static final String[] INITIAL_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_CONTACTS
@@ -74,6 +77,7 @@ public class MainActivity extends BaseActivity
     private String email = FirebaseAuth.getInstance()
             .getCurrentUser().getEmail();
     private CircleImageView imAvatar;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,14 +90,14 @@ public class MainActivity extends BaseActivity
 //        if (!canAccessLocation()){
 //            requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
 //        }
-
+        showProgress();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
         displaySelectedScreen(R.id.item_maps);
@@ -107,7 +111,17 @@ public class MainActivity extends BaseActivity
         imAvatar = headerView.findViewById(R.id.imageView);
         initUI();
     }
-
+    private void hideItem()
+    {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.item_list_report).setVisible(false);
+    }
+    private void visibleItem() {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.item_list_report).setVisible(true);
+    }
 
     public void onChangeAvatar(){
         Glide.with(this).load(MyUtil.PATH_AVATA).into(imAvatar);
@@ -124,6 +138,7 @@ public class MainActivity extends BaseActivity
                 if (dataSnapshot!=null) {
                     user = dataSnapshot.getValue(User.class);
                     USERCURRENT = user;
+                    vaiTro = user.getVaiTro();
                     navTenNguoiDung.setText(user.getTenHienThi());
                     navChucVu.setText(user.getVaiTro());
                     if(MyUtil.PATH_AVATA == null){
@@ -134,6 +149,12 @@ public class MainActivity extends BaseActivity
                     }
                     Log.e(TAG,"address: "+Utils.getAddressFromLatAndLong(user.getLatitude(),user.getLongitude()));
                     navViTriHienTai.setText(Utils.getAddressFromLatAndLong(user.getLatitude(),user.getLongitude()));
+                    if (vaiTro.equals(Contants.TINH_NGUYEN_VIEN)) {
+                        hideItem();
+                    } else {
+                        visibleItem();
+                    }
+                    hideProgress();
                 }
 
 
@@ -253,8 +274,11 @@ public class MainActivity extends BaseActivity
             fragment = new FragmentListWaterStation();
             menuId = R.menu.menu_ban_do;
             invalidateOptionsMenu();
+        }  else if (itemId == R.id.item_list_report) {
+            fragment = new FragmentListReport();
+            menuId = R.menu.menu_ban_do;
+            invalidateOptionsMenu();
         }
-
         //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

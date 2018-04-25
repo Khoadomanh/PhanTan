@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 public class InforWaterStationActivity extends BaseActivity {
     private String keyWaterStation;
+    private WaterStation currentWaterStation;
     private TextView name_water_station;
     private TextView address_water_station;
     private TextView dung_tich_chua;
@@ -68,7 +69,7 @@ public class InforWaterStationActivity extends BaseActivity {
         btReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentReportWaterStationToAdmin fragmentReportWaterStationToAdmin = new FragmentReportWaterStationToAdmin(keyWaterStation);
+                FragmentReportWaterStationToAdmin fragmentReportWaterStationToAdmin = new FragmentReportWaterStationToAdmin(currentWaterStation);
                 FragmentManager fragmentManager= getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.full,fragmentReportWaterStationToAdmin);
@@ -92,6 +93,7 @@ public class InforWaterStationActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 WaterStation waterStation = dataSnapshot.getValue(WaterStation.class);
+                currentWaterStation = waterStation;
                 latitude = waterStation.getLatitude();
                 longitude = waterStation.getLongitude();
                 name_water_station.setText(waterStation.getTenTram());

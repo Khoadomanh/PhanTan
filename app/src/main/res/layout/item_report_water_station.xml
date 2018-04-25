@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="95dp"
+    android:background="@drawable/bg_white_corners"
+    android:layout_margin="5dp"
+    android:elevation="2dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:src="@drawable/son_tung"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/iv_avatar"
+        android:layout_marginTop="8dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/view1">
+            <TextView
+                android:id="@+id/id_water_station"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginBottom="1dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:text="AQ-001"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_middle" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Ngày: 10/04/2018"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_middle" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view1"
+            android:text="Một số lá cây vàng khác thường, có thể cây bị héo">
+        </TextView>
+    </RelativeLayout>
+
+</RelativeLayout>

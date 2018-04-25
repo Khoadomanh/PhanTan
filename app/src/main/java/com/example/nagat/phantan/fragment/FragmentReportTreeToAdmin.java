@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.ReportSystem;
+import com.example.nagat.phantan.model.ReportTree;
+import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.ui.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,10 +35,10 @@ public class FragmentReportTreeToAdmin extends Fragment {
     private RelativeLayout rl_status_3;
     private EditText etReport;
     private TextView tvSend;
-    private String keyTree;
+    private Tree currentTree;
     @SuppressLint("ValidFragment")
-    public FragmentReportTreeToAdmin(String keyTree) {
-        this.keyTree = keyTree;
+    public FragmentReportTreeToAdmin(Tree keyTree) {
+        this.currentTree = keyTree;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
@@ -69,8 +71,8 @@ public class FragmentReportTreeToAdmin extends Fragment {
             public void onClick(View v) {
                 if (etReport.getText().toString().trim()!=null) {
                     showProcess("Sending....");
-                    ReportSystem reportSystem = new ReportSystem(MainActivity.USERCURRENT,etReport.getText().toString().trim(),System.currentTimeMillis());
-                    FirebaseDatabase.getInstance().getReference().child("report-tree").child(keyTree).push().setValue(reportSystem).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    ReportTree reportSystem = new ReportTree(MainActivity.USERCURRENT,etReport.getText().toString().trim(),System.currentTimeMillis(),currentTree);
+                    FirebaseDatabase.getInstance().getReference().child("report-tree").push().setValue(reportSystem).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             hideProgress();

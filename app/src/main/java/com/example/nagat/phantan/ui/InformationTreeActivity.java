@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ import java.util.Date;
 
 public class InformationTreeActivity extends BaseActivity {
     private String keyTree;
+    private Tree currentTree;
     private ValueEventListener valueEventListenerTree;
     private ValueEventListener valueEventListenerSensor;
     private TextView tvTenTree;
@@ -68,6 +70,10 @@ public class InformationTreeActivity extends BaseActivity {
     private double latitude;
     private double longitude;
     private Button btReport;
+    private RelativeLayout rl_tinh_nguyen_vien;
+    private RelativeLayout rl_nhan_vien;
+    private Button btReportTNV;
+    private Button btTimDuongTNV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +88,37 @@ public class InformationTreeActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         idNguoiDangNhap = Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL);
+
+        rl_nhan_vien = findViewById(R.id.view_nhan_cong);
+        rl_tinh_nguyen_vien = findViewById(R.id.view_tinh_nguyen_vien);
+        if (MainActivity.vaiTro.equals(Contants.NHAN_VIEN)) {
+            rl_nhan_vien.setVisibility(View.VISIBLE);
+            rl_tinh_nguyen_vien.setVisibility(View.GONE);
+        } else {
+            rl_nhan_vien.setVisibility(View.GONE);
+            rl_tinh_nguyen_vien.setVisibility(View.VISIBLE);
+        }
+
+        btReportTNV = findViewById(R.id.btReportTNV);
+        btTimDuongTNV = findViewById(R.id.btTimDuongTNV);
+        btReportTNV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(currentTree);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.full,fragmentReportTreeToAdmin);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        btTimDuongTNV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new LatLng(latitude,longitude));
+                onBackPressed();
+            }
+        });
         //setColor statusbar
         tvLuongNuocDaTuoi = findViewById(R.id.luongNuocDaTuoi);
         tvLuongNuocHienTai = findViewById(R.id.luongNuocHienTai);
@@ -90,7 +127,7 @@ public class InformationTreeActivity extends BaseActivity {
         btReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(keyTree);
+                FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(currentTree);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.full,fragmentReportTreeToAdmin);
@@ -177,6 +214,7 @@ public class InformationTreeActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Tree tree = dataSnapshot.getValue(Tree.class);
+                currentTree = tree;
                 tvTenTree.setText(tree.getTenCay());
                 tenCay = tree.getTenCay();
                 tvDiaDiemTree.setText(tree.getDiaDiem());
