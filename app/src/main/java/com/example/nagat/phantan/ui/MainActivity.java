@@ -174,6 +174,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void run() {
                 if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
+//                    Log.e("khoado",firebaseUser.getEmail());
                     FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(firebaseUser.getEmail())).child("trangThai").setValue("online");
                 }
 

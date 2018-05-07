@@ -276,6 +276,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Log.e("khoado","error:" + dataSnapshot.getKey());
                 Tree tree = dataSnapshot.getValue(Tree.class);
                 addMarkerTree(tree);
 

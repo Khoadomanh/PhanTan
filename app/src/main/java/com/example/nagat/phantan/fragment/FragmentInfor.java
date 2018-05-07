@@ -2,6 +2,7 @@ package com.example.nagat.phantan.fragment;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,13 +14,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,14 +32,18 @@ import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.BuildConfig;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.User;
+import com.example.nagat.phantan.ui.ChangePasswordActivity;
 import com.example.nagat.phantan.ui.LoginActivity;
 import com.example.nagat.phantan.ui.MainActivity;
 import com.example.nagat.phantan.utils.MyUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -62,13 +71,13 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentInfor extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.tv_name_infor)
-    TextView tvNameInfor;
+    EditText tvNameInfor;
     @BindView(R.id.tv_name_infor_large)
     TextView tvNameInforLarge;
     @BindView(R.id.btn_edit_name_display)
     Button btnEditNameDisplay;
     @BindView(R.id.tv_sex_user)
-    TextView tvSexUser;
+    EditText tvSexUser;
     @BindView(R.id.role)
     TextView tvRoleUser;
     @BindView(R.id.ln_change_password)
@@ -79,6 +88,8 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
     @BindView(R.id.tv_status_user)
     TextView tvStatusUser;
 
+    private boolean mIsDetachedFromWindow = false;
+    private ProgressDialog mProgressDialog;
     private DatabaseReference myRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private static final int IMAGE_GALLERY_REQUEST = 1;
@@ -89,7 +100,7 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
             Manifest.permission.CAMERA
     };
     private File pathImageCamera;
-
+    private boolean isEdit = false;
     User user = new User();
     final CharSequence[] options = {"Camera", "Gallery"};
     String stDateFormat = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
@@ -98,9 +109,9 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
-
+        btnEditNameDisplay.setOnClickListener(this);
         imageAvatar.setOnClickListener(this);
-
+        lnChangePassword.setOnClickListener(this);
         myRef = LoginActivity.mDatabase.getReference().child("users").child(MyUtil.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL));
 
         myRef.keepSynced(true);
@@ -158,7 +169,23 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
                 .fitCenter()
                 .into(imageAvatar);
     }
+    private void showProcess(String message) {
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        if (!TextUtils.isEmpty(message)) {
+            mProgressDialog.setMessage(message);
+        }
 
+
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+    public synchronized void hideProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing() && !mIsDetachedFromWindow) {
+            mProgressDialog.dismiss();
+        }
+    }
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -166,7 +193,52 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
             case R.id.img_avatar_infor:
                 changeAvatar();
                 break;
+            case R.id.btn_edit_name_display:
+//                Log.e("khoado","edit name");
+                if (!isEdit) {
+                    tvNameInfor.setEnabled(true);
+                    btnEditNameDisplay.setBackgroundResource(R.drawable.ic_check_black_24dp);
+                    isEdit = true;
+                } else {
+                    if (tvNameInfor.getText().toString().trim().isEmpty()) {
+                        tvNameInfor.setError("Tên ko được để trống");
+                        break;
+                    }
+                    MyUtil.showDialog(getContext(), "Thay đổi thông tin cá nhân", "Bạn chắc chắn muốn thay đổi?",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    isEdit = false;
+                                    tvNameInfor.setEnabled(false);
+                                    showProcess("Loading...");
+                                    changeInfor();
+                                }
+                            }, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    isEdit = false;
+                                    tvNameInfor.setEnabled(false);
+                                    tvNameInfor.setText(tvNameInforLarge.getText());
+                                }
+                            });
+                    btnEditNameDisplay.setBackgroundResource(R.drawable.ic_edit_black_24dp);
+                }
+                break;
+            case R.id.ln_change_password:
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
         }
+    }
+    private void changeInfor() {
+        LoginActivity.mDatabase.getReference().child("users").child(MyUtil.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("tenHienThi").setValue(tvNameInfor.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        tvNameInfor.setText(tvNameInfor.getText().toString());
+                        tvNameInforLarge.setText(tvNameInfor.getText().toString());
+                        hideProgress();
+                    }
+                });
     }
 
     private void changeAvatar() {
@@ -256,7 +328,7 @@ public class FragmentInfor extends Fragment implements View.OnClickListener {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Log.e("aaa", MyUtil.usernameFromEmail(user.getEmail()));
+//                    Log.e("aaa", MyUtil.usernameFromEmail(user.getEmail()));
                     myRef.child("avatar").setValue(downloadUrl.toString());
                 }
             });

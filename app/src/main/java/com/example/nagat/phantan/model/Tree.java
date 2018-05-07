@@ -31,7 +31,7 @@ public class Tree {
         this.maCay = maCay;
     }
 
-    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude, List<String> hinhAnh, long luongNuocMax, String maCay) {
+    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude, List<String> hinhAnh, long luongNuocMax, String maCay,String maSensor) {
         this.tenCay = tenCay;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
@@ -40,8 +40,9 @@ public class Tree {
         this.hinhAnh = hinhAnh;
         this.luongNuocMax = luongNuocMax;
         this.maCay = maCay;
+
     }
-    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude,  long luongNuocMax, String maCay) {
+    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude,  long luongNuocMax, String maCay,String maSensor) {
         this.tenCay = tenCay;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
@@ -49,6 +50,7 @@ public class Tree {
         this.longitude = longitude;
         this.luongNuocMax = luongNuocMax;
         this.maCay = maCay;
+        this.maSensor = maSensor;
     }
 
     public String getMaSensor() {

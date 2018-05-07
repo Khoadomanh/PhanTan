@@ -147,12 +147,13 @@ public class LoginActivity extends BaseActivity {
                 .getCurrentUser().getEmail())).child("longitude").setValue(longitude);
 
     }
-
+    public static String passwordUser = "";
+    String username;
+    String password;
     private void logIn() {
         showProgress("Loading...");
-        final String username = etUserName.getText().toString();
-        String password = etPassword.getText().toString();
-
+        username = etUserName.getText().toString();
+        password = etPassword.getText().toString();
         auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -163,6 +164,7 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(FirebaseAuth.getInstance()
                             .getCurrentUser().getEmail())).child("trangThai").setValue("online");
+                    passwordUser = password;
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu chưa đúng",
