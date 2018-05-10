@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Win 8.1 Version 2 on 23/03/2018.
  */
@@ -119,11 +121,11 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
 
     }
 
-    private  void setImageTree(ImageView image, String url){
+    private  void setImageTree(CircleImageView image, String url){
         Glide.with(mContext)
-                .load("https://caycanhhanoi.com/cay-canh/cay-cong-trinh/cay-bang-dai-loan") // image url
-                .placeholder(R.drawable.ic_tree) // any placeholder to load at start// any image in case of error
-                .override(200, 200)// resizing
+                .load(url) // image url
+                .placeholder(R.drawable.loading) // any placeholder to load at start// any image in case of error
+                .override(50, 50)// resizing
         .centerCrop()
         .into(image);
     }
@@ -156,7 +158,7 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
 //        TextView tvNamePeople;
 //        TextView tvTimeWater;
 
-        ImageView ivTree;
+        CircleImageView ivTree;
         TextView tvNameTree;
         TextView tvDistance;
         TextView waterCurrent;

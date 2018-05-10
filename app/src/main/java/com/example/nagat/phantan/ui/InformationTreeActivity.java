@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.adapter.HistoryWaterTreeForTreeAdapter;
@@ -43,6 +45,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InformationTreeActivity extends BaseActivity {
     private String keyTree;
@@ -75,7 +79,10 @@ public class InformationTreeActivity extends BaseActivity {
     private Button btReportTNV;
     private Button btTimDuongTNV;
     private boolean dangTuoi = false;
-
+    ImageView imageView1;
+    ImageView imageView2;
+    ImageView imageView3;
+    private CircleImageView avatar_tree;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,7 @@ public class InformationTreeActivity extends BaseActivity {
         if (keyTree == null) {
             throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
         }
+        avatar_tree = findViewById(R.id.avatar_tree);
         this.setupUI(this.getWindow().getDecorView().findViewById(android.R.id.content));
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -208,9 +216,9 @@ public class InformationTreeActivity extends BaseActivity {
         });
         tvNguoiDangTuoi = findViewById(R.id.currentWater);
         tvTrangThaiCay = findViewById(R.id.trangThaiCay);
-        ImageView imageView1 = findViewById(R.id.piture1);
-        ImageView imageView2 = findViewById(R.id.piture2);
-        ImageView imageView3 = findViewById(R.id.piture3);
+        imageView1 = findViewById(R.id.piture1);
+        imageView2 = findViewById(R.id.piture2);
+        imageView3 = findViewById(R.id.piture3);
         arrHinhAnh.add(imageView1);
         arrHinhAnh.add(imageView2);
         arrHinhAnh.add(imageView3);
@@ -228,8 +236,36 @@ public class InformationTreeActivity extends BaseActivity {
                 tvLuongNuocMax.setText(luongNuocMax + " ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);
-                if (tree.getHinhAnh() != null) {
-                    //set hinh anh is here;
+                if (tree.getHinhAnh().size()>0) {
+                    Log.e("khoado",tree.getHinhAnh().size()+"");
+                    Glide.with(InformationTreeActivity.this)
+                            .load(tree.getHinhAnh().get(0))
+                            .override(50,50)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(avatar_tree);
+                    Glide.with(InformationTreeActivity.this)
+                            .load(tree.getHinhAnh().get(0))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView1);
+                    Glide.with(InformationTreeActivity.this)
+                            .load(tree.getHinhAnh().get(1))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView2);
+                    Glide.with(InformationTreeActivity.this)
+                            .load(tree.getHinhAnh().get(2))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView3);
                 }
                 if (tree.getCurrentUserWatering() != null) {
                     if (Utils.usernameFromEmail(tree.getCurrentUserWatering().getEmail()).equals(idNguoiDangNhap)) {
@@ -361,6 +397,7 @@ public class InformationTreeActivity extends BaseActivity {
         });
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -383,6 +420,9 @@ public class InformationTreeActivity extends BaseActivity {
         if (valueEventListenerTree != null) {
             FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).removeEventListener(valueEventListenerTree);
         }
+//        if (valueEventListenerSensor!=null) {
+//            FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).removeEventListener(valueEventListenerSensor);
+//        }
         super.onDestroy();
     }
 }

@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     android:elevation="2dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:padding="10dp"
         android:id="@+id/iv_tree_list"
         android:layout_width="80dp"
