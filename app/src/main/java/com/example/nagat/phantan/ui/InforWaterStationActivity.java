@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.BaseActivity;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.fragment.FragmentReportWaterStationToAdmin;
@@ -28,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class InforWaterStationActivity extends BaseActivity {
     private String keyWaterStation;
     private WaterStation currentWaterStation;
@@ -38,6 +42,10 @@ public class InforWaterStationActivity extends BaseActivity {
     private Button btChiDuong;
     private Button btReport;
     private RelativeLayout rlHetNuoc;
+    private CircleImageView avatar_tree;
+    private ImageView imageView1;
+    private ImageView imageView2;
+    private ImageView imageView3;
     private double latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,10 @@ public class InforWaterStationActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        avatar_tree = findViewById(R.id.avatar_tree);
+        imageView1 = findViewById(R.id.piture1);
+        imageView2 = findViewById(R.id.piture2);
+        imageView3 = findViewById(R.id.piture3);
         //setColor statusbar
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -100,6 +111,36 @@ public class InforWaterStationActivity extends BaseActivity {
                 address_water_station.setText(waterStation.getDiaDiem());
                 dung_tich_chua.setText(MyUtil.convertMLToL(waterStation.getDungTichChua()));
                 trang_thai.setText(waterStation.getTinhTrang());
+                if (waterStation.getHinhAnh().size()>2) {
+                    Glide.with(InforWaterStationActivity.this)
+                            .load(waterStation.getHinhAnh().get(0))
+                            .override(50,50)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(avatar_tree);
+                    Glide.with(InforWaterStationActivity.this)
+                            .load(waterStation.getHinhAnh().get(0))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView1);
+                    Glide.with(InforWaterStationActivity.this)
+                            .load(waterStation.getHinhAnh().get(1))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView2);
+                    Glide.with(InforWaterStationActivity.this)
+                            .load(waterStation.getHinhAnh().get(2))
+                            .override(100,100)
+                            .centerCrop()
+                            .fitCenter()
+                            .placeholder(R.drawable.loading)
+                            .into(imageView3);
+                }
                 if (waterStation.getTinhTrang().equals(Contants.HET_NUOC)) {
                     rlHetNuoc.setVisibility(View.VISIBLE);
                 } else {

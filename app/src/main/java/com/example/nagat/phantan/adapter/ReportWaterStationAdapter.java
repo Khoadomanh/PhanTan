@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.ReportTree;
 import com.example.nagat.phantan.model.ReportWaterStation;
@@ -81,6 +82,15 @@ public class ReportWaterStationAdapter  extends RecyclerView.Adapter<ReportWater
         holder.id_water_station.setText(reportTree.getWaterStationReport().getTenTram());
         holder.tv_date.setText("Ngày: "+ MyUtil.converLongDateToStringNgayThangName(reportTree.getTimeSendReport()));
         holder.tvReport.setText(reportTree.getMessageReport());
+        if (reportTree.getWaterStationReport().getHinhAnh().size()>0) {
+            Glide.with(context)
+                    .load(reportTree.getWaterStationReport().getHinhAnh().get(0))
+                    .override(50,50)
+                    .centerCrop()
+                    .fitCenter()
+                    .placeholder(R.drawable.loading)
+                    .into(holder.iv_avatar);
+        }
         holder.setOnClick(reportTree.getWaterStationReport().getTenTram());
     }
 

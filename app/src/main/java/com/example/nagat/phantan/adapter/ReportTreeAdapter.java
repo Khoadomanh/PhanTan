@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.ReportTree;
+import com.example.nagat.phantan.ui.InforWaterStationActivity;
 import com.example.nagat.phantan.ui.Utils;
 import com.example.nagat.phantan.utils.MyUtil;
 import com.google.firebase.database.ChildEventListener;
@@ -80,6 +82,15 @@ public class ReportTreeAdapter extends RecyclerView.Adapter<ReportTreeAdapter.Tr
         holder.id_tree.setText(reportTree.getTreeReport().getMaCay());
         holder.tv_date.setText("Ngày: "+ MyUtil.converLongDateToStringNgayThangName(reportTree.getTimeSendReport()));
         holder.tvReport.setText(reportTree.getMessageReport());
+        if (reportTree.getTreeReport().getHinhAnh().size()>0) {
+            Glide.with(context)
+                    .load(reportTree.getTreeReport().getHinhAnh().get(0))
+                    .override(50,50)
+                    .centerCrop()
+                    .fitCenter()
+                    .placeholder(R.drawable.loading)
+                    .into(holder.iv_avatar);
+        }
         holder.setOnClick(reportTree.getTreeReport().getMaCay());
     }
 

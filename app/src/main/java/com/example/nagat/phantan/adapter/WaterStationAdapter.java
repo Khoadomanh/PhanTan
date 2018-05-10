@@ -5,9 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
+
+import com.bumptech.glide.Glide;
 import com.example.nagat.phantan.R;
 import com.example.nagat.phantan.model.Tree;
 import com.example.nagat.phantan.model.WaterStation;
@@ -87,6 +90,14 @@ public class WaterStationAdapter extends RecyclerView.Adapter<WaterStationAdapte
             holder.tv_distance.setText(MyUtil.convertDistanceToString(MyUtil.distanceBetweenUser(lat1,long1,lat2,long2)));
             holder.tv_address_water_station.setText(waterStation.getDiaDiem());
             holder.tv_name_water_station.setText(waterStation.getTenTram());
+            if (waterStation.getHinhAnh().size()>0) {
+                Glide.with(context)
+                        .load(waterStation.getHinhAnh().get(0)) // image url
+                        .placeholder(R.drawable.loading) // any placeholder to load at start// any image in case of error
+                        .override(50, 50)// resizing
+                        .centerCrop()
+                        .into(holder.iv_water_station);
+            }
             holder.setOnClick(waterStation.getTenTram());
     }
 
@@ -100,6 +111,7 @@ public class WaterStationAdapter extends RecyclerView.Adapter<WaterStationAdapte
         private TextView tv_address_water_station;
         private TextView tv_distance;
         private TextView tv_status_list;
+        private ImageView iv_water_station;
         private View view;
         public WaterStationViewHolder(View v ) {
             super(v);
@@ -107,6 +119,7 @@ public class WaterStationAdapter extends RecyclerView.Adapter<WaterStationAdapte
             tv_address_water_station = v.findViewById(R.id.tv_address_water_station);
             tv_distance = v.findViewById(R.id.tv_distance);
             tv_status_list = v.findViewById(R.id.tv_status_list);
+            iv_water_station = v.findViewById(R.id.iv_water_station);
             view = v;
 
         }

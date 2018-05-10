@@ -236,7 +236,7 @@ public class InformationTreeActivity extends BaseActivity {
                 tvLuongNuocMax.setText(luongNuocMax + " ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);
-                if (tree.getHinhAnh().size()>0) {
+                if (tree.getHinhAnh().size()>2) {
                     Log.e("khoado",tree.getHinhAnh().size()+"");
                     Glide.with(InformationTreeActivity.this)
                             .load(tree.getHinhAnh().get(0))

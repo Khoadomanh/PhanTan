@@ -50,6 +50,7 @@ import com.google.android.gms.maps.model.RoundCap;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -204,7 +205,9 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     @Override
     public void onStart() {
         super.onStart();
+        isListening = true;
         addTree();
+
         Log.e("khoado","onstart");
         EventBus.getDefault().register(this);
 
@@ -285,7 +288,9 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         };
         FirebaseDatabase.getInstance().getReference().child("water-station").addChildEventListener(childEventListenerForWaterStation);
     }
+    private DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("trees");
     private List<Tree> treeList = new ArrayList<>();
+    private boolean isListening = true;
     private void addTree(){
         if (mMap!=null)
                 mMap.clear();
@@ -295,9 +300,12 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1  : dataSnapshot.getChildren()) {
-                    Tree tree = dataSnapshot1.getValue(Tree.class);
-                    treeList.add(tree);
-                    addMarkerTree(tree);
+                    if (isListening) {
+                        Tree tree = dataSnapshot1.getValue(Tree.class);
+                        treeList.add(tree);
+                        addMarkerTree(tree);
+                    }
+
                 }
             }
 
@@ -306,7 +314,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
 
             }
         };
-        FirebaseDatabase.getInstance().getReference().child("trees").addValueEventListener(valueEventListenerForTree);
+        mDatabaseReference.addValueEventListener(valueEventListenerForTree);
         addWaterStation ();
 
     }
@@ -318,7 +326,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
 
     public void cleanupListener() {
         if (valueEventListenerForTree != null) {
-            FirebaseDatabase.getInstance().getReference().child("trees").removeEventListener(valueEventListenerForTree);
+            mDatabaseReference.removeEventListener(valueEventListenerForTree);
         }
         if (childEventListenerForWaterStation!=null) {
             FirebaseDatabase.getInstance().getReference().child("water-station").removeEventListener(childEventListenerForWaterStation);
@@ -341,6 +349,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        isListening = false;
         cleanupListener();
         Log.e("khoado","onpause");
     }
