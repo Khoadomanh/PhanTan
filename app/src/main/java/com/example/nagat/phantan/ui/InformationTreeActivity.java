@@ -74,6 +74,8 @@ public class InformationTreeActivity extends BaseActivity {
     private RelativeLayout rl_nhan_vien;
     private Button btReportTNV;
     private Button btTimDuongTNV;
+    private boolean dangTuoi = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +109,7 @@ public class InformationTreeActivity extends BaseActivity {
                 FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(currentTree);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.full,fragmentReportTreeToAdmin);
+                fragmentTransaction.replace(R.id.full, fragmentReportTreeToAdmin);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -115,7 +117,7 @@ public class InformationTreeActivity extends BaseActivity {
         btTimDuongTNV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new LatLng(latitude,longitude));
+                EventBus.getDefault().postSticky(new LatLng(latitude, longitude));
                 onBackPressed();
             }
         });
@@ -130,7 +132,7 @@ public class InformationTreeActivity extends BaseActivity {
                 FragmentReportTreeToAdmin fragmentReportTreeToAdmin = new FragmentReportTreeToAdmin(currentTree);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.full,fragmentReportTreeToAdmin);
+                fragmentTransaction.replace(R.id.full, fragmentReportTreeToAdmin);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -139,7 +141,7 @@ public class InformationTreeActivity extends BaseActivity {
         btTimDuongToiCay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new LatLng(latitude,longitude));
+                EventBus.getDefault().postSticky(new LatLng(latitude, longitude));
                 onBackPressed();
             }
         });
@@ -150,7 +152,7 @@ public class InformationTreeActivity extends BaseActivity {
                 FragmentWaterTreeForTree fragmentHistoryWater = new FragmentWaterTreeForTree(keyTree);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.full,fragmentHistoryWater);
+                fragmentTransaction.replace(R.id.full, fragmentHistoryWater);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -177,6 +179,7 @@ public class InformationTreeActivity extends BaseActivity {
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(MainActivity.USERCURRENT);
                 FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(keyTree);
+                dangTuoi = true;
             }
         });
         btTuoiCayXong = findViewById(R.id.btDoneWater);
@@ -189,6 +192,7 @@ public class InformationTreeActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("currentUserWatering").setValue(null);
                         FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("treeWatering").setValue(null);
+                        dangTuoi = false;
                         setHistory();
                     }
                 }, new DialogInterface.OnClickListener() {
@@ -221,7 +225,7 @@ public class InformationTreeActivity extends BaseActivity {
                 luongNuocMax = tree.getLuongNuocMax();
                 latitude = tree.getLatitude();
                 longitude = tree.getLongitude();
-                tvLuongNuocMax.setText(luongNuocMax+" ml");
+                tvLuongNuocMax.setText(luongNuocMax + " ml");
                 tvTrangThaiCay.setText("Trạng thái cây: " + tree.getTrangThai());
                 seekBar.setMax((int) luongNuocMax);
                 if (tree.getHinhAnh() != null) {
@@ -236,7 +240,7 @@ public class InformationTreeActivity extends BaseActivity {
                         btTuoiCayXong.setVisibility(View.GONE);
                         btTuoiCay.setVisibility(View.GONE);
                         tvNguoiDangTuoi.setVisibility(View.VISIBLE);
-                        tvNguoiDangTuoi.setText("Người đang tưới: "+tree.getCurrentUserWatering().getMaUser());
+                        tvNguoiDangTuoi.setText("Người đang tưới: " + tree.getCurrentUserWatering().getMaUser());
                     } else {
                         btTuoiCayXong.setVisibility(View.GONE);
                         btTuoiCay.setVisibility(View.VISIBLE);
@@ -256,12 +260,12 @@ public class InformationTreeActivity extends BaseActivity {
                         maNguoiTuoi = user.getMaUser();
                         tenNguoiTuoi = user.getTenHienThi();
                         vaiTroNguoiTuoi = user.getVaiTro();
-                        if (treeWatering!=null ){
+                        if (treeWatering != null) {
                             if (!treeWatering.equals(keyTree)) {
                                 btTuoiCayXong.setVisibility(View.GONE);
                                 btTuoiCay.setVisibility(View.GONE);
                                 tvNguoiDangTuoi.setVisibility(View.VISIBLE);
-                                tvNguoiDangTuoi.setText("Bạn đang tưới cây: " +treeWatering);
+                                tvNguoiDangTuoi.setText("Bạn đang tưới cây: " + treeWatering);
                             }
                         }
                     }
@@ -271,8 +275,8 @@ public class InformationTreeActivity extends BaseActivity {
 
                     }
                 });
-                maSensor = tree.getMaSensor();
-                getSensor(tree.getMaSensor());
+                maSensor = tree.getMaSensor().getIdSensor();
+                getSensor(tree.getMaSensor().getIdSensor());
             }
 
             @Override
@@ -282,28 +286,33 @@ public class InformationTreeActivity extends BaseActivity {
         };
         FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).addValueEventListener(valueEventListenerTree);
     }
+
     private String maNguoiTuoi;
     private String tenNguoiTuoi;
     private String vaiTroNguoiTuoi;
+
     private void setHistory() {
         FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Sensor sensor = dataSnapshot.getValue(Sensor.class);
-                LichSuTuoiCayTheoCay lichSuTuoiCayTheoCay = new LichSuTuoiCayTheoCay();
-                lichSuTuoiCayTheoCay.setMaNguoiTuoi(maNguoiTuoi);
-                lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
-                lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
-                lichSuTuoiCayTheoCay.setTenNguoiTuoi(tenNguoiTuoi);
-                lichSuTuoiCayTheoCay.setVaiTroNguoiToi(vaiTroNguoiTuoi);
-                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
-                LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
-                lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai()-sensor.getLuongNuocTruocDo());
-                lichSuTuoiCayTheoNguoiTuoi.setMaCayTuoi(keyTree);
-                lichSuTuoiCayTheoNguoiTuoi.setTenCayTuoi(tenCay);
-                lichSuTuoiCayTheoNguoiTuoi.setThoiGianTuoi(System.currentTimeMillis());
-                FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoNguoiTuoi").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).push().setValue(lichSuTuoiCayTheoNguoiTuoi);
-                FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).child("luongNuocTruocDo").setValue(sensor.getLuongNuocHienTai());
+                if ((sensor.getLuongNuocHienTai() - sensor.getLuongNuocTruocDo()) > 0) {
+                    LichSuTuoiCayTheoCay lichSuTuoiCayTheoCay = new LichSuTuoiCayTheoCay();
+                    lichSuTuoiCayTheoCay.setMaNguoiTuoi(maNguoiTuoi);
+                    lichSuTuoiCayTheoCay.setNgayGioTuoi(System.currentTimeMillis());
+                    lichSuTuoiCayTheoCay.setLuongNuocTuoi(sensor.getLuongNuocHienTai() - sensor.getLuongNuocTruocDo());
+                    lichSuTuoiCayTheoCay.setTenNguoiTuoi(tenNguoiTuoi);
+                    lichSuTuoiCayTheoCay.setVaiTroNguoiToi(vaiTroNguoiTuoi);
+                    FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoCay").child(keyTree).push().setValue(lichSuTuoiCayTheoCay);
+                    LichSuTuoiCayTheoNguoiTuoi lichSuTuoiCayTheoNguoiTuoi = new LichSuTuoiCayTheoNguoiTuoi();
+                    lichSuTuoiCayTheoNguoiTuoi.setLuongNuocTuoi(sensor.getLuongNuocHienTai() - sensor.getLuongNuocTruocDo());
+                    lichSuTuoiCayTheoNguoiTuoi.setMaCayTuoi(keyTree);
+                    lichSuTuoiCayTheoNguoiTuoi.setTenCayTuoi(tenCay);
+                    lichSuTuoiCayTheoNguoiTuoi.setThoiGianTuoi(System.currentTimeMillis());
+                    FirebaseDatabase.getInstance().getReference().child("LichSuTuoiCayTheoNguoiTuoi").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).push().setValue(lichSuTuoiCayTheoNguoiTuoi);
+                    FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).child("luongNuocTruocDo").setValue(sensor.getLuongNuocHienTai());
+                    FirebaseDatabase.getInstance().getReference().child("trees").child(keyTree).child("maSensor").child("luongNuocTruocDo").setValue(sensor.getLuongNuocHienTai());
+                }
             }
 
             @Override
@@ -314,13 +323,25 @@ public class InformationTreeActivity extends BaseActivity {
 
 
     }
+
+    private boolean tuoiQuaNuoc = false;
+
     private void getSensor(String maSensor) {
         valueEventListenerSensor = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Sensor sensor = dataSnapshot.getValue(Sensor.class);
                 seekBar.setProgress((int) sensor.getLuongNuocHienTai());
-                tvLuongNuocHienTai.setText(sensor.getLuongNuocHienTai()+" ml");
+                tvLuongNuocHienTai.setText(sensor.getLuongNuocHienTai() + " ml");
+                if (sensor.getLuongNuocHienTai() > luongNuocMax) {
+                    if (!tuoiQuaNuoc) {
+                        if (dangTuoi) {
+                            tuoiQuaNuoc = true;
+                            show();
+                        }
+
+                    }
+                }
             }
 
             @Override
@@ -331,11 +352,19 @@ public class InformationTreeActivity extends BaseActivity {
         FirebaseDatabase.getInstance().getReference().child("sensors").child(maSensor).addValueEventListener(valueEventListenerSensor);
     }
 
+    private void show() {
+        MyUtil.showDialog(this, "Cảnh báo", "Cây đã đủ lượng nước", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-
                 onBackPressed();
                 return true;
 

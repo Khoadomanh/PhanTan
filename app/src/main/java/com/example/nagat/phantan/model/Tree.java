@@ -18,9 +18,24 @@ public class Tree {
     private List<String> hinhAnh = new ArrayList<>();
     private User currentUserWatering; //nguoi hien tai dang tuoi
     private long luongNuocMax;
-    private String maSensor; //sensor gan' voi cay
+    private Sensor maSensor; //sensor gan' voi cay
     public Tree() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tree tree = (Tree) o;
+
+        return maCay != null ? maCay.equals(tree.maCay) : tree.maCay == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return maCay != null ? maCay.hashCode() : 0;
     }
 
     public String getMaCay() {
@@ -42,7 +57,7 @@ public class Tree {
         this.maCay = maCay;
 
     }
-    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude,  long luongNuocMax, String maCay,String maSensor) {
+    public Tree(String tenCay, String trangThai, String diaDiem, double latitude, double longitude,  long luongNuocMax, String maCay,Sensor maSensor) {
         this.tenCay = tenCay;
         this.trangThai = trangThai;
         this.diaDiem = diaDiem;
@@ -53,11 +68,11 @@ public class Tree {
         this.maSensor = maSensor;
     }
 
-    public String getMaSensor() {
+    public Sensor getMaSensor() {
         return maSensor;
     }
 
-    public void setMaSensor(String maSensor) {
+    public void setMaSensor(Sensor maSensor) {
         this.maSensor = maSensor;
     }
 

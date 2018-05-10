@@ -112,7 +112,7 @@ public class TreeAdapter  extends RecyclerView.Adapter<TreeAdapter.ListTreeViewH
         double lat2 = tree.getLatitude();
         double long2 = tree.getLongitude();
         holder.tvDistance.setText(MyUtil.convertDistanceToString(MyUtil.distanceBetweenUser(lat1,long1,lat2,long2)));
-        getSensor(tree.getMaSensor(), holder.waterCurrent);
+        getSensor(tree.getMaSensor().getIdSensor(), holder.waterCurrent);
         holder.tvAddressTree.setText(tree.getDiaDiem());
         holder.statusTree.setText(tree.getTrangThai());
         holder.setOnClick(tree.getMaCay());

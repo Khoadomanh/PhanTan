@@ -112,11 +112,13 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         }
         return latLngs;
     }
+    private boolean chiDuong = false;
     public static LatLng convertLatLng(CustomLatLong customLatLong) {
         return new LatLng(customLatLong.getLat(), customLatLong.getLog());
     }
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public void onEvent(LatLng latLgnEnd) {
+        addTree();
         Log.e("Khoado","latTree = " + latLgnEnd.latitude);
         List<CustomLatLong> customLatLongs = DirectionHelper.findDirection(MyUtil.getLocationUser(),latLgnEnd);
         if (polyline!=null) {
@@ -210,12 +212,16 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
+    private Bitmap imge;
     private void addMarkerTree(Tree tree) {
-       final Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
+        if (tree.getMaSensor().getLuongNuocHienTai()< (tree.getLuongNuocMax()/10)) {
+            imge = BitmapFactory.decodeResource(getResources(), R.drawable.cay_heo);
+        } else {
+            imge = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tree);
+        }
        int height = 50;
        int width = 50;
-       final Bitmap smallMarker = Bitmap.createScaledBitmap(img, width, height, false);
+       final Bitmap smallMarker = Bitmap.createScaledBitmap(imge, width, height, false);
        final BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(smallMarker);
        Marker marker = mMap.addMarker(new MarkerOptions()
                .position(new LatLng(tree.getLatitude(),tree.getLongitude()))
@@ -226,7 +232,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
        marker.setTag(0);
    }
     private void addMarketWaterStation(WaterStation waterStation) {
-        Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_station);
+        Bitmap imgWater = BitmapFactory.decodeResource(getResources(), R.drawable.icon_water_station);
 
         int height = 50;
         int width = 50;
@@ -242,12 +248,14 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         );
         marker.setTag(1);
     }
+    private List<WaterStation> waterStationList = new ArrayList<>();
     private void addWaterStation () {
         FirebaseDatabase.getInstance().getReference().child("water-station").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 WaterStation waterStation = dataSnapshot.getValue(WaterStation.class);
                 addMarketWaterStation(waterStation);
+                waterStationList.add(waterStation);
             }
 
             @Override
@@ -271,38 +279,30 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             }
         });
     }
+    private List<Tree> treeList = new ArrayList<>();
     private void addTree(){
-
-        childEventListener = new ChildEventListener() {
+        if (mMap!=null)
+                mMap.clear();
+        treeList.clear();
+        FirebaseDatabase.getInstance().getReference().child("trees").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                Log.e("khoado","error:" + dataSnapshot.getKey());
-                Tree tree = dataSnapshot.getValue(Tree.class);
-                addMarkerTree(tree);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1  : dataSnapshot.getChildren()) {
+                    Tree tree = dataSnapshot1.getValue(Tree.class);
+                    treeList.add(tree);
+                    addMarkerTree(tree);
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-        FirebaseDatabase.getInstance().getReference().child("trees").addChildEventListener(childEventListener);
+        });
+        for (WaterStation waterStation: waterStationList) {
+            addMarketWaterStation(waterStation);
+        }
+
     }
 
 
@@ -310,6 +310,12 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+//        if (!chiDuong) {
+//            addTree();
+//
+//        }
+//        Log.e("chiduong",chiDuong +"");
+//        chiDuong = false;
     }
 
     @Override
@@ -352,6 +358,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         this.mMap.setMyLocationEnabled(true);
         addTree();
         addWaterStation();
+
 
 
 
