@@ -118,7 +118,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     }
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public void onEvent(LatLng latLgnEnd) {
-        addTree();
+        Log.e("khoado","onevent");
         Log.e("Khoado","latTree = " + latLgnEnd.latitude);
         List<CustomLatLong> customLatLongs = DirectionHelper.findDirection(MyUtil.getLocationUser(),latLgnEnd);
         if (polyline!=null) {
@@ -204,7 +204,10 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     @Override
     public void onStart() {
         super.onStart();
+        addTree();
+        Log.e("khoado","onstart");
         EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -249,8 +252,10 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         marker.setTag(1);
     }
     private List<WaterStation> waterStationList = new ArrayList<>();
+    private ChildEventListener childEventListenerForWaterStation;
+    private ValueEventListener valueEventListenerForTree;
     private void addWaterStation () {
-        FirebaseDatabase.getInstance().getReference().child("water-station").addChildEventListener(new ChildEventListener() {
+        childEventListenerForWaterStation = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 WaterStation waterStation = dataSnapshot.getValue(WaterStation.class);
@@ -277,14 +282,16 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        FirebaseDatabase.getInstance().getReference().child("water-station").addChildEventListener(childEventListenerForWaterStation);
     }
     private List<Tree> treeList = new ArrayList<>();
     private void addTree(){
         if (mMap!=null)
                 mMap.clear();
         treeList.clear();
-        FirebaseDatabase.getInstance().getReference().child("trees").addListenerForSingleValueEvent(new ValueEventListener() {
+        waterStationList.clear();
+        valueEventListenerForTree = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1  : dataSnapshot.getChildren()) {
@@ -298,14 +305,26 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
-        for (WaterStation waterStation: waterStationList) {
-            addMarketWaterStation(waterStation);
-        }
+        };
+        FirebaseDatabase.getInstance().getReference().child("trees").addValueEventListener(valueEventListenerForTree);
+        addWaterStation ();
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 
+    public void cleanupListener() {
+        if (valueEventListenerForTree != null) {
+            FirebaseDatabase.getInstance().getReference().child("trees").removeEventListener(valueEventListenerForTree);
+        }
+        if (childEventListenerForWaterStation!=null) {
+            FirebaseDatabase.getInstance().getReference().child("water-station").removeEventListener(childEventListenerForWaterStation);
+        }
+
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -322,6 +341,8 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        cleanupListener();
+        Log.e("khoado","onpause");
     }
 
     @Override
@@ -357,7 +378,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
         this.mMap = googleMap;
         this.mMap.setMyLocationEnabled(true);
         addTree();
-        addWaterStation();
+//        addWaterStation();
 
 
 
@@ -395,7 +416,7 @@ public class FragmentBanDo extends Fragment implements OnMapReadyCallback{
             public void onMyLocationChange(Location location) {
                 FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("latitude").setValue(location.getLatitude());
                 FirebaseDatabase.getInstance().getReference().child("users").child(Utils.usernameFromEmail(LoginActivity.SIGN_IN_EMAIL)).child("longitude").setValue(location.getLongitude());
-                Log.e("khoado","location change: lat = "+location.getLatitude() );
+//                Log.e("khoado","location change: lat = "+location.getLatitude() );
             }
         });
 
