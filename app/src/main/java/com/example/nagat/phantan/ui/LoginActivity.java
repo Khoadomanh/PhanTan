@@ -1,10 +1,15 @@
 package com.example.nagat.phantan.ui;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -104,9 +109,29 @@ public class LoginActivity extends BaseActivity {
 
         return result;
     }
+    public static boolean hasPermissions(Context context, String... permissions)
+    {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null)
+        {
+            for (String permission : permissions)
+            {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     @Override
     public void onStart() {
         super.onStart();
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.INTERNET};
+
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
 
         // Check auth on Activity start
         if (auth.getCurrentUser() != null) {
